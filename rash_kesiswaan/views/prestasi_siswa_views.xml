@@ -1,0 +1,64 @@
+<odoo>
+    <record id="view_prestasi_siswa_tree" model="ir.ui.view">
+        <field name="name">prestasi.siswa.tree</field>
+        <field name="model">prestasi.siswa</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="class_id"/>
+                <field name="tanggal"/>
+                <field name="jenis_lomba"/>
+                <field name="hasil_lomba"/>
+                <field name="penyelenggara"/>
+                <field name="tingkat"/>
+                <field name="jumlah_peserta"/>
+                <field name="keterangan"/>
+                <field name="sertifikat" filename="sertifikat_filename"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_prestasi_siswa_form" model="ir.ui.view">
+        <field name="name">prestasi.siswa.form</field>
+        <field name="model">prestasi.siswa</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="class_id"/>
+                        <field name="tanggal"/>
+                        <field name="jenis_lomba"/>
+                        <field name="hasil_lomba"/>
+                        </group>
+                        <group>
+                        <field name="penyelenggara"/>
+                        <field name="tingkat"/>
+                        <field name="jumlah_peserta"/>
+                        <field name="keterangan"/>
+                        <field name="sertifikat" filename="sertifikat_filename"/>
+                    </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+        <!-- Definisi model dengan ID eksternal -->
+    <record id="model_prestasi_siswa" model="ir.model">
+        <field name="name">prestasi.siswa</field>
+        <field name="model">prestasi.siswa</field>
+    </record>
+
+    <record id="rash_kesiswaan.action_prestasi_siswa" model="ir.actions.act_window">
+        <field name="name">Prestasi Siswa</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">prestasi.siswa</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+
+<menuitem id="menu_rash_kesiswaan_root" name="Kesiswaan" parent="base_sekolah.menu_master_pendidikan" sequence="2"/>
+<menuitem id="menu_prestasi_siswa" name="Prestasi Siswa" parent="menu_rash_kesiswaan_root" action="rash_kesiswaan.action_prestasi_siswa"/>
+
+</odoo>

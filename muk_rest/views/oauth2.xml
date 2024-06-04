@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+    Copyright (c) 2017-2019 MuK IT GmbH.
+
+    This file is part of MuK REST API for Odoo 
+    (see https://mukit.at).
+
+    MuK Proprietary License v1.0
+
+    This software and associated files (the "Software") may only be used 
+    (executed, modified, executed after modifications) if you have
+    purchased a valid license from MuK IT GmbH.
+
+    The above permissions are granted for a single database per purchased 
+    license. Furthermore, with a valid license it is permitted to use the
+    software on other databases as long as the usage is limited to a testing
+    or development environment.
+
+    You may develop modules based on the Software or that use the Software
+    as a library (typically by depending on it, importing it and using its
+    resources), but without copying any source code or material from the
+    Software. You may distribute those modules under the license of your
+    choice, provided that this license is compatible with the terms of the 
+    MuK Proprietary License (For example: LGPL, MIT, or proprietary licenses
+    similar to this one).
+
+    It is forbidden to publish, distribute, sublicense, or sell copies of
+    the Software or modified copies of the Software.
+
+    The above copyright notice and this permission notice must be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+    DEALINGS IN THE SOFTWARE.
+
+  -->
+
+<odoo>
+	
+	<record id="search_rest_oauth2_search" model="ir.ui.view">
+	    <field name="name">muk_rest_oauth2.search</field>
+		<field name="model">muk_rest.oauth2</field>
+	    <field name="mode">primary</field>
+	    <field name="inherit_id" ref="search_rest_oauth"/>
+	    <field name="arch" type="xml">
+	    	<xpath expr="//group[@name='group_by']" position="inside">
+	    		<filter name="group_by_state" string="Grant Type" domain="[]" context="{'group_by': 'state'}"/>
+	    	</xpath>
+	    </field>
+	</record>
+
+	<record id="view_rest_oauth2_tree" model="ir.ui.view">
+		<field name="name">muk_rest_oauth2.tree</field>
+		<field name="model">muk_rest.oauth2</field>
+	    <field name="mode">primary</field>
+	    <field name="inherit_id" ref="view_rest_oauth_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='name']" position="after">
+				<field name="state" />
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="view_rest_oauth2_form" model="ir.ui.view">
+		<field name="name">muk_rest_oauth2.form</field>
+		<field name="model">muk_rest.oauth2</field>
+	    <field name="mode">primary</field>
+	    <field name="inherit_id" ref="view_rest_oauth_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//group[@name='data']" position="inside">
+				<field name="client_id" widget="CopyClipboardChar" />
+				<field name="client_secret" widget="CopyClipboardChar" />
+			</xpath>
+			<xpath expr="//field[@name='security']" position="before">
+				<field name="state" />
+			</xpath>
+			<xpath expr="//field[@name='security']/parent::group" position="after">
+				<group>
+		        	<field name="default_callback" options="{'no_open': True}" />
+		        	<field name="user"/>
+		        </group>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="action_rest_oauth2" model="ir.actions.act_window">
+		<field name="name">OAuth2</field>
+		<field name="res_model">muk_rest.oauth2</field>
+		<field name="view_mode">tree,form</field>
+		<field name="help" type="html">
+		    <p class="o_view_nocontent_smiling_face">
+                Create a new OAuth2 setting
+            </p><p>
+                An OAuth2 setting can be used to connect to the system via the Restful API.
+            </p>
+	    </field>
+	</record>
+
+	<menuitem id="menu_rest_oauth2" name="OAuth2" sequence="5"
+		parent="cat_menu_rest_configuration" action="action_rest_oauth2" />
+	
+</odoo>

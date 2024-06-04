@@ -1,0 +1,1084 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="base_sekolah_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="container">
+                        <div class="header">
+                            <table style="width: 100%; margin-top: 10px;"
+                                border="1">
+                                <tbody>
+                                    <tr style="height: 117px;">
+                                        <td
+                                            style="width: 20%; height: 117px; border: solid 0px white; vertical-align: top; text-align: left;">
+                                            <div
+                                                style="font-size: 12px; font-family: sans-serif; font-weight: bold;">
+                                                <!-- <img width="120" height="50"
+                                                src="/ab_stock_inventory/static/src/img/npn.png"
+                                                alt="Logo"></img> -->
+                                                <img
+                                                    style="max-height: 3cm; max-width: 3cm; position: relative"
+                                                    src="/base_sekolah/static/description/icon1.png" />
+                                                <br />
+                                                <br />
+                                                <br />
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span style="text-align: center;">YAYASAN ASEM BUNGKUK </span>
+                                            <br />
+                                            <span style="font-weight: bold;">YANABU'UL QUR'AN
+                                                BOARDING SCHOOL 1 PATI </span>
+                                            <br />
+                                            <span> PONDOK TAHFIDH-SNPQT-SMAQT</span>
+                                            <br />
+                                            <span
+                                                style="text-align: center; font-size:12px; font-style: italic;">Jalan
+                                                Raya Pati Tayu Km, 06 Sukoharjo RT 001 RW 002
+                                                Wedarijaksa Pati</span>
+                                            <hr />
+                                        </td>
+                                        <td
+                                            style="width: 20%; height: 117px; border: solid 0px white; vertical-align: top; text-align: left;">
+                                            <div
+                                                style="font-size: 12px; font-family: sans-serif; font-weight: bold;">
+                                                <!-- <img width="120" height="50"
+                                                src="/ab_stock_inventory/static/src/img/npn.png"
+                                                alt="Logo"></img> -->
+                                                <img
+                                                    style="max-height: 3cm; max-width: 3cm; position: relative"
+                                                    src="/base_sekolah/static/description/icon2.png" />
+                                                <br />
+                                                <br />
+                                                <br />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="border:solid 2px black;">
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="header">
+                            <p style="text-align: center;">YAYASAN ASEM BUNGKUK<br />YANABU'UL
+                                QUR'AN BOARDING SCHOOL 1 PATI<br />PONDOK TAHFIDH-SNPQT-SMAQT</p>
+                            <p style="text-align: center;">Jalan Raya Pati Tayu Km, 06 Sukoharjo RT
+                                001
+                                RW 002
+                                Wedarijaksa
+                                Pati</p>
+                            <hr />
+                        </div> -->
+
+                        <div style="text-align: center;">
+                            <br />
+                            <span style="text-align: center;">LAPORAN BULANAN</span>
+                            <br />
+                            <span style="text-align: center;">PERKEMBANGAN TAHFIDH DAN AKADEMIK
+                                SANTRI</span>
+                            <br />
+                            <span style="text-align: center;">BULAN <t t-esc="(o.tanggal_input).strftime('%B %Y')"/> 
+                            </span>
+                        </div>
+                        <br />
+                        <table style=" width: 100%; height: 108px;"
+                            border="1">
+                            <tbody>
+                                <tr style="height: 18px;">
+                                    <td style="width: 25%; height: 18px;">NISQ</td>
+                                    <td style="width: 3.67647%; height: 18px;">:</td>
+                                    <td style="width: 71.3235%; height: 18px;">
+                                        <t t-esc="o.komponen_line.nisq" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 25%; height: 18px;">Nama</td>
+                                    <td style="width: 3.67647%; height: 18px;">:</td>
+                                    <td style="width: 71.3235%; height: 18px;">
+                                        <t t-esc="o.komponen_line.siswa_id.name" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 25%; height: 18px;">Tempat. Tgl. Lahir</td>
+                                    <td style="width: 3.67647%; height: 18px;">:</td>
+                                    <td style="width: 71.3235%; height: 18px;"><t
+                                            t-esc="o.komponen_line.siswa_id.place" /> , <t
+                                            t-esc="o.komponen_line.siswa_id.birth" /></td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 25%; height: 18px;">Kelas</td>
+                                    <td style="width: 3.67647%; height: 18px;">:</td>
+                                    <td style="width: 71.3235%; height: 18px;">
+                                        <t t-esc="o.komponen_line.siswa_id.class_id.name" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 25%; height: 18px;">Wali Kelas</td>
+                                    <td style="width: 3.67647%; height: 18px;">:</td>
+                                    <td style="width: 71.3235%; height: 18px;">
+                                        <t t-esc="o.guru_id.name" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 25%; height: 18px;">Halaqoh</td>
+                                    <td style="width: 3.67647%; height: 18px;">:</td>
+                                    <td style="width: 71.3235%; height: 18px;">
+                                        <t t-esc="o.operator_id.name" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span>A . TAHFIDH</span>
+                        <br />
+                        <span>&#160;&#160;&#160;&#160; 1. Perkembangan Hafalan</span>
+                        <table
+                            style="width: 90%; height: 72px; margin: 0 auto;"
+                            border="1">
+                            <tbody>
+                                <tr
+                                    style="width: 20%; border: solid 0px white; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 20%; border: solid none solid none 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Awal
+                                        Bulan</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Akhir
+                                        Bulan</td>
+                                    <td
+                                        style="width: 12.5%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"
+                                        colspan="2">Jumlah
+                                        Pojok</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Ziyadah</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Juz
+                                        <t
+                                            t-esc="o.komponen_line.siswa_id.ziyadah_id.awal_juz" />
+                                        pojok <t t-esc="o.komponen_line.siswa_id.ziyadah_id.awal_pj" /></td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Juz
+                                        3 Pojok 4</td>
+                                    <td
+                                        tyle="width: 12.5%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"
+                                        colspan="2"><t t-esc="o.komponen_line.siswa_id.ziyadah_id.total_pj" /></td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Deresan
+                                        A</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Juz <t
+                                            t-esc="o.komponen_line.siswa_id.deresan_id.awal_a_juz" />
+                                        Pojok <t
+                                            t-esc="o.komponen_line.siswa_id.deresan_id.awal_a_pj" />
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Juz <t
+                                            t-esc="o.komponen_line.siswa_id.deresan_id.akhir_a_juz" />
+                                        Pojok <t
+                                            t-esc="o.komponen_line.siswa_id.deresan_id.akhir_a_pj" /></td>
+                                    <td
+                                        style="width: 12.5%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        tyle="width: 12.5%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"
+                                        rowspan="2"> <t
+                                        t-esc="o.komponen_line.siswa_id.deresan_id.total_deresan" /></td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Deresan
+                                        B</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Juz <t
+                                            t-esc="o.komponen_line.siswa_id.deresan_id.awal_b_juz" />
+                                        pojok <t
+                                            t-esc="o.komponen_line.siswa_id.deresan_id.awal_b_pj" /></td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Juz <t
+                                            t-esc="o.komponen_line.siswa_id.deresan_id.akhir_b_juz" />
+                                        pojok <t
+                                            t-esc="o.komponen_line.siswa_id.deresan_id.akhir_b_pj" /></td>
+                                    <td
+                                        tyle="width: 12.5%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        <t
+                                        t-esc="o.komponen_line.siswa_id.deresan_id.total_deresan" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;Level Kualitas deresan
+                            murojaah:</span>
+                        <br />
+                        <br />
+                        <span>&#160;&#160;&#160;&#160; 2. Presensi Halaqoh</span>
+                        <table
+                            style=" width: 90%; height: 35px; margin: 0 auto;"
+                            border="1">
+                            <tbody>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Tidak
+                                        Setor: <t
+                                            t-esc="o.komponen_line.siswa_id.deresan_id.tidak_setor" />
+                                        Kali</td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Izin:
+                                        <t
+                                            t-esc="o.komponen_line.siswa_id.deresan_id.ijin" /> Kali</td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Alpa:
+                                        <t
+                                            t-esc="o.komponen_line.siswa_id.deresan_id.alpha" />
+                                        Kali</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br />
+                        <span>B. AKADEMIK</span>
+                        <br />
+                        <span>&#160;&#160;&#160;&#160; 1. Presensi KBM Akademik</span>
+                        <table
+                            style=" width: 90%; height: 35px; margin: 0 auto;"
+                            border="1">
+                            <tbody>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Sakit:
+                                        <t
+                                            t-esc="o.komponen_line.siswa_id.bk_id.count_sakit" />
+                                        Hari</td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Izin:
+                                        <t
+                                            t-esc="o.komponen_line.siswa_id.bk_id.count_izin" />
+                                        Kali</td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Alpa:
+                                        <t
+                                            t-esc="o.komponen_line.siswa_id.bk_id.count_alpa" />
+                                        Hari</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br />
+                        <span>&#160;&#160;&#160;&#160; 2. Catatan Pelanggaran</span>
+                        <br />
+                        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -</span>
+                        <br />
+                        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -</span>
+                        <br />
+                        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -</span>
+                        <br />
+                        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -</span>
+                        <br />
+                        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -</span>
+                        <br />
+                        <span>&#160;&#160;&#160;&#160; 3. Penilaian Sikap:</span>
+                        <table
+                            style=" width: 90%; height: 72px; margin: 0 auto;"
+                            border="1">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 10.3333%;">a. Nilai</td>
+                                    <td style="width: 3.73771%;">:</td>
+                                    <td style="width: 62.9289%;">
+                                        <t t-esc="o.komponen_line.siswa_id.bk_1_id.info" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 10.3333%;">b. Deskripsi</td>
+                                    <td style="width: 3.73771%;">:</td>
+                                    <td style="width: 62.9289%;">
+                                        <t t-esc="o.komponen_line.siswa_id.bk_1_id.keterangan" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span>&#160;&#160;&#160;&#160; 3. LAYANAN BK </span>
+                        <table   style=" width: 90%; height: 72px; margin: 0 auto;"
+                        border="1">
+                            <tr style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                <td style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Bimbingan Kel :   <t
+                                    t-esc="o.komponen_line.siswa_id.bk_2_id.count_kel" /> kali</td>
+                                <td style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Konseling Individu :   <t
+                                    t-esc="o.komponen_line.siswa_id.bk_2_id.count_ind" /> kali</td>
+                                <td style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Mediasi :   <t
+                                    t-esc="o.komponen_line.siswa_id.bk_2_id.count_med" /> kali</td>
+                            </tr>
+                            <tr style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                <td style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Bimbingan Individu :  <t
+                                    t-esc="o.komponen_line.siswa_id.bk_2_id.count_ind" />  kali</td>
+                                <td style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Konsultasi : <t
+                                    t-esc="o.komponen_line.siswa_id.bk_2_id.count_kons" /> kali</td>
+                                <td style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Alih Tangan Kasus : <t
+                                    t-esc="o.komponen_line.siswa_id.bk_2_id.count_ahl" /> kali </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table style=" width:25%; height: 45px; margin-left: 40px;"
+                        border="1">
+                            <tr style="width: 5%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                <td style="width: 5%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">&#160;&#160;Klasikal :  <t
+                                    t-esc="o.komponen_line.siswa_id.bk_2_id.count_klas"/> kali</td>
+                            </tr>
+                        </table>
+                    
+                       
+                        <br />
+                        <br />
+                        <span>D. STATUS PEMBAYARANN SYAHRIYYAH </span>
+                        <br />
+                        <table
+                            style=" width: 30%; height: 35px; float: left; margin-right: 20px; margin-left:30px;"
+                            border="1">
+                            <tbody>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Bulan</td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Status</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                       </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <table
+                            style=" width: 30%; height: 35px; float: left; margin-right: 20px;"
+                            border="1">
+                            <tbody>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Bulan</td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Status</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                       </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                       </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <table
+                            style=" width: 30%; height: 35px; float: left;"
+                            border="1">
+                            <tbody>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Bulan</td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        Status</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                       </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 33.3333%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+                        <table style="width: 90%;" border="1">
+                            <br />
+                            <br />
+                            <tbody>
+                                <tr>
+                                    <td
+                                        style="width: 20%; border: solid 0px white; height: 35px; vertical-align:middle; text-align:center;">Direktur
+                                        Kepesantrenan,</td>
+                                    <td
+                                        style="width: 20%; border: solid 0px white; height: 35px; vertical-align:middle; text-align:center;">Pati,
+                                        <t t-esc="(o.tanggal_cetak).strftime('%d %B %Y')"/>  <br/>
+                                        Direktur Kepesantrenan, Kepala SMPQT Yanbu’ul Qur’an 1,</td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        style="width: 20%;height: 100px;border: solid 0px white;vertical-align:middle; text-align:center;">
+                                        &#160;&#160;&#160;
+                                        &#160;&#160;&#160;&#160;</td>
+                                    <td
+                                        style="width: 20%;height: 100px;border: solid0px white; vertical-align:middle; text-align:center;">
+                                        &#160;&#160;&#160;
+                                        &#160;&#160;&#160;&#160;</td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        style="width: 20%;border: solid 0px white; height: 35px; vertical-align:middle; text-align:center;">
+                                        ( Imam Syaukani Mulyono, S.Ud. ) <br /> NIY. 19840728 2017
+                                        0013</td>
+
+                                    <td
+                                        style="width: 20%;border: solid 0px white; height: 35px; vertical-align:middle; text-align:center;">
+                                        ( Lego Arif Kurniawan, S.Pd. ) <br /> NIY. 19910112 2017
+                                        0019</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br />
+                        <br />
+                        <br />
+                        <div>
+                            <table
+                                style="width: 100%; height: 135px; clear: both; page-break-before: always;"
+                                border="1">
+                                <tbody>
+                                    <tr style="height: 117px;">
+                                        <td
+                                            style="width: 50%; height: 117px;border: solid 0px white; vertical-align:middle; text-align:center;">
+
+                                            <span>DAFTAR NILAI AKADEMIK </span><br />
+
+                                            <span>PENILAIAN
+                                            SUMATIF TENGAH SEMESTER GASAL</span><br />
+                                            
+                                            <span> TAHUN
+                                            AJARAN <t t-esc="o.komponen_line.siswa_id.rekap_id.tahun_id.name"/> </span><br />
+                                            &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
+                                            </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <table style=" width: 100%; height: 108px;"
+                            border="1">
+                            <tbody>
+                                <tr style="height: 18px;">
+                                    <td style="width: 25%; height: 18px;">NISQ</td>
+                                    <td style="width: 3.67647%; height: 18px;">:</td>
+                                    <td style="width: 71.3235%; height: 18px;">
+                                        <t t-esc="o.komponen_line.nisq" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 25%; height: 18px;">Nama</td>
+                                    <td style="width: 3.67647%; height: 18px;">:</td>
+                                    <td style="width: 71.3235%; height: 18px;">
+                                        <t t-esc="o.komponen_line.siswa_id.name" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 25%; height: 18px;">Tempat. Tgl. Lahir</td>
+                                    <td style="width: 3.67647%; height: 18px;">:</td>
+                                    <td style="width: 71.3235%; height: 18px;"><t
+                                            t-esc="o.komponen_line.siswa_id.place" /> , <t
+                                            t-esc="o.komponen_line.siswa_id.birth" /></td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 25%; height: 18px;">Kelas</td>
+                                    <td style="width: 3.67647%; height: 18px;">:</td>
+                                    <td style="width: 71.3235%; height: 18px;">
+                                        <t t-esc="o.komponen_line.siswa_id.class_id.name" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table
+                            style=" width: 90%; height: 35px; margin: 0 auto;"
+                            border="1">
+                            <tbody>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"
+                                        colspan="2">MATA PELAJARAN</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        KKM</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        NILAI</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        STATUS</td>
+                                    <td
+                                        style="width: 30%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        KETERANGAN</td>
+                                </tr>
+                                <!-- <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        sstyle="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;"
+                                        colspan="2">Kelompok
+                                        A</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                </tr> -->
+
+
+                                <t t-set="no" t-value="1" />
+                                <t t-foreach="o.komponen_line.siswa_id.rekap_id.rapot_line"
+                                    t-as="line">
+                                    <tr
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                        <td
+                                            style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                            <span t-esc="no" />
+                                        </td>
+                                        <td
+                                            style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                            <t t-esc="line.name.name" />
+                                        </td>
+                                        <td
+                                            style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                            <t t-esc="line.kkm" />
+                                        </td>
+                                        <td
+                                            style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                            <t t-esc="line.nilai" />
+                                        </td>
+                                        <td
+                                            style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                            <div t-field="line.status" />
+                                        </td>
+                                        <td
+                                            style="width: 30%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                            <t t-esc="line.note" />
+                                        </td>
+                                    </tr>
+                                    <t t-set="no" t-value="no + 1" />
+
+                                </t>
+
+
+
+                                <!-- Maual -->
+<!-- 
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        1
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                        Pendidikan Pancasila dan Kewarganegaraan
+                                    </td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        75
+                                    </td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        52
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        REMIDI
+                                    </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        2
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                        Bahasa Indonesia
+                                    </td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        72
+                                    </td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        73
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        TUNTAS
+                                    </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        3
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                        Matematika
+                                    </td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        70
+                                    </td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        53
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        REMIDI
+                                    </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        4
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                        Ilmu Pengetahuan Alam
+                                    </td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        70
+                                    </td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        60
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        REMIDI
+                                    </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        5
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                        Ilmu Pengetahuan Sosial
+                                    </td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        75
+                                    </td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        60
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        REMIDI
+                                    </td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        6
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                        Bahasa Inggris
+                                    </td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        75
+                                    </td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        64
+                                    </td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        REMIDI
+                                    </td>
+                                </tr>
+
+
+
+
+
+
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;"
+                                        colspan="2">Kelompok
+                                        B</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                </tr>
+
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        7</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">Pendidikan
+                                        Jasmani,Olahraga dan Kesehatan</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">75</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">82</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">TUNTAS</td>
+                                </tr>
+
+
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    8</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">Bahasa Jawa</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">70</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">60</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">TUNTAS</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    9</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">Fiqih</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">73</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">69</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">REMIDI</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    10</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">Akhlaq</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">73</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">56</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">REMIDI</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    11</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">Tafsir</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">72</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">75</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">TUNTAS</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    12</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">Nahwu</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">70</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">70</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">TUNTAS</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    13</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">Shorof</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">72</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">55</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">REMIDI</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    14</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">Tauhid</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">73</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">59</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">REMIDI</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    15</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">Hadits</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">75</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">56</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">REMIDI</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    16</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">Bahasa Arab</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">70</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">55</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">REMIDI</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    17</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">Informatika</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">70</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">56</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">REMIDI</td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    18</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">Seni Budaya dan Prakarya</td>
+                                    <td
+                                        style="width: 12.0956%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">70</td>
+                                    <td
+                                        style="width: 9.52202%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">90</td>
+                                    <td
+                                        style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">TUNTAS</td>
+                                </tr> -->
+
+                                
+
+
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                    </td>
+                                    <td
+                                        style="width: 53.0883%;  border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        JUMLAH</td>
+                                    <td
+                                        style="width: 41.6176%;   border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"
+                                        colspan="4"><t t-esc="o.komponen_line.siswa_id.rekap_id.total"/></td>
+                                </tr>
+                                <tr
+                                    style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:left;">
+                                    <td
+                                        style="width: 5.29412%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"></td>
+                                    <td
+                                        style="width: 53.0883%;  border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
+                                        RATA-RATA</td>
+                                    <td
+                                        style="width: 41.6176%;   border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"
+                                        colspan="4"><t t-esc="o.komponen_line.siswa_id.rekap_id.rata"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table style=" width: 90%;" border="1">
+                            <br />
+                            <br />
+                            <tbody>
+                                <tr>
+                                    <td
+                                        style="width: 20%; border: solid 0px white; height: 35px; vertical-align:middle; text-align:center;">Kepala
+                                        SMPQT Yanbu’ul Qur’an 1,,</td>
+                                    <td
+                                        style="width: 20%; border: solid 0px white; height: 35px; vertical-align:middle; text-align:center;">Pati,
+                                        <t t-esc="(o.tanggal_cetak).strftime('%d %B %Y')"/>  <br /> Wali Kelas,</td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        style="width: 20%;height: 100px;border: solid 0px white;vertical-align:middle; text-align:center;">
+                                        &#160;&#160;&#160;
+                                        &#160;&#160;&#160;&#160;</td>
+                                    <td
+                                        style="width: 20%;height: 100px;border: solid0px white; vertical-align:middle; text-align:center;">
+                                        &#160;&#160;&#160;
+                                        &#160;&#160;&#160;&#160;</td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        style="width: 20%;border: solid 0px white; height: 35px; vertical-align:middle; text-align:center;">
+                                        ( Lego Arif Kurniawan, S.Pd. ) <br /> NIY. 19910112 2017
+                                        0019 </td>
+
+                                    <td
+                                        style="width: 20%;border: solid 0px white; height: 35px; vertical-align:middle; text-align:center;">
+                                        ( Ahmad Zainuddin )<br /> NIY. 20000716 2020 0061</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_base_sekolah">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="aa_kurikulum.base_sekolah_report" />
+        </t>
+    </template>
+
+
+</odoo>

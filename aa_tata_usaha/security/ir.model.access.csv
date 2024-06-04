@@ -1,0 +1,31 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_komponen_usaha,komponen.usaha,model_komponen_usaha,group_tata_usaha_admin,1,1,1,1
+access_bayar_cicil_tagihan,bayar.cicil.tagihan,model_bayar_cicil_tagihan,group_tata_usaha_admin,1,1,1,1
+access_fiscalyear_harga,fiscalyear.harga,model_fiscalyear_harga,group_tata_usaha_admin,1,1,1,1
+access_generate_invoice,generate.invoice,model_generate_invoice,group_tata_usaha_admin,1,1,1,1
+access_kehadiran_siswa,kehadiran.siswa,model_kehadiran_siswa,group_tata_usaha_admin,1,1,1,1
+access_res_partner_harga,res.partner.harga,aa_tata_usaha.model_res_partner_harga,group_tata_usaha_admin,1,1,1,1
+access_laporan_accounting,laporan.accounting,model_laporan_accounting,group_tata_usaha_admin,1,1,1,1
+access_account_tax_kasir,account.tax.kasir,account.model_account_tax,group_tata_usaha_kasir,1,0,0,0
+access_account_bank_statement_group_invoice_kasir,account.bank.statement.group.invoice.kasir,account.model_account_bank_statement,group_tata_usaha_kasir,1,0,0,0
+access_account_bank_statement_line_group_invoice_kasir,account.bank.statement.line.group.invoice.kasir,account.model_account_bank_statement_line,group_tata_usaha_kasir,1,0,0,0
+access_account_invoice_uinvoice_kasir,account.invoice.kasir,account.model_account_invoice,group_tata_usaha_kasir,1,1,1,1
+access_account_invoice_line_uinvoice_kasir,account.invoice.line.kasir,account.model_account_invoice_line,group_tata_usaha_kasir,1,1,1,1
+access_account_invoice_tax_uinvoice_kasir,account.invoice.tax.kasir,account.model_account_invoice_tax,group_tata_usaha_kasir,1,1,1,1
+access_account_move_uinvoice_kasir,account.move.kasir,account.model_account_move,group_tata_usaha_kasir,1,1,1,1
+access_account_move_line_uinvoice_kasir,account.move.line invoice.kasir,account.model_account_move_line,group_tata_usaha_kasir,1,1,1,1
+access_account_journal_invoice_kasir,account.journal invoice.kasir,account.model_account_journal,group_tata_usaha_kasir,1,0,0,0
+access_account_invoice_group_invoice_kasir,account.invoice group invoice.kasir,account.model_account_invoice,group_tata_usaha_kasir,1,1,1,1
+access_account_invoice_report_billing_kasir,account.invoice.report_billing.kasir,account.model_account_invoice_report,group_tata_usaha_kasir,1,0,0,0
+access_account_analytic_line_invoice_kasir,account.analytic.line invoice.kasir,account.model_account_analytic_line,group_tata_usaha_kasir,1,1,1,1
+access_account_account_invoice_kasir,account.account invoice.kasir,account.model_account_account,group_tata_usaha_kasir,1,0,0,0
+access_account_account_type_invoice_kasir,account.account.type invoice.kasir,account.model_account_account_type,group_tata_usaha_kasir,1,0,0,0
+access_account_account_tax_user_kasir,account.account.tag.kasir,account.model_account_account_tag,group_tata_usaha_kasir,1,0,0,0
+access_account_partial_reconcile_group_invoice_kasir,account.partial.reconcile.group.invoice.kasir,account.model_account_partial_reconcile,group_tata_usaha_kasir,1,1,1,0
+access_account_full_reconcile_group_invoice_kasir,account.full.reconcile.group.invoice.kasir,account.model_account_full_reconcile,group_tata_usaha_kasir,1,1,1,0
+access_account_payment_method_kasir,account.payment.method.kasir,account.model_account_payment_method,group_tata_usaha_kasir,1,1,1,1
+access_account_payment_kasir,account.payment.kasir,account.model_account_payment,group_tata_usaha_kasir,1,1,1,1
+access_account_tax_group_kasir,account.tax.group.kasir,account.model_account_tax_group,group_tata_usaha_kasir,1,0,0,0
+access_account_voucher_invoice_kasir,account.voucher invoice.kasir,account_voucher.model_account_voucher,group_tata_usaha_kasir,1,1,1,1
+access_account_voucher_line_invoice_kasir,account.voucher.line invoice.kasir,account_voucher.model_account_voucher_line,group_tata_usaha_kasir,1,1,1,1
+access_manifest_pembayaran_kasir,manifest.pembayaran.kasir,aa_tata_usaha.model_manifest_pembayaran,group_tata_usaha_kasir,1,1,1,1

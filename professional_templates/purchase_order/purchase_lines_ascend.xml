@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+		<data>
+				<template id="purchase_lines_ascend" name="Ascend Purchase Data">
+						<t t-set="th_style" t-value="'white-space:nowrap;' + 'border: 1px solid ' +  style.text_color + ' !important;'"></t>
+						<t t-set="td_style" t-value="'border: 1px solid ' +  style.text_color + ' !important;'"/>
+						<t t-set="display_taxes" t-value="any([y.taxes_id for y in o.order_line])"/>
+						<t t-set="col_span" t-value="8 if display_taxes else 7"/>
+						<table class="table  table-sm mt8" t-attf-style="color:{{style.text_color}};" >
+								<thead t-attf-style="background-color:transparent; page-break-inside: avoid; color:style.text_color;">
+										<tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid {{style.text_color}} !important;font-size:{{style.body_font+2}}px;">
+												<th t-attf-style="{{th_style}}"> Pos</th>
+												<th class="text-center" t-attf-style="{{th_style}}" t-att-colspan="2">Quantity</th>
+												<th t-attf-style="{{th_style}}" class="text-center">Description</th>
+												<th class="text-center" t-attf-style="{{th_style}}">Date Req.</th>
+												<th class="text-right" t-attf-style="{{th_style}}">Unit Price</th>
+												<th t-if="display_taxes" class="text-center" t-attf-style="{{th_style}}">Taxes</th>
+												<th class="text-right" t-attf-style="{{th_style}}">Price</th>
+										</tr>
+								</thead>
+								<tbody>
+										<t t-foreach="o.order_line" t-as="line">
+												<tr style="background-color:transparent; page-break-inside: avoid !important;">
+														<td t-attf-style="{{td_style}}"><span t-esc="line_index + 1"/></td>
+														<td class="text-right" t-attf-style="{{td_style}}">
+																<span t-field="line.product_qty"/>
+														</td>
+														<td class="text-right" t-attf-style="{{td_style}}">
+																<span t-field="line.product_uom.name" groups="uom.group_uom"/>
+														</td>
+														<td t-attf-style="{{td_style}}">
+																<span t-field="line.name"/>
+														</td>
+														<td class="text-center" t-attf-style="{{td_style}}">
+																<span t-field="line.date_planned"/>
+														</td>
+														<td class="text-right" t-attf-style="{{td_style}}">
+																<span t-field="line.price_unit" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+														</td>
+														<td t-if="display_taxes" t-attf-style="{{td_style}}">
+																<span t-esc="', '.join(map(lambda x: x.name, line.taxes_id))"/>
+														</td>
+														<td class="text-right" t-attf-style="{{td_style}}">
+																<span t-field="line.price_subtotal"/>
+														</td>
+												</tr>
+										</t>
+										<tr t-if="display_taxes" t-attf-style="border-top: 1px solid {{style.text_color}};" >
+												<td t-attf-colspan="{{col_span - 1}}" t-attf-style="{{td_style}}"><strong>Total Without Taxes</strong></td>
+												<td class="text-right" t-attf-style="{{td_style}}">
+														<span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+												</td>
+										</tr>
+										<tr t-if="display_taxes">
+												<td t-attf-colspan="{{col_span - 1}}" t-attf-style="{{td_style}}"><strong>Taxes</strong></td>
+												<td class="text-right" t-attf-style="{{td_style}}">
+														<span t-field="o.amount_tax" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+												</td>
+										</tr>
+										<tr t-attf-style="border-bottom: 1px solid {{style.text_color}};">
+												<td t-attf-colspan="{{col_span - 1}}" t-attf-style="{{td_style}}"><strong>Total</strong></td>
+												<td class="text-right" t-attf-style="{{td_style}}">
+														<strong><span  style="font-weight:bold;" t-field="o.amount_total"/></strong>
+												</td>
+										</tr>
+								</tbody>
+						</table>
+						<div t-if="style.aiw_report" class="col-6 float-left" style="padding-left:0px; padding-right:0px; page-break-inside: avoid;">
+								<p>
+										<strong>Amount in Words:</strong><span style="text-decoration:underline;" t-field="o.amount_words"/>
+								</p>
+						</div>
+						<div class="col-7 float-left" style="padding-left:0px; padding-right:0px; page-break-inside: avoid ! important;">
+								<p t-if="o.payment_term_id.note">
+										<span t-field="o.payment_term_id.note"/>
+								</p>
+								<p t-if="o.incoterm_id">
+										<span>Shipping:</span><span t-field="o.incoterm_id"/>
+								</p>
+								<p id="payment_term" t-if="not o.payment_term_id and o.partner_id.property_payment_term_id">
+										<span t-field="o.partner_id.property_payment_term_id.note"/>
+								</p>
+
+								<p t-if="o.fiscal_position_id.note">
+										<strong>Fiscal Position Remark:</strong> <span t-field="o.fiscal_position_id.note"/>
+								</p>
+								<p t-if="o.notes">
+										<span t-field="o.notes"/>
+								</p>
+						</div>
+				</template>
+		</data>
+</openerp>
+
+

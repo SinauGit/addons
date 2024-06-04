@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_fiscalyear,access.account.fiscalyear,model_account_fiscalyear,,1,1,1,1
+access_account_period,access.account.period,model_account_period,,1,1,1,1
+access_account_journal_period,access.account.journal.period,model_account_journal_period,,1,1,1,1

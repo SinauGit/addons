@@ -1,0 +1,371 @@
+<odoo>
+
+
+		<!-- Daftar Nilai -->
+
+		<record id="view_score_list_tree" model="ir.ui.view">
+			<field name="name">score.list.tree</field>
+			<field name="model">score.list</field>
+			<field name="arch" type="xml">
+				<tree string="Daftar Nilai">
+					<field name="name"/>
+					<field name="user_id"/>
+					<field name="type"/>
+					<field name="fiscalyear_id"/>
+					<field name="class_id"/>
+					<field name="subject_id"/>
+					<field name="semester"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_score_list_form" model="ir.ui.view">
+			<field name="name">score.list.form</field>
+			<field name="model">score.list</field>
+			<field name="arch" type="xml">
+				<form string="Daftar Nilai">
+					<header>
+						<button name="compute_score" type="object" string="Compute" class="oe_highlight" attrs="{'invisible':[('type', 'not in', ('Work_Sheet', 'Daily_Test'))]}"/>
+					</header>
+					<sheet>
+						<group col="4" colspan="4">
+							<field name="name"/>
+							<field name="user_id"/>
+							<field name="type"/>
+							<field name="fiscalyear_id"/>
+							<field name="semester"/>
+							<field name="class_id"/>
+							<field name="subject_id" colspan="4"/>
+						</group>
+						<notebook colspan="5">
+							<page string="Score Line" autofocus="autofocus" attrs="{'invisible':[('type', 'not in', ('Work_Sheet', 'Daily_Test'))]}">
+								<group col="4" colspan="4">
+									<field name="date1"/>
+									<field name="date2"/>
+									<field name="date3"/>
+									<field name="date4"/>
+									<field name="date5"/>
+								</group>
+								<group>
+									<field colspan="4" name="score_line" nolabel="1" widget="one2many_list">
+										<tree string="" editable="top">
+											<field name="name"/>
+											<field name="u1"/>
+											<field name="u2"/>
+											<field name="u3"/>
+											<field name="u4"/>
+											<field name="u5"/>
+											<field name="sum"/>
+											<field name="avg"/>
+										</tree>
+									</field>
+								</group>
+							</page>
+							<page string="UTS Score" autofocus="autofocus" attrs="{'invisible':[('type', '!=', 'UTS')]}">
+								<field colspan="4" name="uts_line" nolabel="1" widget="one2many_list">
+									<tree string="" editable="top">
+										<field name="name"/>
+										<field name="nilai"/>
+									</tree>
+								</field>
+							</page>
+							<page string="UAS Score" autofocus="autofocus" attrs="{'invisible':[('type', '!=', 'UAS')]}">
+								<field colspan="4" name="uas_line" nolabel="1" widget="one2many_list">
+									<tree string="" editable="top">
+										<field name="name"/>
+										<field name="nilai"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_score_list_form">
+			<field name="name">Daftar Nilai</field>
+			<field name="res_model">score.list</field>
+		</record>
+
+		<!-- Prestasi Sholat -->
+
+		<record id="view_sholat_performance_tree" model="ir.ui.view">
+			<field name="name">sholat.performance.tree</field>
+			<field name="model">sholat.performance</field>
+			<field name="arch" type="xml">
+				<tree string="Prestasi Sholat">
+					<field name="name"/>
+					<field name="fiscalyear_id"/>
+					<field name="class_id"/>
+					<field name="semester"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_sholat_performance_form" model="ir.ui.view">
+			<field name="name">sholat.performance.form</field>
+			<field name="model">sholat.performance</field>
+			<field name="arch" type="xml">
+				<form string="Prestasi Sholat">
+					<header>
+						<button name="compute_score" type="object" string="Compute" class="oe_highlight"/>
+					</header>
+					<sheet>
+						<group col="4" colspan="4">
+							<field name="name"/>
+							<field name="fiscalyear_id"/>
+							<field name="semester"/>
+							<field name="class_id"/>
+						</group>
+						<notebook colspan="5">
+							<page string="Performance Line">
+								<field colspan="4" name="performance_line" nolabel="1" widget="one2many_list">
+									<tree string="" editable="top">
+										<field name="name"/>
+										<field name="u1"/>
+										<field name="u2"/>
+										<field name="u3"/>
+										<field name="u4"/>
+										<field name="u5"/>
+										<field name="u6"/>
+										<field name="u7"/>
+										<field name="u8"/>
+										<field name="u9"/>
+										<field name="u10"/>
+										<field name="u11"/>
+										<field name="u12"/>
+										<field name="u13"/>
+										<field name="u14"/>
+										<field name="u15"/>
+										<field name="u16"/>
+										<field name="u17"/>
+										<field name="u18"/>
+										<field name="u19"/>
+										<field name="u20"/>
+										<field name="sum"/>
+										<field name="avg"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_sholat_performance_form">
+			<field name="name">Prestasi Sholat</field>
+			<field name="res_model">sholat.performance</field>
+		</record>
+
+		<!-- Penilaian Kehadiran -->
+
+		<record id="view_absen_penilaian_tree" model="ir.ui.view">
+			<field name="name">absen.penilaian.tree</field>
+			<field name="model">absen.penilaian</field>
+			<field name="arch" type="xml">
+				<tree string="Penilaian Kehadiran">
+					<field name="name"/>
+					<field name="fiscalyear_id"/>
+					<field name="class_id"/>
+					<field name="subject_id"/>
+					<field name="semester"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_absen_penilaian_form" model="ir.ui.view">
+			<field name="name">absen.penilaian.form</field>
+			<field name="model">absen.penilaian</field>
+			<field name="arch" type="xml">
+				<form string="Penilaian Kehadiran">
+					<sheet>
+						<group col="4" colspan="4">
+							<field name="name"/>
+							<field name="fiscalyear_id"/>
+							<field name="semester"/>
+							<field name="class_id"/>
+							<field name="subject_id" colspan="4"/>
+						</group>
+						<notebook colspan="5">
+							<page string="Daftar Kehadiran">
+								<field colspan="4" name="penilaian_line" nolabel="1" widget="one2many_list">
+									<tree string="" editable="top">
+										<field name="name"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_absen_penilaian_form">
+			<field name="name">Absensi Penilaian</field>
+			<field name="res_model">absen.penilaian</field>
+		</record>
+
+		<!-- Nilai Raport -->
+
+		<record id="view_summary_book_tree" model="ir.ui.view">
+			<field name="name">summary.book.tree</field>
+			<field name="model">summary.book</field>
+			<field name="arch" type="xml">
+				<tree string="Summary Book">
+					<field name="name"/>
+					<field name="user_id"/>
+					<field name="fiscalyear_id"/>
+					<field name="class_id"/>
+					<field name="subject_id"/>
+					<field name="semester"/>
+					<field name="avg_class"/>
+					<field name="salat_id"/>
+					<field name="sheet_id"/>
+					<field name="ulangan_id"/>
+					<field name="uts_id"/>
+					<field name="uas_id"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_summary_book_form" model="ir.ui.view">
+			<field name="name">summary.book.form</field>
+			<field name="model">summary.book</field>
+			<field name="arch" type="xml">
+				<form string="Summary Book">
+					<header>
+						<button name="compute_score" type="object" string="Compute" class="oe_highlight"/>
+					</header>
+					<sheet>
+						<group col="4" colspan="4">
+							<field name="name"/>
+							<field name="user_id"/>
+							<field name="semester"/>
+							<field name="fiscalyear_id"/>
+							<field name="subject_id"/>
+							<field name="class_id"/>
+							<field name="avg_class" colspan="4"/>
+						</group>
+						<group col="4" colspan="4">
+							<field name="sheet_id"/>
+							<field name="ulangan_id"/>
+							<field name="uts_id"/>
+							<field name="uas_id"/>
+							<field name="salat_id" colspan="4"/>
+						</group>
+						<notebook colspan="5">
+							<page string="Summary Line">
+								<field colspan="4" name="summary_line" nolabel="1" widget="one2many_list">
+									<tree string="" editable="top">
+										<field name="name"/>
+										<field name="ws"/>
+										<field name="uh"/>
+										<field name="av"/>
+										<field name="sp"/>
+										<field name="uts"/>
+										<field name="uas"/>
+										<field name="all"/>
+									</tree>
+								</field>
+							</page>
+							<page string="Penilaian Kehadiran">
+								<field colspan="4" name="absen_ids" nolabel="1">
+									<tree>
+										<field name="name"/>
+										<field name="fiscalyear_id"/>
+										<field name="class_id"/>
+										<field name="subject_id"/>
+										<field name="semester"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_summary_book_form">
+			<field name="name">Perhitungan Nilai Raport</field>
+			<field name="res_model">summary.book</field>
+		</record>
+
+		<!-- Buku Raport -->
+
+		<record id="view_buku_rapot_tree" model="ir.ui.view">
+			<field name="name">buku.rapot.tree</field>
+			<field name="model">buku.rapot</field>
+			<field name="arch" type="xml">
+				<tree string="Buku Rapot">
+					<field name="name"/>
+					<field name="siswa_id"/>
+					<field name="fiscalyear_id"/>
+					<field name="semester"/>
+					<field name="class_id"/>
+					<field name="avg_class"/>
+					<field name="avg_mulok"/>
+					<field name="jumlah"/>
+					<field name="peringkat"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_buku_rapot_form" model="ir.ui.view">
+			<field name="name">buku.rapot.form</field>
+			<field name="model">buku.rapot</field>
+			<field name="arch" type="xml">
+				<form string="Buku Rapot">
+					<header>
+						<button name="compute_score" type="object" string="Compute" class="oe_highlight"/>
+	                    <button name="print_rapot" type="object" string="Print Rapot" class="oe_highlight"/>
+					</header>
+					<sheet>
+						<group col="4" colspan="4">
+							<field name="name"/>
+							<field name="fiscalyear_id"/>
+							<field name="semester"/>
+							<field name="class_id"/>
+							<field name="siswa_id" colspan="4"/>
+							<field name="avg_class"/>
+							<field name="avg_mulok"/>
+							<field name="jumlah"/>
+							<field name="peringkat"/>
+						</group>
+						<notebook colspan="5">
+							<page string="Mata Pelajaran">
+								<field colspan="4" name="rapot_line" nolabel="1">
+									<tree string="" editable="bottom">
+										<field name="sequence"/>
+										<field name="name"/>
+										<field name="kkm"/>
+										<field name="nilai"/>
+										<field name="avg"/>
+										<field name="note"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_buku_rapot_form">
+			<field name="name">Buku Rapot</field>
+			<field name="res_model">buku.rapot</field>
+		</record>
+
+		<!-- Menu Item -->
+
+		<menuitem id="menu_kurikulum" name="Kurikulum" parent="base_sekolah.menu_master_pendidikan" groups="group_kurikulum_admin" sequence="3"/>
+
+        <menuitem id="menu_mata_pelajaran" name="Mata Pelajaran" parent="menu_kurikulum"/>
+        <menuitem id="menu_sholat_performance" name="Prestasi Sholat" parent="menu_mata_pelajaran" action="action_sholat_performance_form"/>
+		<menuitem id="menu_absen_penilaian" name="Penilaian Kehadiran" parent="menu_mata_pelajaran" action="action_absen_penilaian_form"/>
+		<menuitem id="menu_score_list" name="Daftar Nilai" parent="menu_mata_pelajaran" action="action_score_list_form"/>
+		<menuitem id="menu_summary_book" name="Perhitungan Nilai Raport" parent="menu_mata_pelajaran" action="action_summary_book_form"/>
+		<menuitem id="menu_buku_rapot" name="Buku Raport" parent="menu_mata_pelajaran" action="action_buku_rapot_form"/>
+
+</odoo>

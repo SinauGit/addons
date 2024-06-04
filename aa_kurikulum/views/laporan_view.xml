@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="model_laporan_yayasan_view_tree" model="ir.ui.view">
+        <field name="name">laporan.yayasan.view.tree</field>
+        <field name="model">laporan.yayasan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="siswa_id"/>
+                <field name="guru_id" />
+                <field name="jumlah_santri" />
+                <field name="total" />
+                <field name="jenjang" />
+                <field name="jumlah" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="laporan_yayasan_view_form" model="ir.ui.view">
+        <field name="name">laporan.yayasan.view.form</field>
+        <field name="model">laporan.yayasan</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="SANTRI">
+                        <field name="siswa_id" />
+                    </group>
+                    <group string="HALAQAH">
+                        <field name="guru_id" />
+                        <field name="jumlah_santri" />
+                        <field name="total" />
+                    </group>
+                    <group>
+                        <field name="jenjang" />
+                        <field name="jumlah" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="laporan_yayasan_view_pivot" model="ir.ui.view">
+        <field name="name">laporan.yayasan.pivot</field>
+        <field name="model">laporan.yayasan</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="siswa_id" />
+                <field name="guru_id" />
+                <field name="jumlah_santri" type="measure" />
+                <field name="total" type="measure" />
+                <field name="jenjang" />
+                <field name="jumlah" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+
+    <record id="model_laporan_yayasan_action" model="ir.actions.act_window">
+        <field name="name">Laporan Yayasan</field>
+        <field name="res_model">laporan.yayasan</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <!-- <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            
+        </field> -->
+    </record>
+
+    <record id="model_laporan_bulanan_view_tree" model="ir.ui.view">
+        <field name="name">laporan.bulanan.view.tree</field>
+        <field name="model">laporan.bulanan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="guru_id" />
+                <field name="class_id" />
+                <field name="operator_id" />
+                <field name="tanggal_input" />
+                <field name="tanggal_cetak" />
+                <field name="filename" invisible="1"/>
+				<field name="data" filename="filename" widget="binary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="laporan_bulanan_view_form" model="ir.ui.view">
+        <field name="name">laporan.bulanan.view.form</field>
+        <field name="model">laporan.bulanan</field>
+        <field name="arch" type="xml">
+            <form string="Laporan Bulanan">
+                <!-- <header>
+                    <button string="laporan Bulanan" name="action_print_laporan" type="object" class="oe_highlight"/>
+                </header> -->
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="class_id" />
+                        <field name="guru_id" />
+                        <field name="operator_id" />
+                        <field name="filename" invisible="1"/>
+                        <field name="data" filename="filename" widget="binary"/>
+                        <field name="komponen_line" mode="tree">
+                            <tree string="Komponen Lines" editable="bottom">
+                                <field name="nisq" />
+                                <field name="siswa_id" domain="[('class_id','=',parent.class_id)]" />
+                            </tree>
+                        </field>
+
+                        <!-- <field name="ziyadah_id" />
+                        <field name="awal_juz" />
+                        <field name="akhir_juz" />
+                        <field name="awal_pj" />
+                        <field name="akhir_pj" /> -->
+
+
+                        <!-- <field name="deresan_line" mode="tree">
+                            <group string="Deresan A">
+                                <field name="awal_a_juz" />
+                                <field name="awal_a_pj" />
+                                <field name="akhir_a_juz" />
+                                <field name="akhir_a_pj" />
+                            </group>
+                            <group string="Deresan B">
+                                <field name="awal_b_juz" />
+                                <field name="awal_b_pj" />
+                                <field name="akhir_b_juz" />
+                                <field name="akhir_b_pj" />
+                            </group>
+
+                            <group string="Total Kehadiran">
+                                <field name="tidak_setor" />
+                                <field name="ijin" />
+                                <field name="alpha" />
+                            </group>
+                        </field> -->
+                    </group>
+                    <group col="4" colspan="4">
+                        <field name="tanggal_input" />
+                    </group>
+                    <group col="4" colspan="4">
+                        <field name="tanggal_cetak" />
+                    </group>
+                   
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="seq_laporan_bulan_new" model="ir.sequence">
+        <field name="name">Laporan Bulannan</field>
+        <field name="code">laporan.bulanan</field>
+        <field name="prefix">LB/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+    <!-- <record id="sequence_laporan_bulanan" model="ir.sequence">
+        <field name="name">Laporan Bulanan</field>
+        <field name="code">laporan.bulanan.seq</field>
+        <field name="padding">3</field>
+    </record> -->
+
+
+    <!-- <record id="model_laporan_bulanan_action" model="ir.actions.act_window">
+        <field name="name">Laporan bulanan</field>
+        <field name="res_model">laporan.bulanan</field>
+        <field name="view_mode">form</field>
+    </record> -->
+
+    <record id="model_bulanan_action" model="ir.actions.act_window">
+        <field name="name">Laporan bulanan</field>
+        <field name="res_model">laporan.bulanan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <record id="rekap_rapot_view_tree" model="ir.ui.view">
+        <field name="name">rekap_rapot.view.tree</field>
+        <field name="model">rekap.rapot</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="guru_id" />
+                <field name="mapel_id" options="{'no_open': True}" string="Mata Pelajaran"/>
+                <field name="class_id" />
+                <!-- <field name="kkm" /> -->
+                <field name="tahun_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="rekap_rapot_view_form" model="ir.ui.view">
+        <field name="name">rekap_rapot.view.form</field>
+        <field name="model">rekap.rapot</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="guru_id" />
+                        <field name="mapel_id"/>
+                        <field name="class_id" />
+                        <field name="kkm" />
+                        <field name="tahun_id" />
+                        <notebook colspan="5">
+							<page string="Mata Pelajaran">
+								<field colspan="4" name="rapot_line" nolabel="1">
+									<tree string="rapot_lines" editable="bottom">
+										<!-- <field name="sequence"/> -->
+										<!-- <field name="name"/> -->
+                                        <field name="siswa_id" domain="[('class_id','=',parent.class_id)]" />
+										<field name="kkm"/>
+										<field name="nilai"/>
+										<field name="status"/>
+										<field name="note"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="seq_rekap_rapot_new" model="ir.sequence">
+        <field name="name">Rekap Rapot</field>
+        <field name="code">rekap.rapot</field>
+        <field name="prefix">RP/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+
+    <record id="model_rekap_rapot_action" model="ir.actions.act_window">
+        <field name="name">Laporan Rekap Rapot</field>
+        <field name="res_model">rekap.rapot</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="jadwal_pelajaran_view_tree" model="ir.ui.view">
+        <field name="name">jadwal_pelajaran.view.tree</field>
+        <field name="model">jadwal.pelajaran</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="pelajaran_id" />
+                <field name="guru_id" />
+                <field name="class_id" />
+                
+            </tree>
+        </field>
+    </record>
+
+    <record id="jadwal_pelajaran_view_form" model="ir.ui.view">
+        <field name="name">jadwal_pelajaran.view.form</field>
+        <field name="model">jadwal.pelajaran</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="guru_id" />
+                        <field name="pelajaran_id" />
+                        <field name="class_id" />
+                    </group>
+                    <!-- <group string="HALAQAH">
+                        <field name="guru_id" />
+                        <field name="jumlah_santri" />
+                        <field name="total" />
+                    </group>
+                    <group>
+                        <field name="jenjang" />
+                        <field name="jumlah" />
+                    </group> -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="model_jadwal_pelajaran_action" model="ir.actions.act_window">
+        <field name="name">Jadwal Pelajarann</field>
+        <field name="res_model">jadwal.pelajaran</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_laporan_yayasan" name="Laporan Ke Yayasan"
+        parent="base_sekolah.menu_config_submenu_sekolah" action="model_laporan_yayasan_action" />
+
+    <menuitem id="menu_laporan_bulanan" name="Laporan Bulanan"
+        parent="base_sekolah.menu_config_submenu_sekolah" action="model_bulanan_action" />
+
+    <menuitem id="menu_laporan_rekap_rapot" name="Rekap Rapot"
+        parent="menu_mata_pelajaran" action="model_rekap_rapot_action" />
+
+    <!-- <menuitem id="menu_laporan_bulanan" name="Laporan Bulanan"
+    parent="menubar_portal_kurikulum"
+        action="model_laporan_bulanan_action" sequence="1" />  -->
+
+
+</odoo>

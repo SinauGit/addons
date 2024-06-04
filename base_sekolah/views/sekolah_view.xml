@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- Master Kelas -->
+
+		<record id="view_master_kelas_tree" model="ir.ui.view">
+			<field name="name">master.kelas.tree</field>
+			<field name="model">master.kelas</field>
+			<field name="arch" type="xml">
+				<tree string="Rombongan Belajar">
+					<field name="name" />
+					<field name="lembaga" />
+					<field name="grade" />
+					<field name="rombel" />
+					<field name="guru_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_master_kelas_form" model="ir.ui.view">
+			<field name="name">master.kelas.form</field>
+			<field name="model">master.kelas</field>
+			<field name="arch" type="xml">
+				<form string="Rombongan Belajar">
+					<sheet>
+						<group>
+							<field name="name" />
+							<field name="lembaga" />
+							<field name="grade" />
+							<field name="rombel" />
+							<field name="guru_id" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_master_kelas_form">
+			<field name="name">Rombongan Belajar</field>
+			<field name="res_model">master.kelas</field>
+		</record>
+
+		<!-- Ruang Kelas -->
+
+		<record id="view_ruang_kelas_tree" model="ir.ui.view">
+			<field name="name">ruang.kelas.tree</field>
+			<field name="model">ruang.kelas</field>
+			<field name="arch" type="xml">
+				<tree string="Ruang Rombongan Belajar">
+					<field name="name" />
+					<field name="fiscalyear_id" />
+					<field name="lembaga" />
+					<!-- <field name="siswa_ids" /> -->
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_ruang_kelas_form" model="ir.ui.view">
+			<field name="name">ruang.kelas.form</field>
+			<field name="model">ruang.kelas</field>
+			<field name="arch" type="xml">
+				<form string="Ruang Rombongan Belajar">
+					<header>
+						<button name="update_class" type="object" string="Update"
+							class="oe_highlight" />
+					</header>
+					<sheet>
+						<group>
+							<field name="name" />
+							<field name="fiscalyear_id" />
+							<field name="lembaga" />
+						</group>
+						<notebook colspan="5">
+							<page string="Siswa">
+								<!-- <field colspan="4" name="siswa_ids" nolabel="1"> -->
+								<field colspan="4" name="res_line" nolabel="1">
+									<tree>
+										<field name="nis" />
+										<field name="nisn" />
+										<field name="name" />
+									</tree>
+								</field>
+							</page>
+							<page string="Import Siswa">
+								<group>
+									<field name="data_file"/>
+									<button name="import_siswa" type="object" string="Import" class="oe_highlight"/>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_ruang_kelas_form">
+			<field name="name">Ruang Rombongan Belajar</field>
+			<field name="res_model">ruang.kelas</field>
+		</record>
+
+		<!-- Mata Pelajaran -->
+
+		<record id="view_mata_pelajaran_tree" model="ir.ui.view">
+			<field name="name">mata.pelajaran.tree</field>
+			<field name="model">mata.pelajaran</field>
+			<field name="arch" type="xml">
+				<tree string="Mata Pelajaran">
+					<field name="urut" />
+					<field name="name" />
+					<field name="lembaga" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_mata_pelajaran_form" model="ir.ui.view">
+			<field name="name">mata.pelajaran.form</field>
+			<field name="model">mata.pelajaran</field>
+			<field name="arch" type="xml">
+				<form string="Mata Pelajaran">
+					<sheet>
+						<group>
+							<field name="urut" />
+							<field name="name" />
+							<field name="lembaga" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_mata_pelajaran_form">
+			<field name="name">Mata Pelajaran</field>
+			<field name="res_model">mata.pelajaran</field>
+		</record>
+
+		<!-- Siswa -->
+
+		<record id="view_murid_tree" model="ir.ui.view">
+			<field name="name">res.partner.murid.tree</field>
+			<field name="model">res.partner</field>
+			<field name="arch" type="xml">
+				<tree string="Siswa">
+					<field name="nis" />
+					<field name="nisn" />
+					<!-- <field name="tinggal"/> -->
+					<field name="virtual_account" />
+					<field name="name" />
+					<field name="class_id" />
+					<!-- <field name="ruang_id" /> -->
+					<field name="jenjang" />
+					<field name="lembaga" />
+					<field name="orangtua_id"/>
+					<field name="fiscalyear_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="murid_search">
+			<field name="name">Siswa Search</field>
+			<field name="model">res.partner</field>
+			<field name="arch" type="xml">
+				<search string="Siswa Search">
+					<field name="name" />
+					<field name="nis" />
+					<field name="nisn" />
+					<field name="jenjang" />
+					<field name="lembaga" />
+					<field name="virtual_account" />
+					<field name="class_id" />
+					<!-- <field name="ruang_id" /> -->
+					<!-- <field name="ruang_id" /> -->
+					<field name="orangtua_id" />
+					<group expand="0" string="Group By">
+						<filter string="School Year" name="school_year"
+							context="{'group_by':'fiscalyear_id'}" />
+						<filter string="Ruang Kelas" name="ruang_kelas"
+							context="{'group_by':'class_id'}" />
+						<filter string="Jenjang" name="jenjang" context="{'group_by':'jenjang'}" />
+						<filter string="Lembaga" name="lembaga" context="{'group_by':'lembaga'}" />
+						<filter string="Parent" name="parent" context="{'group_by':'orangtua_id'}" />
+						<filter string="Religion" name="religion" context="{'group_by':'agama'}" />
+						<filter string="Gender" name="gender" context="{'group_by':'kelamin'}" />
+						<filter string="Blood" name="blood" context="{'group_by':'darah'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_murid_form">
+			<field name="name">Siswa</field>
+			<field name="res_model">res.partner</field>
+			<field name="view_id" ref="view_murid_tree" />
+			<field name="domain">[('student','=', 'True')]</field>
+			<field name="context">{"default_student":1}</field>
+			<field name="search_view_id" ref="murid_search" />
+		</record>
+
+		<!-- Orang Tua -->
+
+		<record id="view_orangtua_tree" model="ir.ui.view">
+			<field name="name">res.partner.orangtua.tree</field>
+			<field name="model">res.partner</field>
+			<field name="arch" type="xml">
+				<tree string="Orang Tua">
+					<field name="name" />
+					<field name="alamat" />
+					<!-- <field name="street" string="Address"/> -->
+					<field name="phone" />
+					<field name="email" />
+					<field name="user_id" string="User Login" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_orangtua_form">
+			<field name="name">Orang Tua</field>
+			<field name="res_model">res.partner</field>
+			<field name="view_id" ref="view_orangtua_tree" />
+			<field name="domain">[('parent','=', 'True')]</field>
+			<field name="context">{"default_parent":1}</field>
+		</record>
+
+		<record id="view_siswa_ortu" model="ir.ui.view">
+			<field name="name">res.partner.siswa.ortu</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//form/sheet" position="before">
+					<header>
+						<button name="%(base_sekolah.act_create_user_login)d" type="action"
+							string="Create Login" class="oe_highlight"
+							attrs="{'invisible':[('parent', '!=', True)]}" />
+					</header>
+				</xpath>
+				<field name="title" position="replace">
+					<field name="title" invisible="1" />
+				</field>
+				<field name="function" position="replace">
+					<field name="function" invisible="1" />
+				</field>
+				<field name="parent_id" position="replace">
+					<field name="parent_id" invisible="1" />
+				</field>
+				<field name="category_id" position="replace">
+					<field name="category_id" invisible="1" />
+				</field>
+				<xpath expr="//page[1]" position="attributes">
+					<attribute name="attrs">{'invisible':[('student', '=', True)]}</attribute>
+				</xpath>
+				<xpath expr="//page" position="before">
+					<page string="Siswa" name="siswa" autofocus="autofocus"
+						attrs="{'invisible':[('student', '!=', True)]}">
+						<group string="Informasi" col="4" colspan="4">
+							<field name="pendaftaran_id" />
+							<field name="virtual_account" />
+							<field name="jenjang" />
+							<field name="lembaga" />
+							<field name="fiscalyear_id"
+								attrs="{'invisible':[('student', '!=', True)], 'required':[('student', '=', True)]}" />
+							<field name="class_id" attrs="{'invisible':[('student', '!=', True)]}" />
+							<!-- <field name="ruang_id" attrs="{'invisible':[('student', '!=', True)]}" /> -->
+							<field name="nis" attrs="{'required':[('student', '=', True)]}" />
+							<field name="nisn" />
+							<field name="orangtua_id"
+								attrs="{'invisible':[('student', '!=', True)], 'required':[('student', '=', True)]}" />
+							<field name="user_id" readonly="True" string="User Login" />
+							<field name="parent" attrs="{'invisible':[('student', '=', True)]}" />
+							<field name="student" attrs="{'invisible':[('parent', '=', True)]}" />
+						</group>
+						<group string="Kelahiran" col="4" colspan="4">
+							<field name="birth" />
+							<field name="place" />
+							<field name="agama" />
+							<field name="warga" />
+						</group>
+						<group string="Saudara" col="4" colspan="4">
+							<field name="anak_ke" />
+							<field name="kandung" />
+							<field name="tiri" />
+							<field name="angkat" />
+						</group>
+						<group string="Lainnya" col="4" colspan="4">
+							<field name="panggilan" placeholder="Nama Panggilan ..." />
+							<field name="kelamin" />
+							<field name="bahasa" />
+							<field name="darah" />
+							<field name="moda" />
+							<label for="berat" />
+							<div class="o_row">
+								<field name="berat" />
+								<span>kg</span>
+							</div>
+							<field name="jarak" />
+							<label for="tinggi" />
+							<div class="o_row">
+								<field name="tinggi" />
+								<span>cm</span>
+							</div>
+							<field name="tinggal" />
+						</group>
+					</page>
+					<page string="Orang Tua" name="orangtua" autofocus="autofocus"
+						attrs="{'invisible':[('student', '!=', True)]}">
+						<group string="Ayah" col="4" colspan="4">
+							
+							<field name="ayah" />
+							<field name="didika" />
+							<field name="hpa" />
+							<field name="kerja" />
+							<field name="agama_ayah" />
+							<field name="warga_ayah" />
+							<field name="gaji_ayah" colspan="4" />
+						</group>
+						<group string="Ibu" col="4" colspan="4">
+							<field name="ibu" />
+							<field name="didiki" />
+							<field name="hpi" />
+							<field name="kerji" />
+							<field name="agama_ibu" />
+							<field name="warga_ibu" />
+							<field name="gaji_ibu" colspan="4" />
+						</group>
+						<group string="Wali" colspan="4">
+							<field name="wali_siswa" />
+							<field name="wali" />
+							<field name="relasi" />
+							<field name="hpw" />
+							<field name="didikw" />
+							<field name="pekerjaan" />
+							<field name="agama_wali" />
+							<field name="warga_wali" />
+						</group>
+					</page>
+					<page string="Siswa" autofocus="autofocus"
+						attrs="{'invisible':[('parent', '!=', True)]}">
+						<field colspan="4" name="anak_line" nolabel="1">
+							<tree>
+								<field name="name" />
+								<field name="nis" />
+								<field name="class_id" />
+
+								<field name="nisn" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+				<xpath expr="//page[4]" position="after">
+					<page string="Other Info" name="Info" attrs="{'invisible':[('student', '!=', True)]}">
+						<group>
+							<!-- <field name="orang_user_id"/> -->
+							<field name="ziyadah_id" />
+							<field name="deresan_id" />
+							<field name="bk_id" />
+							<field name="bk_1_id" />
+							<field name="bk_2_id" />
+							<field name="rekap_id" />
+						</group>
+					</page>
+				</xpath>
+
+				<xpath expr="//page[@name='internal_notes']" position="attributes">
+					<attribute name="attrs">{'invisible':[('student', '=', True)]}</attribute>
+				</xpath>
+				<xpath expr="//page[@name='sales_purchases']" position="attributes">
+					<attribute name="attrs">{'invisible':[('student', '=', True)]}</attribute>
+				</xpath>
+				<xpath expr="//page[@name='accounting']" position="attributes">
+					<attribute name="attrs">{'invisible':[('student', '=', True)]}</attribute>
+				</xpath>
+			</field>
+		</record>
+
+
+		<record id="view_employee_tree_inherit" model="ir.ui.view">
+			<field name="name">hr.employee.tree.inherit</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_tree" />
+			<field name="arch" type="xml">
+				<field name="department_id" position="before">
+					<field name="nip" />
+					<field name="lembaga" />
+				</field>
+			</field>
+		</record>
+
+
+		<record id="view_employee_form_inherit" model="ir.ui.view">
+			<field name="name">hr.employee.from.inherit</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form" />
+			<field name="arch" type="xml">
+				<field name="department_id" position="before">
+					<field name="nip" />
+					<field name="lembaga" />
+				</field>
+			</field>
+		</record>
+
+
+		<!-- Menu Item -->
+
+		<menuitem id="menu_master_pendidikan" name="Sekolah"
+			web_icon="base_sekolah,static/description/icon.png" />
+
+		<menuitem id="menu_pendidikan_sekolah" parent="menu_master_pendidikan" name="Master Data"
+			sequence="1" groups="group_sekolah_admin" />
+		<menuitem id="menu_murid" parent="menu_pendidikan_sekolah" name="Siswa"
+			action="action_murid_form" />
+		<menuitem id="menu_guru" parent="menu_pendidikan_sekolah" name="Guru"
+			action="hr.open_view_employee_list_my" />
+		<menuitem id="menu_orangtua" parent="menu_pendidikan_sekolah" name="Orang Tua"
+			action="action_orangtua_form" />
+
+		<menuitem id="menu_pendidikan_config" name="Konfigurasi" parent="menu_master_pendidikan"
+			sequence="6" groups="group_sekolah_admin" />
+
+		<menuitem id="menu_config_submenu_sekolah" parent="menu_pendidikan_config" name="Sekolah"
+			sequence="1" />
+		<menuitem id="menu_master_kelas" name="Rombel" parent="menu_config_submenu_sekolah"
+			action="action_master_kelas_form" />
+		<menuitem id="menu_ruang_kelas" name="Siswa Rombel" parent="menu_config_submenu_sekolah"
+			action="action_ruang_kelas_form" />
+		<menuitem id="menu_mata_pelajaran" name="Mata Pelajaran"
+			parent="menu_config_submenu_sekolah" action="action_mata_pelajaran_form" />
+
+	</data>
+</openerp>

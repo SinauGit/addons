@@ -1,0 +1,54 @@
+<odoo>
+  <data>
+      <record id="model_surat_kepegawaian_tree" model="ir.ui.view">
+            <field name="name">Surat Kepegawaian</field>
+            <field name="model">surat.kepegawaian</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="no_surat" />
+                    <field name="nama_surat" />
+                    <field name="name" />
+                    <field name="tanggal_jam"/>
+                    <field name="unit" />
+                    <field name="keperluan" />
+                    <field name="upload" type="binary"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="model_surat_kepegawaian_form" model="ir.ui.view">
+            <field name="name">Surat Kepegawaian</field>
+            <field name="model">surat.kepegawaian</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Surat Kepegawaian">
+                            <field name="no_surat" />
+                            <field name="nama_surat" />
+                            <field name="name" />
+                            <field name="tanggal_jam" widget="datetime"/>
+                            <field name="unit" />
+                            <field name="keperluan" />
+                            <field name="upload" type="binary"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="model_surat_kepegawaian_action" model="ir.actions.act_window">
+            <field name="name">Surat Kepegawaian</field>
+            <field name="res_model">surat.kepegawaian</field>
+            <field name="view_mode">tree,form</field>
+            <field name="type">ir.actions.act_window</field>
+        </record>        
+
+    </data>
+
+		<menuitem id="menu_security_root" name="Security" web_icon="rash_security,logo/security.png"/>
+        <menuitem id="sub_menu_surat_kepegawaian" name="Surat Kepegawaian" parent="menu_security_root" action="model_surat_kepegawaian_action" />
+
+</odoo>
+

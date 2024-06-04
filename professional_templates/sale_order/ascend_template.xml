@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+		<data>
+				<template id="SO_14_document" name="Ascend Template">
+						<!-- Multicompany -->
+						<t t-if="doc and 'company_id' in doc">
+								<t t-set="company" t-value="doc.company_id"></t>
+						</t>
+						<t t-if="not doc or not 'company_id' in doc">
+								<t t-set="company" t-value="res_company"></t>
+						</t>
+						<div class="header col-12 float-left" t-attf-style="padding-bottom:0px; padding-left:0px; padding-right:0px; color:{{style.text_color}} !important;font-size:{{style.header_font}}px !important;font-family:{{style.font_family}} !important;">
+								<t t-if="style.header">
+										<div class="col-12 mb8 text-center float-left">
+												<div class="col-1 float-left"/>
+												<div  class="col-10 float-left">
+														<span t-if="style.logo">
+																<span itemprop="image" t-field="style.logo" t-options='{"widget": "image", "style": "float:center;"}'/>
+														</span>
+														<span t-if="not style.logo and company.logo">
+																<span itemprop="image" t-field="company.logo" t-options='{"widget": "image", "style": "float:center;"}'/>
+														</span>
+														<span t-if="not style.logo and not company.logo">
+																<span itemprop="image" t-field="company.logo" t-options='{"widget": "image", "style": "float:center;"}'/>
+														</span>
+												</div>
+												<div class="col-1 float-right"/>
+										</div>
+								</t>
+						</div> <!--end of Header-->
+						<!-- START OF PAGE -->
+						<div class="article page" t-attf-style="color:{{style.text_color}} !important;font-size:{{style.body_font}}px !important;font-family:{{style.font_family}} !important;">
+								<div class="col-12" t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;"><t t-esc="style.wm_eval(doc, time, user, res_company)"/></div>
+								<t t-set="div_class" t-value="'col-3' if doc.partner_shipping_id and doc.partner_shipping_id != doc.partner_id else 'col-4'"></t>
+								<div class="col-12 float-left mb16" style="padding-left:0px;">
+										<div class="col-6 float-left" t-attf-style="font-size:{{style.header_font}}px !important;;padding-left:0px;">
+												<span t-field="company.display_name"/><t t-esc="','" t-if="company.street"/>
+												<span t-field="company.street"/><t t-esc="','" t-if="company.street2"/>
+												<span t-field="company.street2"/><t t-esc="','" t-if="company.zip"/>
+												<span t-field="company.zip"/><t t-esc="','" t-if="company.city"/>
+												<span t-field="company.city"/>
+										</div>
+										<div class="col-6 float-right"/>
+								</div>
+								<div class="col-12 float-left mb16" style="padding-left:0px;">
+										<div t-attf-class="#col-6 float-left" style="font-size:16px;">
+												<address t-if="doc.partner_id" t-field="doc.partner_id" style="margin-bottom:0px;" 
+														t-options='{"widget": "contact", "fields":["name", "address"],"no_marker": true}'/>
+										</div>
+										<div class="col-6 float-right"/>
+								</div>
+								<div class="col-12 float-left mb16">
+										<div class="col-5 offset-7 float-right" style="font-size:16px">
+												<div class="float-left col-5 text-left">
+														<div t-if="doc.partner_id.ref">
+																<span t-esc="'Customer ID: '"/>
+														</div>
+														<div t-if="doc.partner_id.vat">
+																<span t-esc="'VAT Tax ID: '"/>
+														</div>
+														<div t-if="doc.date_order">
+																<span t-esc="'Date: '"/>
+														</div>
+												</div>
+												<div  class="float-right col-7 text-left">
+														<div t-if="doc.partner_id.ref">
+																<span t-field="doc.partner_id.ref"/>
+														</div>
+														<div t-if="doc.partner_id.vat">
+																<span t-field="doc.partner_id.vat"/>
+														</div>
+														<div t-if="doc.date_order">
+																<span t-field="doc.date_order" t-options='{"format": "dd.MM.yyyy"}'/>
+														</div>
+												</div>
+										</div>
+								</div>
+								<div class="col-12 float-left" style="padding-left:0px;">
+										<div t-if="doc.name">
+												<h3 style="margin-top:5px">
+														<t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+																<span t-if="doc.state not in ['draft','sent']">Order No.</span>
+																<span t-if="doc.state in ['draft','sent']">Quotation No.</span>
+														</t>
+														<t t-if="env.context.get('proforma', False) or is_pro_forma">
+																<span>Pro-Forma Invoice No. </span>
+														</t>
+														<span t-field="doc.name"/>
+												</h3>
+										</div>
+								</div>
+								<!--<div t-attf-class="#{div_class} float-left">
+										<ul> 
+												<div t-if="doc.name">
+														<t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+																<strong t-if="doc.state not in ['draft','sent']" style="white-space:nowrap;">Order #</strong>
+																<strong t-if="doc.state in ['draft','sent']" style="white-space:nowrap;">Quotation #</strong>
+														</t>
+														<t t-if="env.context.get('proforma', False) or is_pro_forma">
+																<span>Pro-Forma Invoice </span>
+														</t>
+												</div>
+												<div t-if="doc.date_order">
+														<strong t-if="doc.state not in ['draft','sent']" style="white-space:nowrap;">Order Date:</strong>
+														<strong t-if="doc.state in ['draft','sent']" style="white-space:nowrap;">Quotation Date:</strong>
+												</div>
+												<div t-if="doc.state in ['draft','sent'] and doc.validity_date">
+														<strong style="white-space:nowrap;">Valid Until:</strong>
+												</div>
+												<div t-if="doc.sudo().user_id.name">
+														<strong style="white-space:nowrap;">Salesperson:</strong>
+												</div>
+												<div t-if="doc.fiscal_position_id">
+														<strong style="white-space:nowrap;">Fiscal Position:</strong>
+												</div>
+												<div t-if="doc.client_order_ref">
+														<strong style="white-space:nowrap;">Client Ref:</strong>
+												</div>
+										</ul> 
+								</div>-->
+								<!--<div t-attf-class="#{div_class} text-right float-right">
+										<ul> 
+												<div t-if="doc.name">
+														<span t-field="doc.name"/>
+												</div>
+												<div t-if="doc.date_order">
+														<span t-field="doc.date_order"/>
+												</div>
+												<div t-if="doc.state in ['draft','sent'] and doc.validity_date">
+														<span t-field="doc.validity_date"/>
+												</div>
+												<div t-if="doc.sudo().user_id.name">
+														<span t-field="doc.sudo().user_id.name"/>
+												</div>
+												<div t-if="doc.fiscal_position_id">
+														<span t-field="doc.fiscal_position_id"/>
+												</div>
+												<div t-if="doc.client_order_ref">
+														<span t-field="doc.client_order_ref"/>
+												</div>
+										</ul> 
+								</div>-->
+								<!-- DATA-->
+								<t t-call="professional_templates.order_lines_ascend"/>
+								<!--/DATA-->
+						</div><!--End of PAGE-->
+						<!--FOOTER -->
+						<div class="footer" t-attf-style="font-size:{{style.footer_font}}px !important;font-family:{{style.font_family}} !important;">
+								<t t-call="professional_templates.company_footer"/>
+						</div>
+						<!--/FOOTER-->
+				</template>
+
+		</data>
+</openerp>

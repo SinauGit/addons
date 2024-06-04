@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+	<menuitem id="menu_guru_mapel" name="Modul Guru Mapel" web_icon="rash_guru_mapel,static/description/gurumapel.png"/>
+	<menuitem id="menu_murid" parent="menu_guru_mapel" name="Data Master Siswa" action="base_sekolah.action_murid_form" sequence="1"/>
+
+	<menuitem id="menu_kurikulum" name="Kurikulum" parent="menu_guru_mapel" groups="aa_kurikulum.group_kurikulum_admin" sequence="2"/>
+
+	<menuitem id="menu_mata_pelajaran" name="Mata Pelajaran" parent="menu_kurikulum"/>
+
+    <menuitem id="menu_sholat_performance" name="Prestasi Sholat" parent="menu_mata_pelajaran" action="aa_kurikulum.action_sholat_performance_form"/>
+	<menuitem id="menu_absen_penilaian" name="Penilaian Kehadiran" parent="menu_mata_pelajaran" action="aa_kurikulum.action_absen_penilaian_form"/>
+	<menuitem id="menu_score_list" name="Daftar Nilai" parent="menu_mata_pelajaran" action="aa_kurikulum.action_score_list_form"/>
+	<menuitem id="menu_summary_book" name="Perhitungan Nilai Raport" parent="menu_mata_pelajaran" action="aa_kurikulum.action_summary_book_form"/>
+	<menuitem id="menu_buku_rapot" name="Buku Raport" parent="menu_mata_pelajaran" action="aa_kurikulum.action_buku_rapot_form"/>
+
+    <menuitem id="menu_adab" name="Adab" parent="menu_kurikulum"/>
+    <menuitem id="menu_observasi_adab" name="Observasi Adab" parent="menu_adab" action="aa_kurikulum.observasi_adab_action"/>
+	<menuitem id="menu_rekap_rapot" name="Rekap Rapot" parent="menu_mata_pelajaran" action="aa_kurikulum.model_rekap_rapot_action"/>
+
+
+
+	<menuitem id="menu_pendidikan_config" name="Konfigurasi" parent="menu_guru_mapel" sequence="3" groups="base_sekolah.group_sekolah_admin" />
+    
+    <menuitem id="menu_laporan_menu_bulanan" name="Laporan Bulanan" parent="menu_pendidikan_config" action="aa_kurikulum.model_bulanan_action" sequence="1"/> 
+
+	</data>
+</openerp>

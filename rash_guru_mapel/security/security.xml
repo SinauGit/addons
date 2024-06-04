@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="group_sekolah_admin" model="res.groups">
+        <field name="name">Sekolah / Admin</field>
+    </record>
+
+        <record id="group_sekolah_manager" model="res.groups">
+        <field name="name">Sekolah / Manager</field>
+        <field name="implied_ids" eval="[(4, ref('base_sekolah.group_sekolah_admin'))]"/>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_kurikulum_admin" model="res.groups">
+        <field name="name">Kurikulum / Admin</field>
+    </record>
+
+    <record id="group_kurikulum_manager" model="res.groups">
+        <field name="name">Kurikulum / Manager</field>
+        <field name="implied_ids" eval="[(4, ref('aa_kurikulum.group_kurikulum_admin'))]"/>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_tahfidz_admin" model="res.groups">
+        <field name="name">Tahfidz / Admin</field>
+    </record>
+
+    <record id="group_tahfidz_manager" model="res.groups">
+        <field name="name">Tahfidz / Manager</field>
+        <field name="implied_ids" eval="[(4, ref('aa_kurikulum.group_tahfidz_admin'))]"/>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_list_price" model="res.groups">
+        <field name="name">Access aa_kurikulum</field>
+    </record>
+
+    <record id="group_security" model="res.groups">
+        <field name="name">Modul Security / Security</field>
+    </record>
+</data>
+</openerp>

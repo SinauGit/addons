@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+		<data>
+				<template id="order_lines_ascend" name="Ascend Sale Order Data">
+						<div id="ascend" class="col-12" style="padding:8px;"/>
+
+						<!-- Is there a discount on at least one line? -->
+						<t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>
+						<!-- Is there tax on at least one line? -->
+						<t t-set="display_taxes" t-value="any([y.tax_id for y in doc.order_line])"/>
+						<!-- To take care of columns when no discount -->
+						<t t-set="col_span" t-value="6"/>
+						<t t-if="display_discount" t-set="col_span" t-value="col_span + 1"/>
+						<t t-if="display_taxes" t-set="col_span" t-value="col_span + 1"/>
+						<!-- common th styles -->
+						<t t-set="th_style" t-value="'white-space:nowrap;' + 'border: 1px solid ' +  style.text_color + ' !important;'"/>
+						<t t-set="td_style" t-value="'border: 1px solid ' +  style.text_color + ' !important;'"/>
+						<table class="table  table-sm" t-attf-style="border: 1px solid {{style.text_color}} !important; color:{{style.text_color}};" >
+								<thead t-attf-style="background-color:transparent !important; page-break-inside: avoid; color:{{ style.text_color}};">
+										<tr t-attf-style="page-break-inside: avoid !important; border: 1px solid {{style.text_color}} !important;font-size:{{style.body_font+2}}px;">
+												<th t-attf-style="{{th_style}}" class="text-center">Pos</th>
+												<th class="text-right" t-attf-style="{{th_style}}" t-att-colspan="2" >Quantity</th>
+												<th t-attf-style="{{th_style}}" class="text-center">Description</th>
+												<th class="text-right" t-attf-style="{{th_style}}">Unit Price</th>
+												<th t-if="display_discount" class="text-right" t-attf-style="{{th_style}}" 
+														groups="sale.group_discount_per_so_line">Disc.(%)</th>
+												<th t-if="display_taxes" class="text-center" t-attf-style="{{th_style}}">Taxes</th>
+												<th class="text-right" t-attf-style="{{th_style}}">
+														<t groups="account.group_show_line_subtotals_tax_excluded">Amount</t>
+														<t groups="account.group_show_line_subtotals_tax_included">Total Price</t>
+												</th>
+
+										</tr>
+								</thead>
+								<tbody>
+										<t t-set="current_subtotal" t-value="0"/>
+										<t t-set="item_count" t-value="0"/>
+										<t t-foreach="doc.order_line" t-as="l">
+												<t t-set="item_count" t-value="item_count + 1"/>
+												<t t-set="current_subtotal" t-value="current_subtotal + l.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+												<t t-set="current_subtotal" t-value="current_subtotal + l.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+												<tr style="background-color: transparent; page-break-inside: avoid">
+														<t t-if="not l.display_type">
+																<td t-attf-style="{{td_style}}"><span t-esc="item_count"/></td>
+																<td class="text-right" t-attf-style="{{td_style}}">
+																		<span t-field="l.product_uom_qty"/>
+																</td>
+																<td class="text-right" t-attf-style="{{td_style}}">
+																		<span t-field="l.product_uom"  groups="uom.group_uom"/>
+																</td>
+																<td t-attf-style="{{td_style}}"><div><span t-if="style.show_img" itemprop="image" t-field="l.sudo().product_id.image_small" t-options='{"widget": "image"}'/> </div><span t-field="l.name"/> </td>
+																<td class="text-right" t-attf-style="{{td_style}}">
+																		<span t-field="l.price_unit"  t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+																</td>
+																<td t-attf-style="{{td_style}}" t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line"><span t-field="l.discount"/></td>
+																<td t-if="display_taxes" class="text-center" t-attf-style="{{td_style}}">
+																		<span t-esc="', '.join(map(lambda x: (x.description or x.name), l.tax_id))"/>
+																</td>
+																<td class="text-right" t-attf-style="{{td_style}}">
+																		<span t-field="l.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+																		<span t-field="l.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+																</td>
+														</t>
+
+														<t t-if="l.display_type == 'line_section'">
+																<td t-att-colspan="col_span" t-attf-style="{{td_style}}">
+																		<span t-field="l.name"/>
+																</td>
+																<t t-set="current_section" t-value="l"/>
+																<t t-set="current_subtotal" t-value="0"/>
+																<t t-set="item_count" t-value="0"/>
+														</t>
+														<t t-if="l.display_type == 'line_note'">
+																<td t-att-colspan="col_span" t-attf-style="{{td_style}}">
+																		<span t-field="l.name"/>
+																</td>
+																<t t-set="item_count" t-value="item_count - 1"/>
+														</t>
+												</tr>
+												<t t-if="current_section and (l_last or doc.order_line[l_index+1].display_type == 'line_section')">
+														<tr class="is-subtotal text-right">
+																<td t-att-colspan="col_span" t-attf-style="{{td_style}}">
+																		<strong class="mr16">Subtotal</strong>
+																		<span
+																				t-esc="current_subtotal"
+																				t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'
+																				/>
+																</td>
+														</tr>
+												</t>
+										</t>
+										<tr  t-attf-style="border-top: 1px solid {{style.text_color}};">
+												<td t-attf-colspan="{{col_span - 1}}" t-attf-style="{{td_style}}"><strong>Subtotal</strong></td>
+												<td class="text-right"  t-attf-style="{{td_style}}">
+														<span t-field="doc.amount_untaxed"/>
+												</td>
+										</tr>
+										<t t-foreach="doc.amount_by_group" t-as="amount_by_group">
+												<tr  t-attf-style="border-top: 1px solid {{style.text_color}};">
+														<t t-if="amount_by_group[3] == 1 and doc.amount_untaxed == amount_by_group[2]">
+																<td t-attf-colspan="{{col_span - 1}}" t-attf-style="{{td_style}}">
+																		<span t-esc="amount_by_group[0]"/>
+																		<span>&amp;nbsp;<span>on</span>&amp;nbsp;<t t-esc="amount_by_group[2]" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/></span>
+																</td>
+																<td class="text-right"  t-attf-style="{{td_style}}">
+																		<span t-esc="amount_by_group[1]"
+																				t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+																</td>
+														</t>
+														<t t-else ="">
+																<td t-attf-colspan="{{col_span - 1}}" t-attf-style="{{td_style}}">
+																		<span t-esc="amount_by_group[0]"/>
+																</td>
+																<td class="text-right"  t-attf-style="{{td_style}}">
+																		<span t-esc="amount_by_group[1]"
+																				t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+																</td>
+														</t>
+												</tr>
+										</t>
+										<tr  t-attf-style="border-bottom: 1px solid {{style.text_color}};">
+												<td t-attf-colspan="{{col_span - 1}}" t-attf-style="{{td_style}}"><strong>Total</strong></td>
+												<td class="text-right" t-attf-colspan="{{col_span - 1}}" t-attf-style="{{td_style}}">
+														<span style="font-weight:bold;"  t-field="doc.amount_total"/>
+												</td>
+										</tr>
+								</tbody>
+						</table>
+						<!--<div class="clearfix" style="page-break-inside: avoid !important;">
+								<div class="row" name="total">
+										<div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+												<table class="table table-sm">
+														<tr  t-attf-style="border-top: 1px solid {{style.text_color}};">
+																<td t-attf-style="border-top: 1px solid {{style.text_color}} !important;"><strong>Subtotal</strong></td>
+																<td class="text-right" t-attf-style="border-top: 1px solid {{style.text_color}} !important;">
+																		<span t-field="doc.amount_untaxed"/>
+																</td>
+														</tr>
+														<t t-foreach="doc.amount_by_group" t-as="amount_by_group">
+																<tr  t-attf-style="border-top: 1px solid {{style.text_color}};">
+																		<t t-if="amount_by_group[3] == 1 and doc.amount_untaxed == amount_by_group[2]">
+																				<td>
+																						<span t-esc="amount_by_group[0]"/>
+																						<span>&amp;nbsp;<span>on</span>&amp;nbsp;<t t-esc="amount_by_group[2]" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/></span>
+																				</td>
+																				<td class="text-right">
+																						<span t-esc="amount_by_group[1]"
+																								t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+																				</td>
+																		</t>
+																		<t t-else ="">
+																				<td>
+																						<span t-esc="amount_by_group[0]"/>
+																				</td>
+																				<td class="text-right">
+																						<span t-esc="amount_by_group[1]"
+																								t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+																				</td>
+																		</t>
+																</tr>
+														</t>
+														<tr  t-attf-style="border-bottom: 1px solid {{style.text_color}};">
+																<td t-attf-style="border-top: 1px solid {{style.text_color}} !important;"><strong>Total</strong></td>
+																<td class="text-right" t-attf-style="border-top: 1px solid {{style.text_color}} !important;">
+																		<span style="font-weight:bold; text-decoration:underline;"  t-field="doc.amount_total"/>
+																</td>
+														</tr>
+												</table>
+										</div>
+								</div>
+						</div> -->
+						<div class="col-6 float-left" style="padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
+								<p t-if="doc.payment_term_id.note">
+										<span t-field="doc.payment_term_id.note"/>
+								</p>
+								<p t-if="doc.incoterm">
+										<strong>Shipping:</strong><span t-field="doc.incoterm"/>
+								</p>
+								<p id="payment_term" t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">
+										<span t-field="doc.partner_id.property_payment_term_id.note"/>
+								</p>
+
+								<p t-if="doc.fiscal_position_id.note">
+										<strong>Fiscal Position Remark:</strong> <span t-field="doc.fiscal_position_id.note"/>
+								</p>
+								<p t-if="style.aiw_report">
+										<strong>Amount in Words: </strong><span style="text-decoration:underline;" t-field="doc.amount_words"/>
+								</p>
+						</div>
+						<div class="col-12 float-left" style="padding-left:0px; padding-right:0px; page-break-inside: avoid !important;">
+								<p t-if="doc.note">
+										<span t-field="doc.note"/>
+								</p>
+						</div>
+						<div t-if="doc.signature" class="row mt32" name="signature" style="page-break-inside: avoid !important;">
+								<div class="offset-8 col-4">
+										<strong>Signature</strong>
+								</div>
+								<div class="offset-8 col-4">
+										<img t-att-src="image_data_uri(doc.signature)" style="max-height: 4cm; max-width: 8cm;"/>
+								</div>
+								<div class="offset-8 col-4 text-center">
+										<p t-field="doc.signed_by"/>
+								</div>
+						</div>
+				</template>
+		</data>
+</openerp>
+
+

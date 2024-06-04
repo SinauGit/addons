@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<odoo>
+
+        <record model="ir.ui.view" id="view_wizard_eksport_import">
+            <field name="name">Export Import Data</field>
+            <field name="model">eksport.import</field>
+            <field name="arch" type="xml">
+                <form string="Export Import Data">
+                    <group>
+                        <field name="type"/>
+                        <field name="tabel"/>
+                        <field name="name" invisible="True"/>
+                    </group>
+                    <group>
+                        <field name="data_file" filename="name" widget="binary" attrs="{'readonly':[('type','=','eks')]}"/>
+                    </group>
+                    <footer>
+                        <button name="eksport_excel" string="Export" type="object" class="oe_highlight" attrs="{'invisible':[('type','=','imp')]}"/>
+                        <button name="import_excel" string="Import" type="object" class="oe_highlight" attrs="{'invisible':[('type','=','eks')]}"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_export_import">
+            <field name="name">Export Import Data</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">eksport.import</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_migration" name="Migration" action="action_export_import" parent="base.menu_administration" />
+        <menuitem id="menu_eksport_import" name="Export Import Data" action="action_export_import" parent="menu_migration" />
+
+
+</odoo>

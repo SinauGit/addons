@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_account_period_form" model="ir.ui.view">
+            <field name="name">account.period.form</field>
+            <field name="model">account.period</field>
+            <field name="arch" type="xml">
+                <form string="Account Period">
+                    <header>
+                        <button string="Close Period" name="%(fiscal_year_sync_app.action_account_period_close)d" type="action" class="oe_highlight" states="draft"/>
+                        <button name="action_draft" states="done" string="Re-Open Period" type="object" groups="account.group_account_manager"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="fiscalyear_id" widget="selection"/>
+                                <label for="date_start" string="Duration"/>
+                                <div>
+                                    <field name="date_start" class="oe_inline" nolabel="1"/> -
+                                    <field name="date_stop" nolabel="1" class="oe_inline"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="code"/>
+                                <field name="special"/>
+                                <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_account_period_tree" model="ir.ui.view">
+            <field name="name">account.period.tree</field>
+            <field name="model">account.period</field>
+            <field name="arch" type="xml">
+              <tree colors="blue:state == 'draft';gray:state == 'done' " string="Period">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="date_start"/>
+                    <field name="date_stop"/>
+                    <field name="special"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_account_periods_id">
+            <field name="name">Close a Period</field>
+            <field name="res_model">account.period</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_finance_entries_periodic_processing" name="Periodic Processing" parent="account.menu_finance_entries"/>
+        <menuitem action="action_account_periods_id" 
+            id="menu_action_account_fiscal_period"
+            parent="menu_finance_entries_periodic_processing"
+            name="Close a Period" sequence="10"/>
+        
+    </data>
+</odoo>

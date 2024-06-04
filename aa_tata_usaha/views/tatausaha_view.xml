@@ -1,0 +1,131 @@
+<odoo>
+
+
+    <!-- MENU KOMPONEN USAHA -->
+
+    <record id="view_komponen_usaha_tree" model="ir.ui.view">
+        <field name="name">komponen.usaha.tree</field>
+        <field name="model">komponen.usaha</field>
+        <field name="arch" type="xml">
+            <tree string="Komponen Usaha">
+                <field name="name"/>
+                <field name="tujuan"/>
+                <field name="cicil"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_komponen_usaha_form" model="ir.ui.view">
+        <field name="name">komponen.usaha.form</field>
+        <field name="model">komponen.usaha</field>
+        <field name="arch" type="xml">
+            <form string="Komponen Usaha">
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="name"/>
+                        <field name="tujuan"/>
+                        <field name="cicil"/>
+                        <field name="catering"/>
+                        <field name="jemputan"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_komponen_usaha_form">
+        <field name="name">Komponen</field>
+        <field name="res_model">komponen.usaha</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!-- CUSTOM MENU FISCAL YEAR -->
+
+    <record id="view_account_fiscalyear_form_harga" model="ir.ui.view">
+        <field name="name">account.fiscalyear.harga</field>
+        <field name="model">account.fiscalyear</field>
+        <field name="inherit_id" ref="fiscal_year_sync_app.view_account_fiscalyear_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page" position="after">
+                <page string="Harga Komponen">
+                    <field name="harga_komponen">
+                        <tree editable="top">
+                            <field name="name"/>
+                            <field name="lembaga"/>
+                            <field name="price_unit"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- MENU KEHADIRAN SISWA -->
+
+    <record model="ir.ui.view" id="search_kehadiran_siswa">
+        <field name="name">Kehadiran Siswa</field>
+        <field name="model">kehadiran.siswa</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="siswa_id"/>
+                <filter string="Today" name="today" domain="[('tanggal','&gt;=',current_date),('tanggal','&lt;=',current_date)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Bulan" name="bulan_filter" context="{'group_by':'tanggal'}"/>
+                    <filter string="Siswa" name="siswa_filter" context="{'group_by':'siswa_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_kehadiran_siswa_tree">
+        <field name="name">Kehadiran Siswa</field>
+        <field name="model">kehadiran.siswa</field>
+        <field name="arch" type="xml">
+            <tree string="Kehadiran" editable="top">
+                <field name="siswa_id"/>
+                <field name="tanggal"/>
+                <field name="catering"/>
+                <field name="jemputan"/>
+                <field name="name" invisible="True"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_kehadiran_siswa">
+        <field name="name">Kehadiran Siswa</field>
+        <field name="res_model">kehadiran.siswa</field>
+        <field name="search_view_id" ref="search_kehadiran_siswa"/>
+        <field name="context">{"search_default_today":1}</field>
+    </record>
+
+
+
+    <!-- MENU ITEM -->
+
+    <menuitem id="menu_tata_usaha" name="Pembayaran" parent="base_sekolah.menu_master_pendidikan" groups="aa_tata_usaha.group_tata_usaha_admin" sequence="2"/>
+    <menuitem id="menu_tagihan_all" name="Tagihan Siswa" parent="menu_tata_usaha" action="account.action_invoice_tree1"/>
+    <menuitem id="menu_manifest_pembayaran" name="Manifest Pembayaran" parent="menu_tata_usaha" action="action_manifest_pembayaran_form"/>
+    <menuitem id="menu_kehadiran_siswa" name="Absensi Siswa" parent="menu_tata_usaha" action="action_kehadiran_siswa"/>
+
+    <menuitem id="menu_komponen_usaha_wizard" name="Wizard" parent="menu_tata_usaha"/>
+    <menuitem id="menu_laporan_accounting" name="Laporan Pembayaran" action="action_laporan_accounting" parent="menu_komponen_usaha_wizard"/>
+    <menuitem id="menu_generate_invoice" name="Generate Invoice" action="action_generate_invoice" parent="menu_komponen_usaha_wizard"/>
+
+    <menuitem id="menu_config_tata_usaha" name="Pembayaran" parent="base_sekolah.menu_pendidikan_config" groups="aa_tata_usaha.group_tata_usaha_admin" sequence="2"/>
+    <menuitem id="menu_usaha_komponen" name="Komponen Usaha" parent="menu_config_tata_usaha" action="action_komponen_usaha_form"/>
+    <menuitem id="menu_discount_khusus" name="Discount Khusus" parent="menu_config_tata_usaha" action="action_discount_khusus_form"/>
+    <menuitem id="menu_periods" name="Periods" parent="menu_config_tata_usaha" action="fiscal_year_sync_app.action_account_period"/>
+    <menuitem id="menu_tahun_ajaran" name="Tahun Ajaran" parent="menu_config_tata_usaha" action="fiscal_year_sync_app.action_account_fiscalyear"/>
+
+
+    <menuitem id="menu_kasir" name="Kasir" groups="group_tata_usaha_kasir" web_icon="aa_tata_usaha,static/description/kasir.png"/>
+    <menuitem id="menu_pembayaran" name="Tagihan Siswa" parent="menu_kasir" action="action_tagihan_kasir"/>
+    <menuitem id="menu_kasir_manifest_bayar" name="Manifest Pembayaran" parent="menu_kasir" action="action_manifest_pembayaran_form"/>
+
+
+</odoo>

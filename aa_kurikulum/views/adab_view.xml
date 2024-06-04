@@ -1,0 +1,191 @@
+<odoo>
+
+
+		<!-- Observasi Adab -->
+
+		<record id="observasi_adab_tree_view" model="ir.ui.view">
+			<field name="name">observasi.adab.tree</field>
+			<field name="model">observasi.adab</field>
+			<field name="arch" type="xml">
+				<tree decoration-info="state == 'Done'" decoration-danger="state == 'Draft'" string="Observasi Adab">
+                    <field name="siswa_id"/>
+                    <field name="kelas_id"/>
+                    <field name="tanggal"/>
+                    <field name="period_id"/>
+                    <field name="semester"/>
+                    <field name="name"/>
+					<field name="total_nilai"/>
+					<field name="total_avg"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="observasi_adab_view_form" model="ir.ui.view">
+            <field name="name">observasi.adab.form</field>
+			<field name="model">observasi.adab</field>
+			<field name="arch" type="xml">
+				<form string="Observasi Adab">
+					<header>
+						<button name="observasi_open_pic" type="object" states="Draft" string="Submit Guru" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_manager"/>
+                        <button name="observasi_draft" type="object" states="Approved_PIC,Approved_Wali" string="Set to Draft" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_manager"/>
+						<button name="observasi_done" type="object" states="Approved_Wali" string="Done" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_admin"/>
+                        <field name="state" widget="statusbar" statusbar_visible="Draft,Approved_PIC,Approved_Wali,Done"/>
+					</header>
+					<sheet>
+                        <group string="Informasi">
+							<group>
+	                            <field name="siswa_id" options="{'no_create': True, 'no_open': True}"/>
+	                            <field name="kelas_id" options="{'no_create': True, 'no_open': True}"/>
+								<field name="semester"/>
+								<field name="name"/>
+							</group>
+							<group>
+								<field name="tanggal"/>
+								<field name="period_id" options="{'no_create': True, 'no_open': True}"/>
+								<field name="urutan"/>
+								<field name="total_nilai" attrs="{'invisible': [('state', '!=', 'Done')]}"/>
+                        	</group>
+							<group>
+								<field name="total_avg" attrs="{'invisible': [('state', '!=', 'Done')]}"/>
+							</group>
+						</group>
+						<group>
+	                        <group string="Sikap Bertauhid &amp; Ibadah">
+	                            <field name="tauhid_1_1" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_tauhid_1_1" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="tauhid_1_2" widget='radio'/>
+								<field name="catt_tauhid_1_2"/>
+	                            <field name="tauhid_1_3" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_tauhid_1_3" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="tauhid_1_4" widget='radio'/>
+								<field name="catt_tauhid_1_4"/>
+	                            <field name="tauhid_1_5" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_tauhid_1_5" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="tauhid_1_6" widget='radio'/>
+								<field name="catt_tauhid_1_6"/>
+	                            <field name="tauhid_1_7" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_tauhid_1_7" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="tauhid_1_8" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="catt_tauhid_1_8" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="nilai_tauhid" attrs="{'invisible': [('state', '!=', 'Done')]}"/>
+	                        </group>
+	                        <group string="Sikap Kepada Orang Tua &amp; Guru" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}">
+	                            <field name="orangtua_2_1" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_orangtua_2_1" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="orangtua_2_2" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_orangtua_2_2" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="orangtua_2_3" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_orangtua_2_3" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="orangtua_2_4" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_orangtua_2_4" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="orangtua_2_5" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="catt_orangtua_2_5" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="nilai_orangtua" attrs="{'invisible': [('state', '!=', 'Done')]}"/>
+	                        </group>
+						</group>
+						<group>
+	                        <group string="Kedisiplinan &amp; Interaksi Sosial di Sekolah">
+	                            <field name="disiplin_3_1" widget='radio'/>
+								<field name="catt_disiplin_3_1"/>
+	                            <field name="disiplin_3_2" widget='radio'/>
+								<field name="catt_disiplin_3_2"/>
+	                            <field name="disiplin_3_3" widget='radio'/>
+								<field name="catt_disiplin_3_3"/>
+	                            <field name="disiplin_3_4" widget='radio'/>
+								<field name="catt_disiplin_3_4"/>
+	                            <field name="disiplin_3_5" widget='radio'/>
+								<field name="catt_disiplin_3_5"/>
+	                            <field name="disiplin_3_6" widget='radio'/>
+								<field name="catt_disiplin_3_6"/>
+	                            <field name="disiplin_3_7" widget='radio'/>
+	                            <field name="catt_disiplin_3_7"/>
+								<field name="nilai_disiplin" attrs="{'invisible': [('state', '!=', 'Done')]}"/>
+	                        </group>
+	                        <group string="Kepemimpinan">
+	                            <field name="pemimpin_4_1" widget='radio'/>
+								<field name="catt_pemimpin_4_1"/>
+	                            <field name="pemimpin_4_2" widget='radio'/>
+								<field name="catt_pemimpin_4_2"/>
+	                            <field name="pemimpin_4_3" widget='radio'/>
+								<field name="catt_pemimpin_4_3"/>
+	                            <field name="pemimpin_4_4" widget='radio'/>
+								<field name="catt_pemimpin_4_4"/>
+	                            <field name="pemimpin_4_5" widget='radio'/>
+								<field name="catt_pemimpin_4_5"/>
+	                            <field name="pemimpin_4_6" widget='radio'/>
+								<field name="catt_pemimpin_4_6"/>
+	                            <field name="pemimpin_4_7" widget='radio'/>
+	                            <field name="catt_pemimpin_4_7"/>
+								<field name="nilai_pemimpin" attrs="{'invisible': [('state', '!=', 'Done')]}"/>
+							</group>
+						</group>
+						<group>
+	                        <group string="Kebersihan diri &amp; Kesehatan">
+	                            <field name="bersih_5_1" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_bersih_5_1" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="bersih_5_2" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_bersih_5_2" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="bersih_5_3" widget='radio'/>
+								<field name="catt_bersih_5_3"/>
+	                            <field name="bersih_5_4" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_bersih_5_4" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="bersih_5_5" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_bersih_5_5" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="bersih_5_6" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_bersih_5_6" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="bersih_5_7" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_bersih_5_7" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="bersih_5_8" widget='radio'/>
+								<field name="catt_bersih_5_8"/>
+	                            <field name="bersih_5_9" widget='radio'/>
+								<field name="catt_bersih_5_9"/>
+	                            <field name="bersih_5_10" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_bersih_5_10" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="bersih_5_11" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="catt_bersih_5_11" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="nilai_bersih" attrs="{'invisible': [('state', '!=', 'Done')]}"/>
+							</group>
+	                        <group string="Kemandirian">
+	                            <field name="mandiri_6_1" widget='radio'/>
+								<field name="catt_mandiri_6_1"/>
+	                            <field name="mandiri_6_2" widget='radio'/>
+								<field name="catt_mandiri_6_2"/>
+	                            <field name="mandiri_6_3" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_mandiri_6_3" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="mandiri_6_4" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="catt_mandiri_6_4" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="mandiri_6_5" widget='radio'/>
+								<field name="catt_mandiri_6_5"/>
+	                            <field name="mandiri_6_6" widget='radio' attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="catt_mandiri_6_6" attrs="{'invisible': [('state', 'in', ('Draft', 'Approved_PIC', 'Approved_Wali'))]}"/>
+								<field name="nilai_mandiri" attrs="{'invisible': [('state', '!=', 'Done')]}"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+        <record model="ir.actions.act_window" id="observasi_adab_action">
+            <field name="name">Observasi Adab</field>
+            <field name="res_model">observasi.adab</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="seq_observasi_adab_new" model="ir.sequence">
+            <field name="name">Observasi Adab</field>
+            <field name="code">observasi.adab</field>
+            <field name="prefix">OA/%(y)s/%(month)s/</field>
+            <field name="padding">5</field>
+        </record>
+
+
+        <menuitem id="menu_adab" name="Adab" parent="menu_kurikulum"/>
+        <menuitem id="menu_observasi_adab" name="Observasi Adab" parent="menu_adab" action="observasi_adab_action"/>
+
+
+
+</odoo>

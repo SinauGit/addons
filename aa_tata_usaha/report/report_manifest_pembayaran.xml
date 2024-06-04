@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+    <template id="manifest_pembayaran_document">
+        <t t-set="doc" t-value="doc.with_context(lang=doc.orangtua_id.lang)" />
+        <div class="article" style="padding-top:10px; font-family: Tahoma; font-size:13px;">
+
+            <h4 class="text-center">
+                <span t-if="doc.state == 'paid'">BUKTI PEMBAYARAN</span>
+                <span t-if="doc.state == 'draft'">Draft Pembayaran</span>
+            </h4>
+
+            <br/>
+
+            <table class="table table-bordered" style="border-collapse: collapse;table-layout: auto;width: 100%;">
+                <tbody>
+                    <tr>
+                        <td><b>No:</b></td>
+                        <td><span t-field="doc.name"/></td>
+                        <td><b>Tanggal:</b></td>
+                        <td><span t-esc="doc.date.strftime('%m %B %Y')"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Operator:</b></td>
+                        <td><span t-field="doc.user_id.name"/></td>
+                        <td><b>Orang Tua:</b></td>
+                        <td><span t-field="doc.orangtua_id.name"/></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br/>
+
+            <table class="table table-bordered" style="border-collapse: collapse;table-layout: auto;width: 100%;">
+                <thead>
+                    <tr class="text-center">
+                        <th>No</th>
+                        <th>Invoice</th>
+                        <th>Siswa</th>
+                        <th>Komponen</th>
+                        <th>Bulan</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="doc.tagihan_ids" t-as="line">
+                        <tr>
+                            <td width="5%">1</td>
+                            <td class="text-center"><span t-field="line.number"/></td>
+                            <td class="text-center"><span t-field="line.partner_id.name"/></td>
+                            <td class="text-center"><span t-field="line.komponen_id.name"/></td>
+                            <td class="text-center"><span t-field="line.period_id.name"/></td>
+                            <td class="text-right o_price_total"><span t-field="line.amount_total"/></td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+
+
+            <div class="clearfix">
+                <div id="total" class="row">
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                        <table class="table table-sm;page-break-inside: avoid;">
+                            <tr class="border-black o_total">
+                                <td><strong>Total</strong></td>
+                                <td class="text-right"><span t-field="doc.amount_total"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </template>
+
+    <template id="manifest_pembayaran">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="aa_tata_usaha.manifest_pembayaran_document"/>
+            </t>
+        </t>
+    </template>
+
+    <report id="action_report_manifest"
+        string="Bukti Pembayaran"
+        model="manifest.pembayaran"
+        report_type="qweb-pdf"
+        name="aa_tata_usaha.manifest_pembayaran"
+        file="aa_tata_usaha.report_manifest_pembayaran"
+        print_report_name="'Bukti Pembayaran - %s' % (object.name)"
+    />
+
+
+</odoo>

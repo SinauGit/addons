@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+
+        <template id="my_own_layout_header">
+            <div class="header" style="font-size: 12pt;">
+                <div style="text-align:center;"></div>
+            </div>
+        </template>
+
+        <template id="my_own_layout_footer">
+            <div class="footer" style="font-size: 12pt;">
+                <div></div>
+            </div>
+        </template>
+
+        <template id="my_own_layout">
+            <t t-raw="0"/>
+        </template>
+
+
+        <template id="template_raport_sekolah">
+        <style>
+            .no_border {
+                border: 0px;
+            }
+
+            .table-bordered{border:3px solid black;}
+        </style>
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="aa_kurikulum.my_own_layout">
+                    <div class="article" style="padding-top:1px; font-family: Tahoma; font-size:15px;">
+                        <div class="oe_structure"/>
+                        <table style="border-collapse: collapse;table-layout: auto;width: 100%;">
+                            <tr>
+                                <td>Nama Peserta Didik</td>
+                                <td>:</td>
+                                <td>Nurdin Yusuf</td>
+                                <td>Kelas</td>
+                                <td>:</td>
+                                <td>Kelas 10</td>
+                            </tr>
+                            <tr>
+                                <td>NIS/NISN</td>
+                                <td>:</td>
+                                <td>00000</td>
+                                <td>SEMESTER</td>
+                                <td>:</td>
+                                <td>Genap</td>
+                            </tr>
+                            <tr>
+                                <td>Nama Sekolah</td>
+                                <td>:</td>
+                                <td>SMA SMSA</td>
+                                <td>Tahun Pelajaran</td>
+                                <td>:</td>
+                                <td>....</td>
+                            </tr>
+                            <tr>
+                                <td>Alamat</td>
+                                <td>:</td>
+                                <td>..........</td>
+                                <td></td>
+                                <td></td>
+                                <td>............</td>
+                            </tr>
+                        </table>
+                        <style>
+                            .table-bordered-a > thead > tr > th,
+                            .table-bordered-a > tbody > tr > th,
+                            .table-bordered-a > tfoot > tr > th,
+                            .table-bordered-a > thead > tr > td,
+                            .table-bordered-a > tbody > tr > td,
+                            .table-bordered-a > tfoot > tr > td
+                            {border:1.5px solid black;text-align: center;padding: 5px;}
+                        </style>
+                        <table class="table table-bordered-a ">
+                            <tr>
+                                <td rowspan="2" width="10%">No</td>
+                                <td rowspan="2">Mata Pelajaran</td>
+                                <td rowspan="2">KKM</td>
+                                <td colspan="2">Nilai</td>
+                                <td colspan="2">Nilai Perbaikan</td>
+                                <td rowspan="2">Catatan Guru</td>
+                            </tr>
+                            <tr>
+                                <td>Huruf</td>
+                                <td>Angka</td>
+                                <td>Huruf</td>
+                                <td>Angka</td>
+                            </tr>
+                            <tr t-foreach='data' t-as='z'>
+                                <t t-if=" z['tipe'] == 'wajib'">
+                                    <td><span t-esc="z['no']"/></td>
+                                    <td><span t-esc="z['mapel']"/></td>
+                                    <td><span t-esc="z['kkm']"/></td>
+                                    <td><span t-esc="z['nilai']"/></td>
+                                    <td><span t-esc="z['terbilang']"/></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </t>
+                            </tr>
+                            <tr t-foreach='data' t-as='z'>
+                                <t t-if=" z['tipe'] == 'pilihan'">
+                                    <td><span t-esc="a"/></td>
+                                    <td><span t-esc="z['mapel']"/></td>
+                                    <td><span t-esc="z['kkm']"/></td>
+                                    <td><span t-esc="z['nilai']"/></td>
+                                    <td><span t-esc="z['terbilang']"/></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </t>
+                            </tr>
+                            <tr t-foreach='data' t-as='z'>
+                                <t t-if=" z['tipe'] == 'mulok'">
+                                    <td><span t-esc="a"/></td>
+                                    <td><span t-esc="z['mapel']"/></td>
+                                    <td><span t-esc="z['kkm']"/></td>
+                                    <td><span t-esc="z['nilai']"/></td>
+                                    <td><span t-esc="z['terbilang']"/></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </t>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Jumlah Nilai Prestasi Hasil Belajar</td>
+                                <td><span t-esc="jumlah"/></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Nilai Rata-Rata</td>
+                                <td><span t-esc="rata"/></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <p>Peringkat : ...........( .......................) dari ............ Peserta Didik "</p>
+                        <p>" Peringkat yang di tulis di LHB adalah peringkat 1 s.d 10</p>
+                    </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+
+
+    </data>
+</odoo>

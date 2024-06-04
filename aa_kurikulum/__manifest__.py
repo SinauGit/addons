@@ -1,0 +1,35 @@
+{
+    'name': 'Kurikulum Sekolah',
+    'version': '12.0.1.0.0',
+    'summary': """Kurikulum & Tahfidz Sekolah""",
+    'description': 'This module is manage activities school',
+    "category": "Education",
+    'author': 'Muhammad Azis - 087881071515',
+    'company': 'Ismata Nusantara Abadi',
+    'website': "https://www.ismata.co.id",
+    'depends': ['base_sekolah', 'fiscal_year_sync_app', 'hr','report_xlsx'],
+    'data': [
+        'security/security.xml',
+        'security/ir.model.access.csv',
+        'report/report_print.xml',
+        'report/report_action.xml',
+        'report/report_laporan_bulanan.xml',
+        'report/report_bk.xml',
+        'views/ir_sequence_data.xml',
+        'views/kurikulum_view.xml',
+        'views/tahfidz_view.xml',
+        'views/adab_view.xml',
+        'views/portal_view.xml',
+        'views/konseling_view.xml',
+        'wizard/wizard_view.xml',
+        
+        'views/laporan_view.xml'
+
+    ],
+    'images': [],
+    'license': 'AGPL-3',
+    'demo': [],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}

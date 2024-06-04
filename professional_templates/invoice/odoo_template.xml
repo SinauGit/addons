@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="INVOICE_5_document" name="Odoo Template">
+			<t t-call="account.report_invoice_document_with_payments" t-lang="o.partner_id.lang"/>
+		</template>
+	</data>
+</openerp>
+

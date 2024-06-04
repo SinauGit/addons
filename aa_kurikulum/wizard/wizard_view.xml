@@ -1,0 +1,94 @@
+<odoo>
+
+    <!-- GENERATE INVOICE -->
+
+    <record model="ir.ui.view" id="view_wizard_generate_kbm">
+        <field name="name">Generate KBM</field>
+        <field name="model">generate.kbm</field>
+        <field name="arch" type="xml">
+            <form string="Buat Invoice">
+                <group>
+                    <field name="user_id"/>
+                    <field name="penugasan_guru_id"/>
+                    <field name="kalender_id"/>
+                    <field name="kegiatan"/>
+                    <field name="notes"/>
+                </group>
+                <footer>
+                    <button string="Bikin KBM" name="create_kbm" type="object" class="oe_highlight"/>
+	                    or
+                    <button string="Batal" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="generate_kbm_action">
+        <field name="name">Generate KBM</field>
+        <field name="res_model">generate.kbm</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_kbm_tahfidz_generate" name="Generate KBM" parent="menu_belajar" action="generate_kbm_action" sequence="4" groups="group_tahfidz_admin"/>
+
+
+
+
+    <record id="hr_employee_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet" position="before">
+                <header>
+                    <button name="create_user" string="Create User" type="object" class="oe_highlight" attrs="{'invisible':[('user_id','!=',False)]}"/>
+                </header>
+            </xpath>
+            <field name="work_email" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+        </field>
+    </record>
+
+
+
+    <!-- GANTI PENUGASAN GURU PADA LP DAN KBM -->
+
+
+    <!-- <record model="ir.ui.view" id="view_wizard_pergantian_guru_lp_kbm">
+        <field name="name">Pergantian Penugasan Guru</field>
+        <field name="model">pergantian.guru.lpkbm</field>
+        <field name="arch" type="xml">
+            <form string="Buat Invoice">
+                <group>
+                    <field name="guru_sebelum_id"/>
+                    <field name="guru_sesudah_id"/>
+                </group>
+                <group>
+                    <field name="lp_line"/>
+                    <field name="kbm_line"/>
+                </group>
+                <footer>
+                    <button string="Ganti" name="ganti_guru" type="object" class="oe_highlight"/>
+	                    or
+                    <button string="Batal" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="pergantian_guru_lp_kbm_action">
+        <field name="name">Pergantian Penugasan Guru</field>
+        <field name="res_model">pergantian.guru.lpkbm</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_kbm_tahfidz_generate" name="Generate KBM" parent="menu_belajar" action="generate_kbm_action" sequence="4" groups="group_tahfidz_admin"/> -->
+
+
+
+</odoo>

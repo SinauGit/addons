@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+    <menuitem id="menu_config_guru_bk" name="Guru BK" web_icon="rash__bk,static/description/gurubk.png"/>
+    <menuitem id="menu_daftar_absen" name="Absen" parent="menu_config_guru_bk"
+        action="aa_kurikulum.konseling_action" />
+    <menuitem id="menu_daftar_layanan" name="Layanan" parent="menu_config_guru_bk"
+        action="aa_kurikulum.layanan_action" />
+    <menuitem id="menu_daftar_pelanggaran" name="Pelanggaran" parent="menu_config_guru_bk"
+        action="aa_kurikulum.pelanggaran_action" />
+	</data>
+</openerp>

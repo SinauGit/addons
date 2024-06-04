@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ABSEN -->
+    <record id="konseling_view_tree" model="ir.ui.view">
+        <field name="name">konseling.view.tree</field>
+        <field name="model">bimbingan.konseling</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="guru_id" />
+                <field name="siswa_id" />
+                <field name="info" />
+                <field name="date" />
+                <field name="note" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="konseling_view_form" model="ir.ui.view">
+        <field name="name">konseling.view.form</field>
+        <field name="model">bimbingan.konseling</field>
+        <field name="arch" type="xml">
+            <form string="Bimbingan Konseling">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="guru_id" />
+                        <field name="note" />
+                        <field name="date" />
+                    </group>
+                    <group>
+                        <field name="siswa_id" />
+                        <field name="info" />
+                        <field name="count_sakit" />
+                        <field name="count_izin" />
+                        <field name="count_alpa" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="seq_bimbigan_konseling_new" model="ir.sequence">
+        <field name="name">Bimbingan Konseling</field>
+        <field name="code">bimbingan.konseling</field>
+        <field name="prefix">BK/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+    <record id="konseling_action" model="ir.actions.act_window">
+        <field name="name">Bimbingan Konseling</field>
+        <field name="res_model">bimbingan.konseling</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- LAYANNAN -->
+    <record id="layanan_view_tree" model="ir.ui.view">
+        <field name="name">layanan.view.tree</field>
+        <field name="model">konseling.layanan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="guru_id" />
+                <field name="niy" />
+                <field name="date" />
+                <field name="siswa_id" />
+                <field name="nisq" />
+                <field name="kelas" />
+                <field name="tingkatan" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="layanan_view_form" model="ir.ui.view">
+        <field name="name">layanan.view.form</field>
+        <field name="model">konseling.layanan</field>
+        <field name="arch" type="xml">
+            <form string="layaan">
+                <sheet>
+                    <group>
+                        <field name="guru_id" />
+                        <field name="niy" />
+                        <field name="date" />
+                    </group>
+                    <group>
+                        <field name="siswa_id" />
+                        <field name="nisq" />
+                        <field name="kelas" />
+                        <field name="tingkatan" />
+                    </group>
+                    <notebook>
+                        <page string="Bimbingan Kel" col="4">
+                            <group>
+                                <field name="bimbingan_kel" />
+                                <!-- <field name="pribadi_kel" />
+                                <field name="belajar_kel" />
+                                <field name="sosial_kel" />
+                                <field name="karir_kel" /> -->
+                                <field name="keterangan_kel" />
+                                <field name="count_kel" />
+
+                            </group>
+                        </page>
+                        <page string="Bimbingan Individu">
+                            <group>
+                                <field name="bimbingan_ind" />
+                                <!-- <field name="pribadi_ind" />
+                                <field name="belajar_ind" />
+                                <field name="sosial_ind" />
+                                <field name="karir_ind" /> -->
+                                <field name="keterangan_ind" />
+                                <field name="count_ind" />
+
+                            </group>
+                        </page>
+                        <page string="Konseling Individu">
+                            <group>
+
+                                <field name="konseling" />
+                                <!-- <field name="pribadi_koind" />
+                                <field name="belajar_koind" />
+                                <field name="sosial_koind" />
+                                <field name="karir_koind" /> -->
+                                <field name="keterangan_koind" />
+                                <field name="count_koind" />
+
+                            </group>
+                        </page>
+                        <page string="Konsultasi">
+                            <group>
+                                <field name="konsultasi" />
+                                <!-- <field name="pribadi_kons" />
+                                <field name="belajar_kons" />
+                                <field name="sosial_kons" />
+                                <field name="karir_kons" /> -->
+                                <field name="keterangan_kons" />
+                                <field name="count_kons" />
+
+                            </group>
+                        </page>
+                        <page string="Mediasi">
+                            <group>
+                                <field name="mediasi" />
+                                <!-- <field name="pribadi_med" />
+                                <field name="belajar_med" />
+                                <field name="sosial_med" />
+                                <field name="karir_med" /> -->
+                                <field name="keterangan_med" />
+                                <field name="count_med" />
+
+                            </group>
+                        </page>
+                        <page string="Ahli tangan kasus">
+                            <group>
+                                <field name="ahli" />
+                                <!-- <field name="pribadi_ahl" />
+                                <field name="belajar_ahl" />
+                                <field name="sosial_ahl" />
+                                <field name="karir_ahl" /> -->
+                                <field name="keterangan_ahl" />
+                                <field name="count_ahl" />
+
+                            </group>
+                        </page>
+                        <page string="Klasikal">
+                            <group>
+                                <field name="klasikal" />
+                                <!-- <field name="pribadi_klas" />
+                                <field name="belajar_klas" />
+                                <field name="sosial_klas" />
+                                <field name="karir_klas" /> -->
+                                <field name="keterangan_klas" />
+                                <field name="count_klas" />
+
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="layanan_action" model="ir.actions.act_window">
+        <field name="name">Konseling Layanan</field>
+        <field name="res_model">konseling.layanan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- Pelanggaran -->
+    <record id="pelaggaran_view_tree" model="ir.ui.view">
+        <field name="name">pelaggaran.view.tree</field>
+        <field name="model">konseling.pelanggaran</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nama" />
+                <field name="siswa_id" />
+                <field name="info" />
+                <field name="waktu_pelanggaran" />
+                <field name="point" />
+                <field name="keterangan" />
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="pelaggaran_view_form" model="ir.ui.view">
+        <field name="name">pelaggaran.view.form</field>
+        <field name="model">konseling.pelanggaran</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="nama" />
+                        <field name="siswa_id" />
+                        <field name="info" />
+                        <field name="waktu_pelanggaran" />
+                        <field name="point" />
+                        <field name="keterangan" />
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="rekap_bulanan_view_tree" model="ir.ui.view">
+        <field name="name">rekap.bulanan.view.tree</field>
+        <field name="model">rekap.laporan.bulanan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date" />
+                <field name="siswa_id" />
+                <field name="bulanan_id" />
+                <field name="data" />
+                
+            </tree>
+        </field>
+    </record>
+
+    <record id="rekap_laporan_bulanan_view_form" model="ir.ui.view">
+        <field name="name">rekap.laporan.bulanan.view.form</field>
+        <field name="model">rekap.laporan.bulanan</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="date" />
+                        <field name="siswa_id" />
+                        <field name="bulanan_id" />
+                        <field name="data" />
+                        <!-- <field name="attachment_ids" widget="many2many_binary" /> -->
+                    </group>
+                    <!-- <group>
+                    </group> -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- <record id="rekap_rapot_view_tree" model="ir.ui.view">
+        <field name="name">rekap.raport.view.tree</field>
+        <field name="model">rekap.raport</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="rapot_id"/>
+                <field name="catatan"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="rekap_rapot_view_form" model="ir.ui.view">
+        <field name="name">rekap.rapot.view.form</field>
+        <field name="model">rekap.raport</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="date" />
+                        <field name="rapot_id" />
+                        <field name="catatan" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record> -->
+
+
+    <!-- <record id="seq_bimbigan_pelanggaran_new" model="ir.sequence">
+        <field name="name">Konseling Pelanggaran</field>
+        <field name="code">konseling.pelanggaran</field>
+        <field name="prefix">KP/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record> -->
+
+    <record id="rekap_bulanan_action" model="ir.actions.act_window">
+        <field name="name">Rekap Laporan Bulanan</field>
+        <field name="res_model">laporan.bulanan</field>
+        <!-- <field name="view_type">form</field> -->
+        
+        <field name="view_mode">tree,form</field>
+        <field name="type">ir.actions.act_window</field>
+
+    </record>
+
+    <!-- <record id="rekap_raport_view_tree" model="ir.actions.act_window">
+        <field name="name">Rekap Rapot</field>
+        <field name="res_model">rekap.raport</field>
+        <field name="view_mode">tree,form</field>
+
+    </record> -->
+
+
+    <record id="seq_bimbigan_pelanggaran_new" model="ir.sequence">
+        <field name="name">Konseling Pelanggaran</field>
+        <field name="code">konseling.pelanggaran</field>
+        <field name="prefix">KP/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+    <record id="pelanggaran_action" model="ir.actions.act_window">
+        <field name="name">Konseling Pelanggaran</field>
+        <field name="res_model">konseling.pelanggaran</field>
+        <field name="view_mode">tree,form</field>
+
+    </record>
+
+
+    <!-- ABSEN -->
+    <menuitem id="menu_config_submenu_guru_bk" name="Guru BK"
+        parent="base_sekolah.menu_master_pendidikan" sequence="5" groups="group_list_price"/>
+    <menuitem id="menu_daftar_absen" name="Absen" parent="menu_config_submenu_guru_bk"
+        action="konseling_action" />
+    <menuitem id="menu_daftar_layanan" name="Layanan" parent="menu_config_submenu_guru_bk"
+        action="layanan_action" />
+    <menuitem id="menu_daftar_pelanggaran" name="Pelanggaran" parent="menu_config_submenu_guru_bk"
+        action="pelanggaran_action" />
+
+
+    <menuitem id="menu_laporan_menu_bulanan" name="Laporan Bulanan" parent="menubar_portal_kurikulum"
+        action="rekap_bulanan_action" sequence="1"/> 
+
+
+    <!-- <menuitem id="menu_config_submenu_orang_tua" name="Menu Orang Tua"
+        parent="base_sekolah.menu_master_pendidikan" sequence="5" />
+
+        <menuitem id="menu_administrator" name="Administrasi" parent="menu_config_submenu_orang_tua"
+        action="base_sekolah.action_murid_form" /> 
+
+        <menuitem id="menu_laporan_bulanan" name="Laporan Bulanan" parent="menu_config_submenu_orang_tua"
+        action="rekap_bulanan_action" /> 
+        
+        <menuitem id="menu_raport" name="Raport" parent="menu_config_submenu_orang_tua"
+        action="rekap_raport_view_tree" />  -->
+</odoo>

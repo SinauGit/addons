@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bimbingan_konseling_user,aa_kurikulum.bimbingan.konseling,aa_kurikulum.model_bimbingan_konseling,base.group_user,1,1,1,1
+access_konseling_layanan_user,aa_kurikulum.konseling.layanan,aa_kurikulum.model_konseling_layanan,base.group_user,1,1,1,1
+access_konseling_pelanggaran_user,aa_kurikulum.konseling.pelanggaran,aa_kurikulum.model_konseling_pelanggaran,base.group_user,1,1,1,1
+access_report_aa_kurikulum_report_pelanggaran_user,aa_kurikulum.report.aa_kurikulum.report_pelanggaran,aa_kurikulum.model_report_aa_kurikulum_report_pelanggaran,base.group_user,1,1,1,1

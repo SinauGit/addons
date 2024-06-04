@@ -1,0 +1,23 @@
+<openerp>
+    <data>
+            <!--inherits the default sales report  and override its name  and file-->
+      <report 
+            id="sale.action_report_saleorder"
+            model="sale.order"
+            string="Quotation / Order"
+            report_type="qweb-pdf"
+            name="professional_templates.sale_order"
+            file="professional_templates.sale_order"
+      />
+        <report
+            id="sale.action_report_pro_forma_invoice"
+            string="PRO-FORMA Invoice"
+            model="sale.order"
+            report_type="qweb-pdf"
+            groups="sale.group_proforma_sales"
+            file="professional_templates.report_saleorder_pro_forma"
+            name="professional_templates.report_saleorder_pro_forma"
+            print_report_name="'PRO-FORMA - %s' % (object.name)"
+        />
+    </data>
+</openerp>
