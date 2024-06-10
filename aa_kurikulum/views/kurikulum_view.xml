@@ -320,6 +320,7 @@
 					<header>
 						<button name="compute_score" type="object" string="Compute" class="oe_highlight"/>
 	                    <button name="print_rapot" type="object" string="Print Rapot" class="oe_highlight"/>
+	                    <button name="nilai" type="object" string="Nilai" class="oe_highlight"/>
 					</header>
 					<sheet>
 						<group col="4" colspan="4">
@@ -332,6 +333,7 @@
 							<field name="avg_mulok"/>
 							<field name="jumlah"/>
 							<field name="peringkat"/>
+							<field name="date"/>
 						</group>
 						<notebook colspan="5">
 							<page string="Mata Pelajaran">
@@ -341,6 +343,7 @@
 										<field name="name"/>
 										<field name="kkm"/>
 										<field name="nilai"/>
+										<field name="status"/>
 										<field name="avg"/>
 										<field name="note"/>
 									</tree>

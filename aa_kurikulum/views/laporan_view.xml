@@ -182,7 +182,7 @@
                 <field name="guru_id" />
                 <field name="mapel_id" options="{'no_open': True}" string="Mata Pelajaran"/>
                 <field name="class_id" />
-                <!-- <field name="kkm" /> -->
+                <field name="date" />
                 <field name="tahun_id" />
             </tree>
         </field>
@@ -200,6 +200,7 @@
                         <field name="class_id" />
                         <field name="kkm" />
                         <field name="tahun_id" />
+                        <field name="date" />
                         <notebook colspan="5">
 							<page string="Mata Pelajaran">
 								<field colspan="4" name="rapot_line" nolabel="1">

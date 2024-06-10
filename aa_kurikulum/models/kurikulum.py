@@ -376,12 +376,55 @@ class buku_rapot(models.Model):
     rapot_line = fields.One2many('rapot.line', 'rapot_id', 'Daftar Nilai')
 
     _sql_constraints = [('bukurapot_uniq', 'unique(siswa_id, semester, class_id, fiscalyear_id)', 'Data harus unik !')]
+    total = fields.Integer('Total', compute="_compute_total")
+    total_line = fields.Integer('Total Line', compute="_compute_total_line")
+    rata = fields.Integer('Rata', compute="_compute_rata")
+    date = fields.Date('Tanggal Cetak')
+    
+    
+    @api.multi
+    def _compute_rata(self):
+        for rec in self:
+            if rec.total_line != 0:
+                rec.rata = rec.total / rec.total_line
+            else:
+                rec.rata = 0
+    
+    @api.depends('rapot_line')
+    def _compute_total_line(self):
+        for line in self:
+            line.total_line = len(line.rapot_line)
+                
+    
+    @api.depends('rapot_line')
+    def _compute_total(self):
+        for total in self:
+            totals = 0
+            for rec in self.rapot_line:
+                totals += rec.nilai
+            total.total = totals
+    
+    def nilai(self):
+        for rec in self:
+            for line in rec.rapot_line:
+                rekap_line = rec.env['rekap.rapot'].search([
+                    ('mapel_id', '=', line.name.id),
+                    ('rapot_line.siswa_id', '=', rec.siswa_id.id)
+                ], limit=1)
+                
+                if rekap_line:
+                    rapot_line = rekap_line.rapot_line.filtered(lambda r: r.siswa_id.id == rec.siswa_id.id)
+                    if rapot_line:
+                        line.nilai = rapot_line.nilai
+                        line.kkm = rapot_line.kkm
+                        line.note = rapot_line.note
+                        line.status = rapot_line.status
     
     @api.multi
     def name_get(self):
         result = []
         for o in self:
-            name = "Buku Raport - {}".format(o.siswa_id.name)
+            name = "Buku Raport - {} - {}".format(o.siswa_id.name, o.date)
             result.append((o.id, name))
         return result
    
@@ -433,4 +476,10 @@ class rapot_line(models.Model):
     nilai = fields.Integer('Nilai')
     avg = fields.Integer('Rata-Rata Kelas')
     note = fields.Char('Catatan Guru')
+    rekap_id = fields.Many2one('rekap.rapot', string='Rekap')
+    status = fields.Selection([
+        ('remidi', 'REMIDI'),
+        ('tuntas', 'TUNTAS')
+    ], string='Status')  
+    
                     

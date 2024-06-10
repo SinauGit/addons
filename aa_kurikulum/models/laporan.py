@@ -127,6 +127,7 @@ class RekapRapot(models.Model):
     total = fields.Integer('Total', compute="_compute_total")
     total_line = fields.Integer('Total Line', compute="_compute_total_line")
     rata = fields.Integer('Rata', compute="_compute_rata")
+    date = fields.Date('Tanggal Cetak')
     
     
     @api.onchange('class_id')
@@ -182,7 +183,7 @@ class RekapRapot(models.Model):
     def name_get(self):
         result = []
         for o in self:
-            name = "Rekap Rapot - {} ({})".format(o.mapel_id.name, o.class_id.lembaga)
+            name = "Rekap Rapot - {} - {}".format(o.mapel_id.name,  o.date)
             result.append((o.id, name))
         return result
 

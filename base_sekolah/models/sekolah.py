@@ -234,7 +234,7 @@ class res_partner(models.Model):
     bk_id = fields.Many2one('bimbingan.konseling', string='Bimbingan Konseling Absen')
     bk_1_id = fields.Many2one('konseling.pelanggaran', string='Bimbingan Konseling Pelanggaran')
     bk_2_id = fields.Many2one('konseling.layanan', string='Bimbingan Konseling Layanan')
-    rekap_id = fields.Many2one('rekap.rapot', string='Buku Raport')
+    rekap_id = fields.Many2one('buku.rapot', string='Buku Raport')
     
     orang_user_id = fields.Many2one('res.users', string='Nama Orang Tua')
 
