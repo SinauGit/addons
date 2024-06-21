@@ -358,6 +358,19 @@
 						</group>
 					</page>
 				</xpath>
+				<xpath expr="//page[5]" position="after">
+					<page string="Laporan Bulanan" name="Info" attrs="{'invisible':[('student', '!=', True)]}">
+						<group>
+							<!-- <field name="orang_user_id"/> -->
+							<field name="ziyadah_id" />
+							<field name="deresan_id" />
+							<field name="bk_id" />
+							<field name="bk_1_id" />
+							<field name="bk_2_id" />
+							<field name="rekap_id" />
+						</group>
+					</page>
+				</xpath>
 
 				<xpath expr="//page[@name='internal_notes']" position="attributes">
 					<attribute name="attrs">{'invisible':[('student', '=', True)]}</attribute>

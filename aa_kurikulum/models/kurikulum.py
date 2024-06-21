@@ -230,7 +230,6 @@ class absen_penilaian(models.Model):
     penilaian_line = fields.One2many('penilaian.line', 'penilaian_id', 'Valuation Lines')
 
     _sql_constraints = [('valuation_uniq', 'unique(semester, subject_id, name, class_id, fiscalyear_id)', 'Data harus unik !')]
-
     @api.onchange('class_id')
     def onchange_class_id(self):
         if self.class_id:
@@ -381,6 +380,30 @@ class buku_rapot(models.Model):
     rata = fields.Integer('Rata', compute="_compute_rata")
     date = fields.Date('Tanggal Cetak')
     
+    @api.model
+    def create(self, vals):
+        # Generate sequence if name is not provided
+        if vals.get('name', '/') == '/':
+            vals['name'] = self.env['ir.sequence'].next_by_code('buku.rapot') or '/'
+        # Create the record
+        record = super(buku_rapot, self).create(vals)
+        # Update the ziyadah_id in res.partner
+        self._update_partner_rekap_id(record.siswa_id.id, record.id)
+        
+        return record
+    
+
+    def write(self, vals):
+        res = super(buku_rapot, self).write(vals)
+        for record in self:
+            self._update_partner_rekap_id(record.siswa_id.id, record.id)
+        return res
+
+    def _update_partner_rekap_id(self, partner_id, rekap_id):
+        partner = self.env['res.partner'].browse(partner_id)
+        if partner:
+            partner.rekap_id =  rekap_id
+    
     
     @api.multi
     def _compute_rata(self):
@@ -433,13 +456,7 @@ class buku_rapot(models.Model):
     def print_rapot(self):
         return self.env.ref('aa_kurikulum.print_raport_sekolah').report_action(self)
 
-    @api.model
-    def create(self, vals):
-        if vals.get('name', '/') == '/':
-            vals['name'] = self.env['ir.sequence'].next_by_code('buku.rapot') or '/'
-
-        result = super(buku_rapot, self).create(vals)
-        return result
+   
 
     @api.onchange('siswa_id')
     def onchange_siswa_id(self):

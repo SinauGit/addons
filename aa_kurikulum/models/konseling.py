@@ -21,6 +21,33 @@ class BimbinganKonseling(models.Model):
     date = fields.Date('Date')
     date = fields.Datetime('Date')
     
+    
+    @api.model
+    def create(self, vals):
+        # Generate sequence if name is not provided
+        if vals.get('name', '/') == '/':
+            vals['name'] = self.env['ir.sequence'].next_by_code('bimbingan.konseling') or '/'
+        
+        # Create the record
+        record = super(BimbinganKonseling, self).create(vals)
+
+        # Update the ziyadah_id in res.partner
+        self._update_partner_bk_id(record.siswa_id.id, record.id)
+        
+        return record
+    
+
+    def write(self, vals):
+        res = super(BimbinganKonseling, self).write(vals)
+        for record in self:
+            self._update_partner_bk_id(record.siswa_id.id, record.id)
+        return res
+
+    def _update_partner_bk_id(self, partner_id, bk_id):
+        partner = self.env['res.partner'].browse(partner_id)
+        if partner:
+            partner.bk_id = bk_id
+    
     # @api.constrains('siswa_id')
     # def _check_unique_siswa_id(self):
     #     for record in self:
@@ -30,14 +57,6 @@ class BimbinganKonseling(models.Model):
     #                 existing_siswa_names = ', '.join(existing_records.mapped('siswa_id.name'))
     #                 raise ValidationError('Siswa {} sudah dipilih. Pilih siswa yang berbeda.'.format(existing_siswa_names))
     
-    
-    @api.model
-    def create(self, vals):
-        if vals.get('name', '/') == '/':
-            vals['name'] = self.env['ir.sequence'].next_by_code('bimbingan.konseling') or '/'
-
-        result = super(BimbinganKonseling, self).create(vals)
-        return result
     
     @api.multi
     def name_get(self):
@@ -141,6 +160,23 @@ class KonselingLayanan(models.Model):
     keterangan_klas = fields.Text('Keterangan')
     count_klas = fields.Char('Total Klasikal ')
     
+    @api.model
+    def create(self, vals):
+        record = super(KonselingLayanan, self).create(vals)
+        self._update_partner_bk_2_id(record.siswa_id.id, record.id)
+        return record
+
+    def write(self, vals):
+        res = super(KonselingLayanan, self).write(vals)
+        for record in self:
+            self._update_partner_bk_2_id(record.siswa_id.id, record.id)
+        return res
+
+    def _update_partner_bk_2_id(self, partner_id, bk_2_id):
+        partner = self.env['res.partner'].browse(partner_id)
+        if partner:
+            partner.bk_2_id =  bk_2_id
+    
    
     
     # @api.constrains('siswa_id')
@@ -178,6 +214,32 @@ class KonselingPelaggaran(models.Model):
     keterangan = fields.Text('Keterangan')
     date = fields.Date('Date')
     
+    @api.model
+    def create(self, vals):
+        # Generate sequence if name is not provided
+        if vals.get('name', '/') == '/':
+            vals['name'] = self.env['ir.sequence'].next_by_code('konseling.pelanggaran') or '/'
+        
+        # Create the record
+        record = super(KonselingPelaggaran, self).create(vals)
+
+        # Update the ziyadah_id in res.partner
+        self._update_partner_bk_1_id(record.siswa_id.id, record.id)
+        
+        return record
+    
+
+    def write(self, vals):
+        res = super(KonselingPelaggaran, self).write(vals)
+        for record in self:
+            self._update_partner_bk_1_id(record.siswa_id.id, record.id)
+        return res
+
+    def _update_partner_bk_1_id(self, partner_id, bk_1_id):
+        partner = self.env['res.partner'].browse(partner_id)
+        if partner:
+            partner.bk_1_id = bk_1_id
+    
     # @api.constrains('siswa_id')
     # def _check_unique_siswa_id(self):
     #     for record in self:
@@ -188,13 +250,6 @@ class KonselingPelaggaran(models.Model):
     #                 raise ValidationError('Siswa {} sudah dipilih. Pilih siswa yang berbeda.'.format(existing_siswa_names))
     
     
-    @api.model
-    def create(self, vals):
-        if vals.get('nama', '/') == '/':
-            vals['nama'] = self.env['ir.sequence'].next_by_code('konseling.pelanggaran') or '/'
-
-        result = super(KonselingPelaggaran, self).create(vals)
-        return result
     
     @api.multi
     def name_get(self):

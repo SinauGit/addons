@@ -195,7 +195,7 @@ class rekap_rapot_line(models.Model):
 
     rekap_id = fields.Many2one('rekap.rapot', 'Buku Raport', required=True, ondelete='cascade')
     # siswa_id = fields.Many2one('res.partner', string='Nama', domain="[('student', '=', True)]")
-    siswa_id = fields.Many2one('res.partner', string='Nama', domain="[('student', '=', True)]")
+    siswa_id = fields.Many2one('res.partner', string='Nama', domain="[('student', '=', True)]", readonly=True)
     name = fields.Many2one('mata.pelajaran', 'Mata Pelajaran')
     kkm = fields.Integer('KKM', related='rekap_id.kkm')
     nilai = fields.Integer('Nilai')

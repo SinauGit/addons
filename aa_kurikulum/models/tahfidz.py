@@ -1087,6 +1087,23 @@ class Menu_Ziyadah(models.Model):
     
     laporan_ziyadah_id = fields.Many2one('laporan.bulanan', string='laporan')
     
+    @api.model
+    def create(self, vals):
+        record = super(Menu_Ziyadah, self).create(vals)
+        self._update_partner_ziyadah_id(record.siswa_id.id, record.id)
+        return record
+
+    def write(self, vals):
+        res = super(Menu_Ziyadah, self).write(vals)
+        for record in self:
+            self._update_partner_ziyadah_id(record.siswa_id.id, record.id)
+        return res
+
+    def _update_partner_ziyadah_id(self, partner_id, ziyadah_id):
+        partner = self.env['res.partner'].browse(partner_id)
+        if partner:
+            partner.ziyadah_id = ziyadah_id
+    
     # def _domain_siswa_id(self):
     #     used_efakturs = self.env['menu.ziyadah'].search([('siswa_id', '!=', False)])
     #     used_efaktur_ids = used_efakturs.mapped('siswa_id.id')
@@ -1167,6 +1184,23 @@ class Menu_Deresan(models.Model):
     tidak_setor = fields.Char('Tidak Setor')
     ijin = fields.Char('Ijin')
     alpha = fields.Char('Alpha')
+    
+    @api.model
+    def create(self, vals):
+        record = super(Menu_Deresan, self).create(vals)
+        self._update_partner_deresan_id(record.siswa_id.id, record.id)
+        return record
+
+    def write(self, vals):
+        res = super(Menu_Deresan, self).write(vals)
+        for record in self:
+            self._update_partner_deresan_id(record.siswa_id.id, record.id)
+        return res
+
+    def _update_partner_deresan_id(self, partner_id, deresan_id):
+        partner = self.env['res.partner'].browse(partner_id)
+        if partner:
+            partner.deresan_id = deresan_id
     
     # @api.constrains('siswa_id')
     # def _check_unique_siswa_id(self):
