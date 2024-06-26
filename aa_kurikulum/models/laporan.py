@@ -7,7 +7,7 @@ import pandas as pd
 from xhtml2pdf import pisa
 import io
 # import locale
-# locale.setlocale(locale.LC_TIME, 'id_ID.UTF-8')
+# locale.setlocale(locale.LC_TIME, 'id_ID.UTF-8'
 
 class laporan_yayasan(models.Model):
         _name = 'laporan.yayasan'
@@ -198,14 +198,24 @@ class rekap_rapot_line(models.Model):
     siswa_id = fields.Many2one('res.partner', string='Nama', domain="[('student', '=', True)]", readonly=True)
     name = fields.Many2one('mata.pelajaran', 'Mata Pelajaran')
     kkm = fields.Integer('KKM', related='rekap_id.kkm')
-    nilai = fields.Integer('Nilai')
+    # nilai = fields.Integer('Nilai')
     note = fields.Char('Catatan Guru')
     status = fields.Selection([
         ('remidi', 'REMIDI'),
         ('tuntas', 'TUNTAS')
     ], string='Status', compute='_compute_status', store=True)  
     
-    
+    nilai = fields.Integer('Nilai', compute='_compute_nilai', readonly=False)
+
+    @api.depends('siswa_id')
+    def _compute_nilai(self):
+        for record in self:
+            if record.siswa_id:
+                # Cari field `avg` di model `score.line` berdasarkan `siswa_id`
+                score_line = self.env['score.line'].search([('name', '=', record.siswa_id.id)], limit=1)
+                record.nilai = score_line.avg if score_line else 0
+            else:
+                record.nilai = 0
     
     @api.depends('kkm', 'nilai')
     def _compute_status(self):

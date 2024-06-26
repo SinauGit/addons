@@ -86,7 +86,7 @@ class score_line(models.Model):
     u4 = fields.Integer('U4')
     u5 = fields.Integer('U5')
     sum = fields.Integer('Total', readonly=True)
-    avg = fields.Integer('Rata-Rata', readonly=True)
+    avg = fields.Integer('Rata-Rata', readonly=False)
 
 
 class uts_line(models.Model):
