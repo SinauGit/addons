@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem
+            id="tatausaha_menu_root"
+            name="Tata Usaha"
+            parent="base_sekolah.menu_master_pendidikan"
+            sequence="2"/>
+
+        <menuitem
+            id="tatausaha_menu"
+            name="Tata Usaha"
+            parent="tatausaha_menu_root"
+            sequence="1"/>
+
+        <menuitem
+            id="persuratan_menu"
+            name="Persuratan"
+            parent="tatausaha_menu"
+            sequence="2"/>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="suratmasuk_menu_act" name="Surat Masuk" parent="persuratan_menu" action="suratmasuk_action" sequence="3"/>
+        <menuitem id="suratkeluar_menu_act" name="Surat Keluar" parent="persuratan_menu" action="suratkeluar_action" sequence="4"/>
+
+        <menuitem
+            id="keuangan_menu"
+            name="Keuangan"
+            parent="tatausaha_menu"
+            action="keuangan_action"
+            sequence="6"/>
+
+        <menuitem
+            id="sarpras_menu"
+            name="Sarpras"
+            parent="tatausaha_menu"
+            sequence="7"/>
+
+        <menuitem id="suratpesenan_menu_act" name="Surat Pesenan Barang" parent="sarpras_menu" action="suratpesenan_action" sequence="8"/>
+        <menuitem id="suratpengajuan_menu_act" name="Surat Pengajuan Barang" parent="sarpras_menu" action="suratpengajuan_action" sequence="9"/>
+        <menuitem id="tandaterima_menu_act" name="Tanda Terima Barang" parent="sarpras_menu" action="tandaterima_action" sequence="10"/>
+        <menuitem id="bukupem_menu_act" name="Buku Pembelian Barang" parent="sarpras_menu" action="bukupem_action" sequence="11"/>
+        <menuitem id="bukupene_menu_act" name="Buku Penerimaan Barang" parent="sarpras_menu" action="bukupene_action" sequence="12"/>
+        <menuitem id="bukupeng_menu_act" name="Buku Pengeluaran Barang" parent="sarpras_menu" action="bukupeng_action" sequence="13"/>
+        <menuitem id="kartubarang_menu_act" name="Kartu Barang" parent="sarpras_menu" action="kartubarang_action" sequence="14"/>
+
+        <!-- <menuitem
+            id="kepegawaian_menu"
+            name="Kepegawaian"
+            parent="tatausaha_menu"
+            sequence="8"/> -->
+
+        <!-- This Menu Item must have a parent and an action -->
+        <!-- <menuitem id="file_menu_act" name="File Kepegawaian" parent="kepegawaian_menu" action="file_action" sequence="9"/> -->
+        <!-- <menuitem id="absensi_menu_act" name="Absensi Kepegawaian" parent="kepegawaian_menu" action="absensi_action" sequence="10"/> -->
+        <!-- <menuitem id="pengembangan_menu_act" name="Pengembangan Karir" parent="kepegawaian_menu" action="pengembangan_action" sequence="11"/>
+        <menuitem id="perizinan_menu_act" name="Perizinan" parent="kepegawaian_menu" action="perizinan_action" sequence="12"/> -->
+
+        <menuitem
+            id="pengembangankarir_menu"
+            name="Pengembangan Karir"
+            parent="tatausaha_menu"
+            sequence="15"/>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="smp_menu_act" name="SMP" parent="pengembangankarir_menu" action="smp_action" sequence="16"/>
+        <menuitem id="sma_menu_act" name="SMA" parent="pengembangankarir_menu" action="sma_action" sequence="17"/>
+        <menuitem id="ustadz_menu_act" name="Ustadz" parent="pengembangankarir_menu" action="ustadz_action" sequence="18"/>
+
+        <!-- <menuitem
+            id="kesiswaan_menu"
+            name="Kesiswaan"
+            parent="tatausaha_menu"
+            action="kesiswaan_action"
+            sequence="19"/> -->
+
+        <menuitem
+            id="kurikulum_menu"
+            name="Kurikulum"
+            parent="tatausaha_menu"
+            action="kurikulum_action"
+            sequence="20"/>
+
+        <menuitem
+            id="humas_menu"
+            name="Humas"
+            parent="tatausaha_menu"
+            action="humas_action"
+            sequence="21"/>
+
+        <menuitem
+            id="dapodik_menu"
+            name="Dapodik"
+            parent="tatausaha_menu"
+            action="dapodik_action"
+            sequence="22"/>
+    </data>
+</odoo>

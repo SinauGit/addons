@@ -1,0 +1,73 @@
+<odoo>
+
+
+    <!-- MENU DISCOUNT KHUSUS -->
+
+    <record id="view_discount_khusus_tree" model="ir.ui.view">
+        <field name="name">res.partner.harga.tree</field>
+        <field name="model">res.partner.harga</field>
+        <field name="arch" type="xml">
+            <tree string="Discount Khusus">
+                <field name="partner_id" string="Siswa"/>
+                <field name="name"/>
+                <field name="notes"/>
+                <field name="disc_amount"/>
+                <field name="disc_persen"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_discount_khusus_form" model="ir.ui.view">
+        <field name="name">res.partner.harga.form</field>
+        <field name="model">res.partner.harga</field>
+        <field name="arch" type="xml">
+            <form string="Discount Khusus">
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="partner_id" string="Siswa"/>
+                        <field name="name"/>
+                        <field name="notes" colspan="4"/>
+                        <field name="disc_amount"/>
+                        <field name="disc_persen"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_discount_khusus_form">
+        <field name="name">Discount Khusus</field>
+        <field name="res_model">res.partner.harga</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- CUSTOM FORM PARTNER -->
+
+    <record id="view_siswa_harga_khusus" model="ir.ui.view">
+        <field name="name">res.partner.hargakhusus</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_sekolah.view_siswa_ortu"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='siswa']" position="after">
+                <page string="Harga Khusus" autofocus="autofocus" attrs="{'invisible':[('student', '!=', True)]}">
+                    <group>
+                        <field name="bebasbiaya"/>
+                        <field name="harga_komponen" attrs="{'invisible':[('bebasbiaya', '=', True)]}" colspan="2" nolabel="1" widget="one2many_list">
+                            <tree string="" editable="top">
+                                <field name="name"/>
+                                <field name="notes"/>
+                                <field name="disc_amount"/>
+                                <field name="disc_persen"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

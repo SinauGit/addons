@@ -1,0 +1,1360 @@
+<odoo>
+
+
+    <!-- Kalender Akademik -->
+
+    <record id="kalender_akademik_tree_view" model="ir.ui.view">
+        <field name="name">kalender.akademik.tree</field>
+        <field name="model">kalender.akademik</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'done'" decoration-danger="state == 'draft'" string="Kalender Akademik">
+                <field name="name"/>
+                <field name="lembaga"/>
+                <field name="fiscalyear_id"/>
+                <field name="semester"/>
+                <field name="bulan"/>
+                <field name="pekan"/>
+                <field name="tgl_awal"/>
+                <field name="tgl_akhir"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="kalender_akademik_view_form" model="ir.ui.view">
+        <field name="name">kalender.akademik.form</field>
+        <field name="model">kalender.akademik</field>
+        <field name="arch" type="xml">
+            <form string="Penilaian Kehadiran">
+                <header>
+                    <button name="akademik_open" type="object" states="Draft" string="Confirm" class="oe_highlight"/>
+                    <button name="akademik_draft" type="object" states="In_Progress" string="Set to Draft" class="oe_highlight"/>
+                    <button name="akademik_done" type="object" states="In_Progress" string="Done" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="Draft,In_Progress,Done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="lembaga"/>
+                        <field name="fiscalyear_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="semester"/>
+                        <field name="bulan"/>
+                        <field name="pekan"/>
+                        <field name="tgl_awal"/>
+                        <field name="tgl_akhir"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="kalender_akademik_action">
+        <field name="name">Kalender Akademik</field>
+        <field name="res_model">kalender.akademik</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="seq_kalender_akademik_new" model="ir.sequence">
+        <field name="name">Kalender Akademik</field>
+        <field name="code">kalender.akademik</field>
+        <field name="prefix">KA/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+
+
+    <!-- Penugasan Guru -->
+
+    <record id="penugasan_guru_tree_view" model="ir.ui.view">
+        <field name="name">penugasan.guru.tree</field>
+        <field name="model">penugasan.guru</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'Done'" decoration-danger="state == 'Draft'" string="Penugasan Guru">
+                <field name="name"/>
+                <field name="lembaga"/>
+                <field name="fiscalyear_id"/>
+                <field name="kelas_id"/>
+                <field name="grade"/>
+                <field name="guru_id"/>
+                <field name="bidang_guru"/>
+                <field name="wali_kelas"/>
+                <field name="penguji"/>
+                <field name="halaqah_count"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="penugasan_guru_view_form" model="ir.ui.view">
+        <field name="name">penugasan.guru.form</field>
+        <field name="model">penugasan.guru</field>
+        <field name="arch" type="xml">
+            <form string="Penugasan Guru">
+                <header>
+                    <button name="penugasan_open" type="object" states="Draft" string="Confirm" class="oe_highlight"/>
+                    <button name="penugasan_draft" type="object" states="In_Progress" string="Set to Draft" class="oe_highlight"/>
+                    <button name="penugasan_done" type="object" states="In_Progress" string="Done" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="Draft,In_Progress,Done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_halaqah" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('halaqah_count', '=', 0)]}">
+                            <field name="halaqah_count" widget="statinfo" string="Halaqah"/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="lembaga"/>
+                        <field name="fiscalyear_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="kelas_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="grade"/>
+                        <field name="guru_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="bidang_guru"/>
+                        <field name="wali_kelas"/>
+                        <field name="penguji"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="penugasan_guru_action">
+        <field name="name">Penugasan Guru</field>
+        <field name="res_model">penugasan.guru</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="seq_penugasan_guru_new" model="ir.sequence">
+        <field name="name">Penugasan Guru</field>
+        <field name="code">penugasan.guru</field>
+        <field name="prefix">PG/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+
+
+    <!-- Pembagian Halaqah -->
+
+    <record id="pembagian_halaqah_tree_view" model="ir.ui.view">
+        <field name="name">pembagian.halaqah.tree</field>
+        <field name="model">pembagian.halaqah</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'Done'" decoration-danger="state == 'Draft'" string="Pembagian Halaqah">
+                <field name="siswa_id"/>
+                <field name="surat_id"/>
+                <field name="ayat"/>
+                <field name="indeks"/>
+                <field name="surat_awal_id"/>
+                <field name="surat_akhir_id"/>
+                <field name="penugasan_guru_id"/>
+                <field name="kelas_id"/>
+                <field name="fiscalyear_id"/>
+                <field name="lembaga"/>
+                <field name="name"/>
+                <field name="lp_tahfidz_count"/>
+                <field name="kbm_tahfidz_count"/>
+                <field name="state"/>
+                <field name="user_id" invisible='True'/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pembagian_halaqah_view_form" model="ir.ui.view">
+        <field name="name">pembagian.halaqah.form</field>
+        <field name="model">pembagian.halaqah</field>
+        <field name="arch" type="xml">
+            <form string="Pembagian Halaqah">
+                <header>
+                    <button name="halaqah_open" type="object" states="Draft" string="Confirm" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_manager"/>
+                    <button name="halaqah_draft" type="object" states="In_Progress" string="Set to Draft" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_manager"/>
+                    <button name="halaqah_done" type="object" states="In_Progress" string="Done" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_admin"/>
+                    <button name="create_lp_tahfidz" string="Create LP Tahfidz" type="object" states="In_Progress" class="oe_highlight"/>
+                    <button name="create_kbm_tahfidz" string="Create KBM Tahfidz" type="object" states="In_Progress" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="Draft,In_Progress,Done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_lp_tahfidz" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('lp_tahfidz_count', '=', 0)]}">
+                            <field name="lp_tahfidz_count" widget="statinfo" string="LP Tahfidz"/>
+                        </button>
+                        <button name="action_view_kbm_tahfidz" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('kbm_tahfidz_count', '=', 0)]}">
+                            <field name="kbm_tahfidz_count" widget="statinfo" string="KBM Tahfidz"/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="lembaga"/>
+                        <field name="fiscalyear_id"/>
+                        <field name="kelas_id"/>
+                        <field name="penugasan_guru_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="siswa_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="surat_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="ayat"/>
+                        <field name="indeks"/>
+                        <label for="surat_awal_id" string="Materi Hafalan"/>
+                        <div>
+                            <field name="surat_awal_id" class='oe_inline' options="{'no_create': True, 'no_open': True}"/>
+                                s/d
+                            <field name="surat_akhir_id" class='oe_inline' options="{'no_create': True, 'no_open': True}"/>
+                        </div>
+                        <field name="user_id" invisible='True'/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_pembagian_halaqah_filter" model="ir.ui.view">
+        <field name="name">pembagian.halaqah.select</field>
+        <field name="model">pembagian.halaqah</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <search string="Pembagian Halaqah">
+                <field name="name"/>
+                <field name="lembaga"/>
+                <field name="fiscalyear_id"/>
+                <field name="kelas_id"/>
+                <field name="penugasan_guru_id"/>
+                <field name="siswa_id"/>
+                <field name="surat_id"/>
+                <field name="user_id"/>
+                <separator/>
+                <filter string="My Halaqah" domain="[('user_id','=', uid)]" name="my_halaqah_filter"/>
+                <filter string="In Progress" name="inprogress" domain="[('state','=','In_Progress')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Siswa" name="siswa" domain="[]" context="{'group_by':'siswa_id'}"/>
+                    <filter string="Surat" name="surat" domain="[]" context="{'group_by':'surat_id'}"/>
+                    <filter string="Rombel" name="rombel" domain="[]" context="{'group_by':'kelas_id'}"/>
+                    <filter string="Status" name="status" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="pembagian_halaqah_action">
+        <field name="name">Pembagian Halaqah</field>
+        <field name="res_model">pembagian.halaqah</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_my_halaqah_filter': 1}</field>
+    </record>
+
+    <record id="seq_pembagian_halaqah_new" model="ir.sequence">
+        <field name="name">Pembagian Halaqah</field>
+        <field name="code">pembagian.halaqah</field>
+        <field name="prefix">PH/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+
+
+    <!-- Lesson Plan -->
+
+    <record id="lesson_plan_tree_view" model="ir.ui.view">
+        <field name="name">lesson.plan.tree</field>
+        <field name="model">lesson.plan</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'Done'" decoration-danger="state == 'Draft'" string="Lesson Plan">
+                <field name="kalender_id"/>
+                <field name="siswa_id"/>
+                <field name="surat_awal_id"/>
+                <field name="ayat_awal"/>
+                <field name="surat_akhir_id"/>
+                <field name="ayat_akhir"/>
+                <field name="target_baris"/>
+                <field name="halaqah_id"/>
+                <field name="user_id"/>
+                <field name="name"/>
+                <button name="lesson_open" type="object" states="Draft" icon="fa-check text-success" groups="aa_kurikulum.group_tahfidz_admin"/>
+                <button name="lesson_done" type="object" states="In_Progress" icon="fa-pencil-square-o text-success" groups="aa_kurikulum.group_tahfidz_admin"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="lesson_plan_view_form" model="ir.ui.view">
+        <field name="name">lesson.plan.form</field>
+        <field name="model">lesson.plan</field>
+        <field name="arch" type="xml">
+            <form string="Lesson Plan">
+                <header>
+                    <button name="lesson_open" type="object" states="Draft" string="Confirm" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_admin"/>
+                    <button name="lesson_draft" type="object" states="In_Progress" string="Set to Draft" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_admin"/>
+                    <button name="lesson_done" type="object" states="In_Progress" string="Done" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_admin"/>
+                    <field name="state" widget="statusbar" statusbar_visible="Draft,In_Progress,Done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="user_id"/>
+                        <field name="halaqah_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="kalender_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="kegiatan"/>
+                        <field name="siswa_id"/>
+                        <field name="surat_awal_id" options="{'no_create': True, 'no_open': True}" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')], 'required': [('kegiatan', '=', 'KBM_Efektif')]}"/>
+                        <field name="ayat_awal" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')]}"/>
+                        <field name="surat_akhir_id" options="{'no_create': True, 'no_open': True}" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')], 'required': [('kegiatan', '=', 'KBM_Efektif')]}"/>
+                        <field name="ayat_akhir" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')]}"/>
+                        <field name="target_baris" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')]}"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_lesson_plan_filter" model="ir.ui.view">
+        <field name="name">lesson.plan.select</field>
+        <field name="model">lesson.plan</field>
+        <field name="arch" type="xml">
+            <search string="Lesson Plan">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="halaqah_id"/>
+                <field name="kalender_id"/>
+                <field name="kegiatan"/>
+                <field name="siswa_id"/>
+                <field name="surat_awal_id"/>
+                <field name="ayat_awal"/>
+                <field name="surat_akhir_id"/>
+                <field name="ayat_akhir"/>
+                <field name="target_baris"/>
+                <separator/>
+                <filter string="My LP Tahfidz" domain="[('user_id','=', uid)]" name="my_lp_tahfidz_filter"/>
+                <filter string="In Progress" name="inprogress" domain="[('state','=','In_Progress')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Siswa" name="siswa" domain="[]" context="{'group_by':'siswa_id'}"/>
+                    <filter string="User" name="user" domain="[]" context="{'group_by':'user_id'}"/>
+                    <filter string="Halaqah" name="halaqah" domain="[]" context="{'group_by':'halaqah_id'}"/>
+                    <filter string="Status" name="status" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="lesson_plan_action">
+        <field name="name">Lesson Plan Tahfizh</field>
+        <field name="res_model">lesson.plan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_my_lp_tahfidz_filter': 1}</field>
+    </record>
+
+    <record id="seq_lesson_plan_new" model="ir.sequence">
+        <field name="name">Lesson Plan Tahfizh</field>
+        <field name="code">lesson.plan</field>
+        <field name="prefix">LP/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+
+
+    <!-- KBM Tahfidz -->
+
+    <record id="kbm_tahfidz_tree_view" model="ir.ui.view">
+        <field name="name">kbm.tahfidz.tree</field>
+        <field name="model">kbm.tahfidz</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'Done'" decoration-danger="state == 'Draft'" string="KBM Tahfidz">
+                <field name="kalender_id"/>
+                <field name="siswa_id"/>
+                <field name="surat_awal_id"/>
+                <field name="ayat_awal"/>
+                <field name="surat_akhir_id"/>
+                <field name="ayat_akhir"/>
+                <field name="jumlah_ayat"/>
+                <field name="jumlah_baris"/>
+                <field name="murojaah"/>
+                <field name="bbq"/>
+                <field name="notes"/>
+                <field name="halaqah_id"/>
+                <field name="user_id"/>
+                <field name="name"/>
+                <field name="juz"/>
+                <field name="kuadran"/>
+                <field name="kuadran_tk"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="kbm_tahfidz_view_form" model="ir.ui.view">
+        <field name="name">kbm.tahfidz.form</field>
+        <field name="model">kbm.tahfidz</field>
+        <field name="arch" type="xml">
+            <form string="KBM Tahfidz">
+                <header>
+                    <button name="kbm_open" type="object" states="Draft" string="Confirm" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_admin"/>
+                    <button name="kbm_draft" type="object" states="In_Progress" string="Set to Draft" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_admin"/>
+                    <button name="kbm_done" type="object" states="In_Progress" string="Done" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_admin"/>
+                    <field name="state" widget="statusbar" statusbar_visible="Draft,In_Progress,Done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="user_id"/>
+                        <field name="halaqah_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="kalender_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="kegiatan"/>
+                        <field name="siswa_id"/>
+                        <field name="surat_awal_id" options="{'no_create': True, 'no_open': True}" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')], 'required': [('kegiatan', '=', 'KBM_Efektif')]}"/>
+                        <field name="ayat_awal" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')]}"/>
+                        <field name="surat_akhir_id" options="{'no_create': True, 'no_open': True}" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')], 'required': [('kegiatan', '=', 'KBM_Efektif')]}"/>
+                        <field name="ayat_akhir" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')]}"/>
+                        <field name="jumlah_ayat" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')]}"/>
+                        <field name="jumlah_baris" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')]}"/>
+                        <field name="murojaah" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')]}"/>
+                        <field name="bbq" attrs="{'invisible': [('kegiatan', '!=', 'KBM_Efektif')]}"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="view_kbm_tahfidz_filter" model="ir.ui.view">
+        <field name="name">kbm.tahfidz.select</field>
+        <field name="model">kbm.tahfidz</field>
+        <field name="arch" type="xml">
+            <search string="KBM Tahfidz">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="halaqah_id"/>
+                <field name="kalender_id"/>
+                <field name="kegiatan"/>
+                <field name="siswa_id"/>
+                <field name="surat_awal_id"/>
+                <field name="ayat_awal"/>
+                <field name="surat_akhir_id"/>
+                <field name="ayat_akhir"/>
+                <field name="jumlah_ayat"/>
+                <field name="jumlah_baris"/>
+                <field name="murojaah"/>
+                <field name="bbq"/>
+                <field name="notes"/>
+                <separator/>
+                <filter string="In Progress" name="inprogress" domain="[('state','=','In_Progress')]"/>
+                <filter string="My KBM Tahfidz" domain="[('user_id','=', uid)]" name="my_kbm_tahfidz_filter"/>
+                <group expand="0" string="Group By">
+                    <filter string="Siswa" name="siswa" domain="[]" context="{'group_by':'siswa_id'}"/>
+                    <filter string="User" name="user" domain="[]" context="{'group_by':'user_id'}"/>
+                    <filter string="Halaqah" name="halaqah" domain="[]" context="{'group_by':'halaqah_id'}"/>
+                    <filter string="Status" name="status" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_kbm_tahfidz_pivot">
+        <field name="name">kbm.tahfidz.pivot</field>
+        <field name="model">kbm.tahfidz</field>
+        <field name="arch" type="xml">
+            <pivot string="KBM Tahfidz">
+                <field name="kalender_id" type="col"/>
+                <field name="siswa_id" type="row"/>
+                <field name="jumlah_ayat" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="kbm_tahfidz_action">
+        <field name="name">KBM Tahfidz</field>
+        <field name="res_model">kbm.tahfidz</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="context">{'search_default_my_kbm_tahfidz_filter': 1}</field>
+    </record>
+
+    <record id="seq_kbm_tahfidz_new" model="ir.sequence">
+        <field name="name">KBM Tahfidz</field>
+        <field name="code">kbm.tahfidz</field>
+        <field name="prefix">KBMT/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+
+    <!-- Daftar Surat -->
+
+    <record id="daftar_surat_tree_view" model="ir.ui.view">
+        <field name="name">daftar.surat.tree</field>
+        <field name="model">daftar.surat</field>
+        <field name="arch" type="xml">
+            <tree string="Daftar Surat">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="arti"/>
+                <field name="ayat"/>
+                <field name="tempat"/>
+                <field name="juz"/>
+                <field name="kuadran"/>
+                <field name="kuadran_tk"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="daftar_surat_view_form" model="ir.ui.view">
+        <field name="name">daftar.surat.tree</field>
+        <field name="model">daftar.surat</field>
+        <field name="arch" type="xml">
+            <form string="Daftar Surat">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="arti"/>
+                        <field name="ayat"/>
+                        <field name="tempat"/>
+                        <field name="juz"/>
+                        <field name="kuadran"/>
+                        <field name="kuadran_tk"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="daftar_surat_action">
+        <field name="name">Daftar Surat</field>
+        <field name="res_model">daftar.surat</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!-- Permohonan UKJ -->
+
+    <record id="permohonan_ukj_tree_view" model="ir.ui.view">
+        <field name="name">permohonan.ukj.tree</field>
+        <field name="model">permohonan.ukj</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'Done'" decoration-danger="state == 'Draft'" string="Permohonan UKJ">
+                <field name="siswa_id"/>
+                <field name="tanggal"/>
+                <field name="user_id"/>
+                <field name="tanggal_revisi" string="Reschedule"/>
+                <field name="fiscalyear_id"/>
+                <field name="lembaga"/>
+                <field name="kelas_id"/>
+                <field name="juz"/>
+                <field name="jumlah_surat"/>
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="permohonan_ukj_view_form" model="ir.ui.view">
+        <field name="name">permohonan.ukj.form</field>
+        <field name="model">permohonan.ukj</field>
+        <field name="arch" type="xml">
+            <form string="Permohonan UKJ">
+                <header>
+                    <button name="permohonan_open_pic" type="object" states="Draft" string="Approve PIC Tahfizh" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_manager"/>
+                    <button name="permohonan_open_ortu" type="object" states="Approved_PIC" string="Approve Ortu/Wali" class="oe_highlight" groups="base_sekolah.group_sekolah_orangtua"/>
+                    <button name="permohonan_draft" type="object" states="Approved_PIC,Approved_Wali" string="Set to Draft" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_manager"/>
+                    <button name="permohonan_done" type="object" states="Approved_Wali" string="Done" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_admin"/>
+                    <field name="state" widget="statusbar" statusbar_visible="Draft,Approved_PIC,Approved_Wali,Done"/>
+                </header>
+                <sheet>
+                    <group string="Informasi">
+                        <group>
+                            <field name="siswa_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="user_id"/>
+                            <field name="fiscalyear_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="lembaga"/>
+                            <field name="kelas_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="tanggal"/>
+                            <field name="juz"/>
+                            <field name="jumlah_surat"/>
+                            <field name="persiapan"/>
+                            <field name="tanggal_mulai_persiapan"/>
+                        </group>
+                    </group>
+                    <group>
+                        <label for="pukul_awal" string="Pukul"/>
+                        <div>
+                            <field name="pukul_awal" class='oe_inline'/>
+                                s/d
+                            <field name="pukul_akhir" class='oe_inline'/>
+                        </div>
+                    </group>
+                    <group string="Reschedule">
+                        <field name="tanggal_revisi"/>
+                        <field name="alasan_revisi" attrs="{'required':[('tanggal_revisi','!=', False)]}"/>
+                    </group>
+                    <group string="Tanggal Persetujuan" col="4">
+                        <field name="tanggal_approve_pic"/>
+                        <field name="tanggal_approve_ortu"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="LP UKJ">
+                            <field name="permohonan_line" nolabel="1" widget="one2many_list" mode="tree,kanban">
+                                <tree string="LP UKJ" editable="bottom" create='false'>
+                                    <field name="day"/>
+                                    <field name="name"/>
+                                    <field name="sekolah"/>
+                                    <field name="rumah"/>
+                                    <field name="state" invisible="1"/>
+                                </tree>
+                                <form string="LP UKJ">
+                                    <group>
+                                        <field name="day"/>
+                                        <field name="name" groups="aa_kurikulum.group_tahfidz_admin"/>
+                                        <field name="sekolah" groups="aa_kurikulum.group_tahfidz_admin"/>
+                                        <field name="rumah"/>
+                                        <field name="state" invisible="1"/>
+                                    </group>
+                                </form>
+                                <kanban class="o_kanban_mobile">
+                                    <field name="day"/>
+                                    <field name="name"/>
+                                    <field name="sekolah"/>
+                                    <field name="rumah"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                                <t>
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            <strong>
+                                                                <span>
+                                                                    <span>
+                                                                        <t t-esc="record.day.value or 'None'"/>
+                                                                    </span> #                                                                    <span>
+                                                                        <t t-esc="record.name.value or 'None'"/>
+                                                                    </span>
+                                                                </span>
+                                                            </strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <span>Sekolah : <t t-esc="record.sekolah.value"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <span>Rumah : <t t-esc="record.rumah.value"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="permohonan_ukj_view_calendar" model="ir.ui.view">
+        <field name="name">permohonan.ukj.calendar</field>
+        <field name="model">permohonan.ukj</field>
+        <field name="arch" type="xml">
+            <calendar string="Permohonan UKJ" date_start="tanggal" color="siswa_id" mode="month" quick_add="false">
+                <field name="name"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="permohonan_ukj_action">
+        <field name="name">Permohonan UKJ</field>
+        <field name="res_model">permohonan.ukj</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+
+    <record id="seq_permohonan_ukj_new" model="ir.sequence">
+        <field name="name">Permohonan UKJ</field>
+        <field name="code">permohonan.ukj</field>
+        <field name="prefix">PUKJ/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+
+    <!-- Jadwal Ujian -->
+
+    <record model="ir.actions.act_window" id="jadwal_ujian_action">
+        <field name="name">Jadwal Ujian</field>
+        <field name="res_model">permohonan.ukj</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">calendar</field>
+        <field name="domain">[('state','in',('Approved_PIC', 'Approved_Wali'))]</field>
+    </record>
+
+
+    <!-- Ujian Kenaikan Juz -->
+
+    <record id="ujian_kenaikan_juz_tree_view" model="ir.ui.view">
+        <field name="name">ujian.kenaikan.juz.tree</field>
+        <field name="model">ujian.kenaikan.juz</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'Done'" decoration-danger="state == 'Draft'" string="Ujian Kenaikan Juz">
+                <field name="siswa_id"/>
+                <field name="tanggal"/>
+                <field name="jenis"/>
+                <field name="user_id"/>
+                <field name="fiscalyear_id"/>
+                <field name="lembaga"/>
+                <field name="kelas_id"/>
+                <field name="juz"/>
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ujian_kenaikan_juz_view_form" model="ir.ui.view">
+        <field name="name">ujian.kenaikan.juz.form</field>
+        <field name="model">ujian.kenaikan.juz</field>
+        <field name="arch" type="xml">
+            <form string="Ujian Kenaikan Juz">
+                <header>
+                    <button name="kenaikan_open" type="object" states="Draft" string="Confirm" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_manager"/>
+                    <button name="kenaikan_draft" type="object" states="In_Progress" string="Set to Draft" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_manager"/>
+                    <button name="kenaikan_done" type="object" states="In_Progress" string="Done" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_admin"/>
+                    <field name="state" widget="statusbar" statusbar_visible="Draft,In_Progress,Done"/>
+                </header>
+                <sheet>
+                    <group string="Informasi">
+                        <group>
+                            <field name="siswa_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="fiscalyear_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="lembaga"/>
+                            <field name="kelas_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="tanggal"/>
+                            <field name="jenis"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Kelancaran (Poin 40)">
+                            <field name="tanbih_kelancaran"/>
+                            <field name="bantuan_kelancaran"/>
+                            <field name="nilai_kelancaran"/>
+                        </group>
+                        <group string="Gunnah (Poin 20)">
+                            <field name="tanbih_gunnah"/>
+                            <field name="bantuan_gunnah"/>
+                            <field name="nilai_gunnah"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Mad (Poin 20)">
+                            <field name="tanbih_mad"/>
+                            <field name="bantuan_mad"/>
+                            <field name="nilai_mad"/>
+                        </group>
+                        <group string="Makhroj (Poin 20)">
+                            <field name="tanbih_makhroj"/>
+                            <field name="bantuan_makhroj"/>
+                            <field name="nilai_makhroj"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="SURAT YANG DIUJIKAN">
+                            <group>
+                                <field name="juz"/>
+                            </group>
+                            <group>
+                                <field name="surat_line" nolabel="1" widget="one2many_list" mode="tree,kanban">
+                                    <tree string="LP UKJ" editable="bottom">
+                                        <field name="name" options="{'no_create': True, 'no_open': True}"/>
+                                        <field name="tanbih"/>
+                                        <field name="teguran"/>
+                                    </tree>
+                                    <kanban class="o_kanban_mobile">
+                                        <field name="name"/>
+                                        <field name="tanbih"/>
+                                        <field name="teguran"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div t-attf-class="oe_kanban_card">
+                                                    <t>
+                                                        <div class="row">
+                                                            <div class="col-8">
+                                                                <strong>
+                                                                    <span>
+                                                                        <t t-esc="record.name.value or 'None'"/>
+                                                                    </span>
+                                                                </strong>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <span>Tanbih : <t t-esc="record.tanbih.value"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <span>Teguran : <t t-esc="record.teguran.value"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </group>
+                            <group class="oe_subtotal_footer">
+                                <field name="total_nilai" class="oe_subtotal_footer_separator"/>
+                                <field name="predikat" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="ujian_kenaikan_juz_action">
+        <field name="name">Ujian Kenaikan Juz</field>
+        <field name="res_model">ujian.kenaikan.juz</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="seq_ujian_kenaikan_juz_new" model="ir.sequence">
+        <field name="name">Ujian Kenaikan Juz</field>
+        <field name="code">ujian.kenaikan.juz</field>
+        <field name="prefix">UKJ/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+
+    <!-- UAS Tahfidz -->
+
+    <record id="uas_tahfidz_tree_view" model="ir.ui.view">
+        <field name="name">tahfidz.akhir.semester.tree</field>
+        <field name="model">tahfidz.akhir.semester</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'Done'" decoration-danger="state == 'Draft'" string="UAS Tahfidz">
+                <field name="siswa_id"/>
+                <field name="tanggal"/>
+                <field name="user_id"/>
+                <field name="halaqah_id"/>
+                <field name="penguji_id"/>
+                <field name="fiscalyear_id"/>
+                <field name="lembaga"/>
+                <field name="kelas_id"/>
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="uas_tahfidz_view_form" model="ir.ui.view">
+        <field name="name">tahfidz.akhir.semester.form</field>
+        <field name="model">tahfidz.akhir.semester</field>
+        <field name="arch" type="xml">
+            <form string="UAS Tahfidz">
+                <header>
+                    <button name="evaluasi_open" type="object" states="Draft" string="Confirm" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_admin"/>
+                    <button name="evaluasi_draft" type="object" states="In_Progress" string="Set to Draft" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_manager"/>
+                    <button name="evaluasi_done" type="object" states="In_Progress" string="Done" class="oe_highlight" groups="aa_kurikulum.group_tahfidz_admin"/>
+                    <field name="state" widget="statusbar" statusbar_visible="Draft,In_Progress,Done"/>
+                </header>
+                <sheet>
+                    <group string="Informasi">
+                        <group>
+                            <field name="siswa_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="fiscalyear_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="lembaga"/>
+                            <field name="kelas_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="tanggal"/>
+                            <field name="halaqah_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="semester"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="penguji_id" options="{'no_create': True, 'no_open': True}"/>
+                    </group>
+                    <group string="Kegiatan Menghafal">
+                        <label for="kegiatan_awal_id" string="Surat"/>
+                        <div>
+                            <field name="kegiatan_awal_id" class='oe_inline' options="{'no_create': True, 'no_open': True}"/>
+                                s/d
+                            <field name="kegiatan_akhir_id" class='oe_inline' options="{'no_create': True, 'no_open': True}"/>
+                        </div>
+                    </group>
+                    <group string="Pencapaian Hafalan">
+                        <label for="capai_awal_id" string="Surat"/>
+                        <div>
+                            <field name="capai_awal_id" class='oe_inline' options="{'no_create': True, 'no_open': True}"/>
+                                s/d
+                            <field name="capai_akhir_id" class='oe_inline' options="{'no_create': True, 'no_open': True}"/>
+                        </div>
+                    </group>
+                    <group>
+                        <group string="Target Hafalan">
+                            <field name="target_hafalan" nolabel="1" widget="radio"/>
+                        </group>
+                        <group string="Ujian Kenaikan Juz">
+                            <field name="ujian_kenaikan_juz" nolabel="1" widget="radio"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Kehadiran">
+                            <field name="kehadiran" nolabel="1" widget="radio"/>
+                        </group>
+                        <group string="Adab Terhadap Al-Quran">
+                            <field name="adab" nolabel="1" widget="radio"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Kesungguhan Menghafal">
+                            <field name="kesungguhan" nolabel="1" widget="radio"/>
+                        </group>
+                        <group string="Sikap Dalam Menghafal">
+                            <field name="sikap" nolabel="1" widget="radio"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="SURAT YANG DIUJIKAN">
+                            <group>
+                                <field name="surat_line" nolabel="1" widget="one2many_list" mode="tree,kanban">
+                                    <tree string="Daftar Surat UAS">
+                                        <field name="name"/>
+                                        <field name="nilai_kelancaran" string="Kelancaran"/>
+                                        <field name="nilai_gunnah" string="Gunnah"/>
+                                        <field name="nilai_mad" string="Mad"/>
+                                        <field name="nilai_makhroj" string="Makhroj"/>
+                                        <field name="nilai_total"/>
+                                    </tree>
+                                    <form string="Daftar Surat UAS">
+                                        <group string="Informasi">
+                                            <field name="name" options="{'no_create': True, 'no_open': True}"/>
+                                            <field name="nilai_total"/>
+                                        </group>
+                                        <group>
+                                            <group string="Kelancaran">
+                                                <field name="letak_salah_kelancaran"/>
+                                                <field name="jumlah_salah_kelancaran"/>
+                                                <field name="nilai_kelancaran"/>
+                                            </group>
+                                            <group string="Gunnah">
+                                                <field name="letak_salah_gunnah"/>
+                                                <field name="jumlah_salah_gunnah"/>
+                                                <field name="nilai_gunnah"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <group string="Mad">
+                                                <field name="letak_salah_mad"/>
+                                                <field name="jumlah_salah_mad"/>
+                                                <field name="nilai_mad"/>
+                                            </group>
+                                            <group string="Makhroj">
+                                                <field name="letak_salah_makhroj"/>
+                                                <field name="jumlah_salah_makhroj"/>
+                                                <field name="nilai_makhroj"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                    <kanban class="o_kanban_mobile">
+                                        <field name="name"/>
+                                        <field name="nilai_total"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                                    <t>
+                                                        <div class="row">
+                                                            <div class="col-8">
+                                                                <strong>
+                                                                    <span>
+                                                                        <t t-esc="record.name.value or 'None'"/>
+                                                                    </span>
+                                                                </strong>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-8">
+                                                                <strong>
+                                                                    <span>Nilai Total : <t t-esc="record.nilai_total.value or 'None'"/>
+                                                                    </span>
+                                                                </strong>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </group>
+                            <group class="oe_subtotal_footer">
+                                <field name="jumlah_surat" class="oe_subtotal_footer_separator"/>
+                                <field name="total_nilai" class="oe_subtotal_footer_separator"/>
+                                <field name="nilai_uas" class="oe_subtotal_footer_separator"/>
+                                <field name="predikat_umum" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+
+
+    <record id="view_uas_tahfidz_filter" model="ir.ui.view">
+        <field name="name">uas.tahfidz.select</field>
+        <field name="model">tahfidz.akhir.semester</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <search string="UAS Tahfidz">
+                <field name="siswa_id"/>
+                <field name="tanggal"/>
+                <field name="user_id"/>
+                <field name="halaqah_id"/>
+                <field name="penguji_id"/>
+                <field name="fiscalyear_id"/>
+                <field name="lembaga"/>
+                <field name="kelas_id"/>
+                <field name="name"/>
+                <field name="state"/>
+                <separator/>
+                <filter string="My UAS" domain="[('user_id','=', uid)]" name="my_uas_filter"/>
+                <filter string="In Progress" name="inprogress" domain="[('state','=','In_Progress')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Siswa" name="siswa" domain="[]" context="{'group_by':'siswa_id'}"/>
+                    <filter string="Rombel" name="rombel" domain="[]" context="{'group_by':'kelas_id'}"/>
+                    <filter string="Status" name="status" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+
+    <record model="ir.actions.act_window" id="uas_tahfidz_action">
+        <field name="name">UAS Tahfidz</field>
+        <field name="res_model">tahfidz.akhir.semester</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_my_uas_filter': 1}</field>
+    </record>
+
+    <record id="seq_uas_tahfidz_new" model="ir.sequence">
+        <field name="name">UAS Tahfidz</field>
+        <field name="code">tahfidz.akhir.semester</field>
+        <field name="prefix">UAST/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+    <!-- <record id="model_ziyadah_view_tree" model="ir.ui.view">
+        <field name="name">menu.ziyadah.view.tree</field>
+        <field name="model">menu.ziyadah</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="guru_id" />
+                <field name="siswa_id" />
+                <field name="jenjang" /> -->
+                <!-- <field name="nisq" /> -->
+                <!-- <field name="awal_juz" />
+                <field name="akhir_juz" />
+                <field name="awal_pj" />
+                <field name="akhir_pj" />
+                <field name="total_pj" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="model_ziyadah_view_form" model="ir.ui.view">
+        <field name="name">menu.ziyadah.view.form</field>
+        <field name="model">menu.ziyadah</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="guru_id" />
+                        <field name="siswa_id" />
+                        <field name="jenjang" /> -->
+                        <!-- <field name="nisq" /> -->
+                    <!-- </group>
+                    <notebook>
+                        <page string="Menu Ziyadah" col="4">
+                            <group>
+                                <field name="awal_juz"  />
+                                <field name="akhir_juz" />
+                                <field name="awal_pj" />
+                                <field name="akhir_pj" />
+                                <field name="total_pj" />
+                                <field name="keterangan" />
+                                
+                            </group>
+                        </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="menu_ziyadah_action">
+        <field name="name">Menu Ziyadah</field>
+        <field name="res_model">menu.ziyadah</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="seq_menu_ziyadah_new" model="ir.sequence">
+        <field name="name">Menu Ziyadah</field>
+        <field name="code">menu.ziyadah</field>
+        <field name="prefix">Ziyadah/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record> -->
+    
+    <record id="model_deresan_view_tree" model="ir.ui.view">
+        <field name="name">menu.deresan.view.tree</field>
+        <field name="model">menu.deresan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="guru_id" />
+                <field name="siswa_id" />
+                <field name="jenjang" />
+                <field name="tanggal" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="model_deresan_view_form" model="ir.ui.view">
+        <field name="name">menu.deresan.view.form</field>
+        <field name="model">menu.deresan</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="guru_id" />
+                        <field name="siswa_id" />
+                        <field name="jenjang" />
+                        <field name="tanggal" />
+                        <!-- <field name="nisq" /> -->
+                    </group>
+                    <notebook>
+                        <page string="Ziyadah" col="4">
+                            <group>
+                                <field name="awal_juz"  />
+                                <field name="akhir_juz" />
+                                <field name="awal_pj" />
+                                <field name="akhir_pj" />
+                                <field name="total_pj"  />
+                                <field name="keterangan" />
+                            </group>
+                        </page>
+                        <page string="Deresan A" col="4">
+                            <group>
+                                <field name="awal_a_juz"  />
+                                <field name="akhir_a_juz" />
+                                <field name="awal_a_pj" />
+                                <field name="akhir_a_pj" />
+                                <field name="total_a_pj" />
+                                <field name="keterangan_a" />
+                            </group>
+                        </page>
+                        <page string="Deresan B" col="4">
+                            <group>
+                                <field name="awal_b_juz"  />
+                                <field name="akhir_b_juz" />
+                                <field name="awal_b_pj" />
+                                <field name="akhir_b_pj" />
+                                <field name="total_b_pj" />
+                                <field name="total_deresan"  />
+                                <field name="keterangan_b" />
+                            </group>
+                        </page>
+                        <page string="Bin Nazhor" col="4">
+                            <group>
+                                <field name="juz"  />
+                                <field name="pojok" />
+                            </group>
+                        </page>
+                        <page string="Mujawwadah" col="4">
+                            <group>
+                                <field name="awal_m_juz"  />
+                                <field name="akhir_m_juz" />
+                                <field name="awal_m_pj" />
+                                <field name="akhir_m_pj" />
+                                <field name="total_m_pj" />
+                                <field name="keterangan_m" />
+                            </group>
+                        </page>
+                        <page string="Total Kehadiran" col="4">
+                            <group>
+                                <field name="tidak_setor"  />
+                                <field name="ijin" />
+                                <field name="alpha" />
+                            </group>
+                        </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="menu_deresan_action">
+        <field name="name">Hafalan Santri</field>
+        <field name="res_model">menu.deresan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="seq_menu_deresan_new" model="ir.sequence">
+        <field name="name">Hafalan Santri</field>
+        <field name="code">menu.deresan</field>
+        <field name="prefix">Ziyadah/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+    <!-- KBM HARIAN -->
+
+    <record id="model_kbm_view_tree" model="ir.ui.view">
+        <field name="name">menu.kbm.view.tree</field>
+        <field name="model">menu.kbm</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="guru_id" />
+                <field name="siswa_id" />
+                <field name="jenjang" />
+                <field name="tanggal" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="model_kbm_view_form" model="ir.ui.view">
+        <field name="name">menu.kbm.view.form</field>
+        <field name="model">menu.kbm</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="guru_id" />
+                        <field name="siswa_id" />
+                        <field name="jenjang" />
+                        <field name="tanggal" />
+                        <!-- <field name="nisq" /> -->
+                    </group>
+                    <notebook>
+                        <page string="ASHAR" col="4">
+                            <group  string="Murojaah" col="4" colspan="2">
+                                <field name="juz_m"  />
+                                <field name="pojok_m" />
+                                <field name="keterangan_mmm" />
+                            </group>
+                        </page>
+                        <page string="MAGRIB" col="4">
+                            <group string="Ziyadah" col="4" colspan="2">
+                                <field name="awal_juz_ma"  />
+                                <field name="akhir_juz_ma" />
+                                <field name="awal_pj_ma" />
+                                <field name="akhir_pj_ma" />
+                                <field name="total_pj_ma" />
+                                <field name="keterangan_ma" />
+                            </group>
+                            <group string="Bin Nazhor" col="4" colspan="2">
+                                <field name="juz_ma"  />
+                                <field name="pojok_ma" />
+                                <field name="keterangan_mmm" />
+                            </group>
+                        </page>
+                        <page string="SUBUH" col="4">
+                            <group  string="Ziyadah" col="4" colspan="2">
+                                <field name="juz_z"  />
+                                <field name="pojok_z" />
+                                <field name="keterangan_mmm" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="menu_kbm_action">
+        <field name="name">KBM Harian</field>
+        <field name="res_model">menu.kbm</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="seq_menu_deresan_new" model="ir.sequence">
+        <field name="name">KBM Harian</field>
+        <field name="code">menu.kbm</field>
+        <field name="prefix">KBM/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+
+    <!-- Menu Item -->
+
+    <menuitem id="menu_pendidikan_tahfidz" name="Tahfidz" parent="base_sekolah.menu_master_pendidikan" sequence="4" groups="group_tahfidz_admin"/>
+
+    <menuitem id="menu_belajar" name="Belajar" parent="menu_pendidikan_tahfidz" sequence="1" groups="group_tahfidz_admin"/>
+    <menuitem id="menu_pembagian_halaqah" name="Pembagian Halaqah" parent="menu_belajar" action="pembagian_halaqah_action" sequence="1" groups="group_tahfidz_admin"/>
+    <menuitem id="menu_lesson_plan" name="LP Tahfizh" parent="menu_belajar" action="lesson_plan_action" sequence="2" groups="group_tahfidz_admin"/>
+    <menuitem id="menu_kbm_tahfidz" name="KBM Tahfidz" parent="menu_belajar" action="kbm_tahfidz_action" sequence="3" groups="group_tahfidz_admin"/>
+
+    <menuitem id="menu_ujian" name="Ujian" parent="menu_pendidikan_tahfidz" sequence="2" groups="group_tahfidz_admin"/>
+    <menuitem id="menu_permohonan_ukj" name="Permohonan UKJ" parent="menu_ujian" action="permohonan_ukj_action" sequence="1" groups="group_tahfidz_admin"/>
+    <menuitem id="menu_jadwal_ujian" name="Jadwal Ujian" parent="menu_ujian" action="jadwal_ujian_action" sequence="2"/>
+    <menuitem id="menu_ukj" name="Input Hasil UKJ" parent="menu_ujian" action="ujian_kenaikan_juz_action" sequence="3"/>
+    <menuitem id="menu_uas_tahfidz" name="UAS Tahfidz" parent="menu_ujian" action="uas_tahfidz_action" sequence="4"/>
+
+    <menuitem id="menu_halaqah" name="Halaqah" parent="menu_pendidikan_tahfidz" sequence="3" groups="group_tahfidz_admin"/>
+    <!-- <menuitem id="menu_ziyadah" name="Menu Ziyadah" parent="menu_halaqah" action="menu_ziyadah_action" sequence="1"/> -->
+    <menuitem id="menu_deresan" name="Hafalan Santri" parent="menu_halaqah" action="menu_deresan_action" sequence="1" groups="group_tahfidz_admin"/>
+    <menuitem id="menu_KBM" name="KBM Harian" parent="menu_halaqah" action="menu_kbm_action" sequence="2"/>
+
+
+    <menuitem id="menu_config_submenu_kurikulum" name="Kurikulum" parent="base_sekolah.menu_pendidikan_config" sequence="3"/>
+    <menuitem id="menu_kalender_akademik" name="Kaldik" parent="menu_config_submenu_kurikulum" sequence="1" groups="group_tahfidz_manager" action="kalender_akademik_action" />
+
+    <menuitem id="menu_config_submenu_tahfidz" name="Tahfidz" parent="base_sekolah.menu_pendidikan_config" sequence="4"/>
+    <menuitem id="menu_penugasan_guru" name="Penugasan Guru" parent="menu_config_submenu_tahfidz" action="penugasan_guru_action" groups="group_tahfidz_manager"/>
+    <menuitem id="menu_daftar_surat" name="Daftar Surat" parent="menu_config_submenu_tahfidz" action="daftar_surat_action"/>
+
+    <menuitem id="menu_pembagian_halaqah_admin" name="Halaqah Tahfidz" action="pembagian_halaqah_action" groups="group_tahfidz_admin" web_icon="aa_kurikulum,static/description/halaqah.png"/>
+    <menuitem id="menu_ujian_tahfidz_admin" name="Ujian Tahfidz" action="uas_tahfidz_action" groups="group_tahfidz_admin" web_icon="aa_kurikulum,static/description/ujian.png"/>
+
+
+    <!-- Modul -->
+    <menuitem id="menu_modul_halaqah" name="Perkembangan Hafalan" web_icon="base_sekolah,static/description/halaqah.png"  groups="group_tahfidz_admin"/>
+    <!-- <menuitem id="menu_modul_ziyadah" name="Menu Ziyadah" parent="menu_modul_halaqah" action="menu_ziyadah_action" sequence="1"/> -->
+    <menuitem id="menu_modul_deresan" name="Hafalan Santri" parent="menu_modul_halaqah" action="menu_deresan_action" sequence="1" groups="group_tahfidz_admin"/>
+    <menuitem id="menu_KBM" name="KBM Harian" parent="menu_modul_halaqah" action="menu_kbm_action" sequence="2"/>
+
+
+
+</odoo>

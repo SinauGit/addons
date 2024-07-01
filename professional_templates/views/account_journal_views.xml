@@ -1,0 +1,26 @@
+<openerp>
+    <data>
+        <record id="bank_account_journal_inherit" model="ir.ui.view">
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_bank_journal_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name = 'bank_id']" position="after">
+                        <field name="display_on_footer"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="account_journal_inherit" model="ir.ui.view">
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name = 'bank_id']" position="after">
+                        <field name="display_on_footer"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

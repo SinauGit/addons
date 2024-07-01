@@ -1,0 +1,371 @@
+<odoo>
+
+
+    <!-- CUSTOM JOURNAL ITEMS LIST -->
+
+    <record id="view_move_line_tree_update" model="ir.ui.view">
+        <field name="name">account.move.line.revisi</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="ref" position="after">
+                <field name="create_uid"/>
+            </field>
+        </field>
+    </record>
+
+
+    <!-- CUSTOM INVOICE LIST -->
+
+    <record id="view_invoice_tree_update" model="ir.ui.view">
+        <field name="name">account.invoice.revisi</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_tree"/>
+        <field name="arch" type="xml">
+            <field name="date_due" position="replace">
+                <field name="period_id" string="Period"/>
+            </field>
+            <field name="origin" position="replace">
+                <field name="komponen_id"/>
+                <field name="orangtua_id"/>
+                <field name="info_line"/>
+            </field>
+            <field name="currency_id" position="replace">
+                <field name="class_id"/>
+            </field>
+            <field name="state" position="after">
+                <button name="action_invoice_open" type="object" states="draft" string="Validate" class="oe_highlight" groups="account.group_account_invoice" icon="fa-check text-success"/>
+            </field>
+        </field>
+    </record>
+
+
+    <!-- CUSTOM INVOICE FORM -->
+
+    <record id="view_invoice_komponen" model="ir.ui.view">
+        <field name="name">account.invoice.komponen</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <button name="%(account.action_account_invoice_refund)d" position="replace">
+                <button name="%(action_bayar_cicil_tagihan)d" type="action" string="Credit" class="oe_highlight" attrs="{'invisible':['|', ('state','&lt;&gt;','open'), ('cicil', '=', 'cash')]}"/>
+            </button>
+            <field name="fiscal_position_id" position="replace">
+                <field name="fiscal_position_id" options="{'no_create': True}" invisible="1"/>
+                <field name="fiscalyear_id" attrs="{'invisible':[('student', '!=', True)], 'required':[('student', '=', True)]}"/>
+                <field name="komponen_id" attrs="{'invisible':[('student', '!=', True)], 'required':[('student', '=', True)]}"/>
+            </field>
+            <field name="name" position="after">
+                <field name="create_uid"/>
+            </field>
+            <field name="team_id" position="after">
+                <field name="period_id"/>
+                <field name="orangtua_id" attrs="{'invisible':[('student', '!=', True)], 'required':[('student', '=', True)]}"/>
+                <field name="cicil" invisible="True"/>
+                <field name="student" invisible="True"/>
+                <field name="class_id"/>
+            </field>
+            <button name="action_invoice_sent" position="replace"/>
+
+        </field>
+    </record>
+
+
+    <!-- CUSTOM INVOICE SEARCH -->
+
+    <record id="view_tagihan_siswa_filter" model="ir.ui.view">
+        <field name="name">account.invoice.select</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="class_id"/>
+                <field name="komponen_id"/>
+            </field>
+            <filter name="group_by_partner_id" position="before">
+                <filter string="Komponen" name="komponen_filter" context="{'group_by':'komponen_id'}"/>
+                <filter string="Ruang Kelas" name="ruangkelas_filter" context="{'group_by':'class_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+
+    <!-- MENU KASIR -->
+
+    <record id="view_tagihan_tree_kasir" model="ir.ui.view">
+        <field name="name">account.invoice.tree.kasir</field>
+        <field name="model">account.invoice</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Invoice" create='false' edit='false' delete='false'>
+                <field name="partner_id" string="Customer"/>
+                <field name="date_invoice"/>
+                <field name="number"/>
+                <field name="user_id"/>
+                <field name="period_id" string="Period"/>
+                <field name="komponen_id"/>
+                <field name="orangtua_id"/>
+                <field name="info_line"/>
+                <field name="amount_total_signed" string="Total" sum="Total"/>
+                <field name="residual_signed" string="Amount Due" sum="Amount Due"/>
+                <field name="class_id"/>
+                <field name="state"/>
+                <field name="type" invisible="context.get('type',True)"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="invoice_form_kasir_view" model="ir.ui.view">
+        <field name="name">account.invoice.form.kasir</field>
+        <field name="model">account.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Invoice" create='false' edit='false' delete='false'>
+                <header>
+                    <button name="%(account.action_account_invoice_payment)d" type="action" states="open" string="Register Payment" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,open,paid"/>
+                </header>
+                <sheet string="Invoice">
+                    <field name="type" invisible="1"/>
+                    <group>
+                        <group>
+                            <field string="Customer" name="partner_id" context="{'search_default_customer':1, 'show_address': 1}" options='{"always_reload": True}' domain="[('customer', '=', True)]"/>
+                            <field name="payment_term_id"/>
+                        </group>
+                        <group>
+                            <field name="date_invoice"/>
+                            <field name="move_name" invisible="1"/>
+                            <field name="user_id" groups="base.group_user"/>
+                            <label for="currency_id" groups="base.group_multi_currency"/>
+                            <div groups="base.group_multi_currency">
+                                <field name="currency_id" options="{'no_create': True, 'no_open': True}" class="oe_inline"/>
+                                <field name="company_currency_id" invisible="1"/>
+                            </div>
+                        </group>
+                    </group>
+                    <field name="sent" invisible="1"/>
+                    <notebook colspan="4">
+                        <page string="Invoice Lines">
+                            <field name="invoice_line_ids" nolabel="1" widget="one2many_list" mode="tree,kanban" context="{'type': type, 'journal_id': journal_id, 'default_invoice_id': id}">
+                                <tree string="Invoice Lines" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="origin" invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="company_id" invisible="1"/>
+                                    <field name="account_id" groups="account.group_account_user" domain="[('company_id', '=', parent.company_id), ('internal_type', '=', 'other')]"/>
+                                    <field name="account_analytic_id" groups="analytic.group_analytic_accounting" domain="[('company_id', '=', parent.company_id)]"/>
+                                    <field name="analytic_tag_ids" groups="analytic.group_analytic_accounting" widget="many2many_tags"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id" groups="product.group_uom"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount" groups="base.group_no_one"/>
+                                    <field name="invoice_line_tax_ids" widget="many2many_tags" context="{'type':parent.type}" domain="[('type_tax_use','=','sale'),('company_id', '=', parent.company_id)]" options="{'no_create': True}"/>
+                                    <field name="price_subtotal"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </tree>
+                                <kanban class="o_kanban_mobile">
+                                    <field name="price_subtotal"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id" groups="product.group_uom"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <strong>
+                                                            <span><t t-esc="record.name.value or 'None'"/></span>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-8 text-muted">
+                                                        <span><t t-esc="record.quantity.value"/>
+                                                            <t t-esc="record.uom_id.value"/></span>
+                                                    </div>
+                                                    <div class="col-xs-4 text-muted">
+                                                        <span class="text-right"><t t-esc="record.price_subtotal.value"/></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="amount_untaxed"/>
+                                <field name="amount_tax"/>
+                                <field name="amount_total" class="oe_subtotal_footer_separator"/>
+                                <field name="payments_widget" colspan="2" nolabel="1" widget="payment"/>
+                                <field name="residual" class="oe_subtotal_footer_separator" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                                <field name="reconciled" invisible="1"/>
+                                <field name="outstanding_credits_debits_widget" colspan="2" nolabel="1" widget="payment" attrs="{'invisible': [('state', 'not in', 'open')]}"/>
+                            </group>
+                            <field name="comment" placeholder="Terms and conditions..."/>
+                        </page>
+                        <page string="Other Info" name="other_info">
+                            <group>
+                                <group>
+                                    <field name="fiscal_position_id" options="{'no_create': True}"/>
+                                    <field name="journal_id" groups="account.group_account_user" options="{'no_create': True}" attrs="{'readonly':[('move_name','!=',False)]}"/>
+                                    <field domain="[('company_id', '=', company_id),('internal_type','=', 'receivable'), ('deprecated', '=', False)]" name="account_id" groups="account.group_account_manager"/>
+                                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                                    <field domain="[('partner_id.ref_company_ids', 'in', [company_id])]" name="partner_bank_id" invisible="1"/>
+                                    <field name="date_due" groups="base.group_no_one"/>
+                                </group>
+                                <group>
+                                    <field name="move_id" groups="account.group_account_manager" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                                    <field name="origin" groups="base.group_user" attrs="{'invisible': [('origin', '=', False)]}"/>
+                                    <field name="name"/>
+                                </group>
+                            </group>
+                            <field name="tax_line_ids">
+                                <tree editable="bottom" string="Taxes" create="0">
+                                    <field name="name"/>
+                                    <field name="tax_id" invisible="1"/>
+                                    <field name="account_analytic_id" invisible="1"/>
+                                    <field name="sequence" invisible="1"/>
+                                    <field name="manual" invisible="1"/>
+                                    <field name="account_id" groups="account.group_account_user"/>
+                                    <field name="amount"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_tagihan_kasir" model="ir.actions.act_window">
+        <field name="name">Tagihan Siswa</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,calendar,pivot,graph</field>
+        <field eval="False" name="view_id"/>
+        <field name="domain">[('type','in',('out_invoice', 'out_refund')), ('state','=','open')]</field>
+        <field name="context">{'type':'out_invoice', 'journal_type': 'sale'}</field>
+        <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+    </record>
+
+    <record id="action_tagihan_tree_view" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_tagihan_tree_kasir"/>
+        <field name="act_window_id" ref="action_tagihan_kasir"/>
+    </record>
+
+    <record id="action_tagihan_form_view" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="invoice_form_kasir_view"/>
+        <field name="act_window_id" ref="action_tagihan_kasir"/>
+    </record>
+
+
+    <!-- <record id="action_invoice_tree_kasir" model="ir.actions.act_window">
+        <field name="name">Tagihan Siswa</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+        <field eval="False" name="view_id"/>
+        <field name="domain">[('type','in',('out_invoice', 'out_refund')), ('state','=','open')]</field>
+        <field name="context">{'type':'out_invoice', 'journal_type': 'sale'}</field>
+        <field name="view_id" ref="account.invoice_tree"/>
+        <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+    </record> -->
+
+
+    <!-- CUSTOM LIST VIEW TAB INVOICE FORM MANIFEST PEMBAYARAN -->
+
+    <record id="invoice_tree_manifest_pembayaran" model="ir.ui.view">
+        <field name="name">account.invoice.manifest.pembayaran</field>
+        <field name="model">account.invoice</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Invoice">
+                <field name="partner_id" groups="base.group_user" string="Customer"/>
+                <field name="period_id" string="Period"/>
+                <field name="komponen_id"/>
+                <field name="orangtua_id"/>
+                <field name="info_line"/>
+                <field name="amount_total_signed" string="Total" sum="Total"/>
+                <field name="residual_signed" string="Amount Due" sum="Amount Due"/>
+                <field name="class_id"/>
+                <field name="state"/>
+                <field name="type" invisible="context.get('type',True)"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- MENU MANIFEST PEMBAYARAN -->
+
+    <record id="view_manifest_pembayaran_tree" model="ir.ui.view">
+        <field name="name">manifest.pembayaran.tree</field>
+        <field name="model">manifest.pembayaran</field>
+        <field name="arch" type="xml">
+            <tree string="Pembayaran Invoice">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="date"/>
+                <field name="siswa_id"/>
+                <field name="orangtua_id"/>
+                <field name="amount_total"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_manifest_pembayaran_form" model="ir.ui.view">
+        <field name="name">manifest.pembayaran.form</field>
+        <field name="model">manifest.pembayaran</field>
+        <field name="arch" type="xml">
+            <form string="Pembayaran Invoice">
+                <header>
+                    <button name="proses_pembayaran" type="object" string="Payment" states="draft" class="oe_highlight"/>
+                    <button name="print_manifest" string="Print" type="object" states="paid" class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="name" colspan="4"/>
+                        <field name="user_id"/>
+                        <field name="date"/>
+                        <field name="siswa_id"/>
+                        <field name="orangtua_id"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Invoice Lines">
+                            <group string="Invoices">
+                                <field colspan="4" name="tagihan_ids" nolabel="1" widget="many2many" context="{'tree_view_ref': 'invoice_tree_manifest_pembayaran'}"/>
+                            </group>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="amount_total" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_manifest_pembayaran_form">
+        <field name="name">Manifest Pembayaran</field>
+        <field name="res_model">manifest.pembayaran</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+	<record id="seq_manifest_pembayaran" model="ir.sequence">
+        <field name="name">Manifest Pembayaran</field>
+        <field name="code">manifest.pembayaran</field>
+		<field name="prefix">MP/%(y)s%(month)s/</field>
+		<field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+	</record>
+
+
+
+</odoo>

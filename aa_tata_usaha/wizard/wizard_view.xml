@@ -1,0 +1,126 @@
+<odoo>
+
+
+	<!-- LAPORAN ACCOUNTING -->
+
+	<record model="ir.ui.view" id="view_wizard_laporan_accounting">
+		<field name="name">Laporan Accounting</field>
+		<field name="model">laporan.accounting</field>
+		<field name="arch" type="xml">
+			<form string="Laporan Tata Usaha">
+				<group col="4" colspan="4">
+					<field name="tipe" colspan="4"/>
+					<field name="grouping" colspan="4"/>
+					<separator string ="" colspan="4"/>
+					<field name="name" colspan="4" attrs="{'invisible':[('tipe', '!=', 'user')], 'required':[('tipe', '=', 'user')]}"/>
+					<field name="komponen_line" colspan="4" attrs="{'invisible':[('tipe', 'in', ('yayasan', 'sekolah'))]}"/>
+					<separator string ="" colspan="4"/>
+					<field name="date_start"/>
+					<field name="date_stop"/>
+				</group>
+				<group col="4" colspan="4">
+
+				</group>
+				<footer>
+					<button name="eksport_excel" string="Cetak" type="object" class="oe_highlight"/>
+	                    or
+					<button string="Batal" class="oe_link" special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_laporan_accounting">
+		<field name="name">Laporan Accounting</field>
+		<field name="res_model">laporan.accounting</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+
+
+
+	<!-- GENERATE INVOICE -->
+
+	<record model="ir.ui.view" id="view_wizard_generate_invoice">
+		<field name="name">Generate Invoice</field>
+		<field name="model">generate.invoice</field>
+		<field name="arch" type="xml">
+			<form string="Buat Invoice">
+				<group>
+					<field name="fiscalyear_id"/>
+					<field name="lembaga"/>
+					<field name="komponen_id"/>
+				</group>
+				<group col="4" colspan="4">
+					<field name="period_from"/>
+					<field name="period_to"/>
+				</group>
+				<group colspan="4">
+					<field name="name"/>
+				</group>
+				<group col="4" colspan="4" string="Siswa">
+					<field name="partner_ids" nolabel="1" colspan="4">
+						<tree>
+							<field name="name"/>
+							<field name="nis"/>
+							<field name="nisn"/>
+							<field name="fiscalyear_id"/>
+							<field name="lembaga"/>
+							<field name="class_id"/>
+						</tree>
+					</field>
+				</group>
+				<footer>
+					<button name="create_invoice" string="Buat" type="object" class="oe_highlight"/>
+	                    or
+					<button string="Batal" class="oe_link" special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_generate_invoice">
+		<field name="name">Buat Invoice</field>
+		<field name="res_model">generate.invoice</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+
+
+
+
+
+	<!-- WIZARD CICILAN INVOICE -->
+
+	<record id="bayar_cicil_tagihan_form" model="ir.ui.view">
+		<field name="name">bayar.cicil.tagihan.form</field>
+		<field name="model">bayar.cicil.tagihan</field>
+		<field name="arch" type="xml">
+			<form string="Pembayaran Cicilan">
+				<group>
+					<field name="name"/>
+				</group>
+				<footer>
+					<button name="do_cicilan" string="Buat Invoice" type="object" class="oe_highlight"/>
+						or
+					<button string="Batal" class="oe_link" special="cancel"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_bayar_cicil_tagihan" model="ir.actions.act_window">
+		<field name="name">Bayar Cicil Tagihan</field>
+		<field name="res_model">bayar.cicil.tagihan</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="bayar_cicil_tagihan_form"/>
+		<field name="context">{'default_invoice_id': active_id}</field>
+		<field name="target">new</field>
+	</record>
+
+
+
+</odoo>

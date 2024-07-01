@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+
+        <template id="report_kartu_ujian">
+            <div style="width: 50%; display: inline-table; height: 20rem;">
+                <p>Tanda Bukti Pendaftaran Ini Wajib Ditunjukkan Pada Saat Observasi</p>
+                <table class="table table-bordered mb-0" style="border: 2px solid black;">
+                    <tr>
+                        <th class="table-active text-center" style="height: 4rem;">
+                            <strong t-field="siswa.nis"/>
+                            <br/>
+                            <strong t-field="siswa.name"/>
+                            <br/>
+                            <strong t-field="siswa.email_from"/>
+                            <br/>
+                            <strong t-field="siswa.mobile"/>
+                            <br/>
+                            <strong t-field="siswa.city"/>
+                            <br/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" style="height: 6rem;">
+                            <t t-if="siswa.nis">
+                                <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', siswa.nis, 600, 150)" style="width:100%;height:4rem;"/>
+                            </t>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </template>
+
+        <template id="report_kartuujian">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="siswa">
+                        <t t-call="aa_pendaftaran_online.report_kartu_ujian">
+                            <t t-set="siswa" t-value="siswa"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+<!-- Konverensi Kasus   -->
+
+      <record id="model_konverensi_kasus_tree" model="ir.ui.view">
+            <field name="name">konverensi.kasus.tree</field>
+            <field name="model">konverensi.kasus</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                </tree>
+            </field>
+        </record>
+
+        <record id="model_konverensi_kasus_form" model="ir.ui.view">
+            <field name="name">konverensi.kasus.tree</field>
+            <field name="model">konverensi.kasus</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Konverensi Kasus">
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="model_konverensi_kasus_action" model="ir.actions.act_window">
+            <field name="name">Konverensi Kasus</field>
+            <field name="res_model">konverensi.kasus</field>
+            <field name="view_mode">tree,form</field>
+            <field name="type">ir.actions.act_window</field>
+        </record>
+
+    </data>
+</odoo>

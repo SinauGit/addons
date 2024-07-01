@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+
+		<!-- Siswa -->
+
+		<record id="view_portal_murid_tree" model="ir.ui.view">
+			<field name="name">res.partner.murid.tree</field>
+			<field name="model">res.partner</field>
+			<field name="arch" type="xml">
+				<tree string="Siswa">
+					<field name="nis"/>
+					<field name="nisn"/>
+					<field name="virtual_account"/>
+					<field name="name"/>
+					<field name="class_id"/>
+					<!-- <field name="ruang_id"/> -->
+					<field name="orangtua_id" domain="[('parent_id', '=', uid)]"/>
+					<field name="fiscalyear_id"/>
+				</tree>
+			</field>
+		</record>
+
+        <record id="view_portal_siswa_form" model="ir.ui.view">
+            <field name="name">res.partner.portal.siswa.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <form string="Siswa">
+                <sheet>
+					<div class="oe_button_box" name="button_box">
+	                    <button type="object" class="oe_stat_button" icon="fa-pencil-square-o" name="action_view_partner_invoices" context="{'default_partner_id': active_id}">
+	                        <div class="o_form_field o_stat_info">
+	                            <span class="o_stat_value">
+	                                <field name="total_invoiced" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+	                            </span>
+	                            <span class="o_stat_text">Invoiced</span>
+	                        </div>
+	                    </button>
+					</div>
+					<field name="image" widget='image' class="oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name" attrs="{'required' : [('type', '=', 'contact')]}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+							<field name="parent_id" invisible="True"/>
+                            <field name="type" attrs="{'invisible': [('parent_id','=', False)]}" groups="base.group_no_one"/>
+                            <label for="street" string="Address"/>
+                            <div class="o_address_format">
+                                <div attrs="{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}" class="oe_edit_only"><b>Company Address:</b></div>
+                                <field name="street" placeholder="Street..." class="o_address_street"
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                <field name="city" placeholder="City" class="o_address_city"
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                <field name="state_id" class="o_address_state" placeholder="State" options='{"no_open": True}'
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" context="{'country_id': country_id, 'zip': zip}"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                            </div>
+                            <field name="vat" placeholder="e.g. BE0477472701" attrs="{'readonly': [('parent_id','!=',False)]}"/>
+                           </group>
+                        <group>
+                            <field name="phone" widget="phone"/>
+                            <field name="mobile" widget="phone"/>
+                            <field name="email" widget="email" context="{'gravatar_image': True}"/>
+                            <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+						<page string="Siswa" autofocus="autofocus">
+							<group col="4" colspan="4">
+								<field name="lembaga" readonly='True'/>
+								<field name="fiscalyear_id" readonly='True'/>
+								<field name="class_id"/>
+								<!-- <field name="ruang_id"/> -->
+							</group>
+							<group string="Pendaftaran" col="4" colspan="4">
+								<field name="nis" readonly='True'/>
+								<field name="nisn" readonly='True'/>
+								<field name="virtual_account" readonly='True'/>
+							</group>
+							<group col="4" colspan="4">
+								<field name="panggilan"/>
+								<field name="kelamin"/>
+							</group>
+							<group string="Kelahiran" col="4" colspan="4">
+								<field name="birth"/>
+								<field name="place"/>
+								<field name="agama"/>
+								<field name="warga"/>
+							</group>
+							<group string="Saudara" col="4" colspan="4">
+								<field name="kandung" colspan="4"/>
+								<field name="tiri"/>
+								<field name="angkat"/>
+							</group>
+							<group string="Informasi" col="4" colspan="4">
+								<field name="bahasa"/>
+								<field name="darah"/>
+								<field name="tinggal"/>
+								<field name="jarak"/>
+							</group>
+						</page>
+						<page string="Orang Tua" autofocus="autofocus">
+							<group string="Nama" col="4" colspan="4">
+								<field name="ayah"/>
+								<field name="ibu"/>
+							</group>
+							<group string="Pendidikan" col="4" colspan="4">
+								<field name="didika"/>
+								<field name="didiki"/>
+							</group>
+							<group string="Pekerjaan" col="4" colspan="4">
+								<field name="kerja"/>
+								<field name="kerji"/>
+							</group>
+							<group string="Others" col="4" colspan="4">
+								<field name="hpa"/>
+								<field name="hpi"/>
+							</group>
+							<group string="Informasi Wali" col="4" colspan="4">
+								<field name="wali"/>
+								<field name="relasi"/>
+								<field name="didikw"/>
+								<field name="pekerjaan"/>
+							</group>
+						</page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+		<!-- Action Portal Siswa -->
+
+		<record model="ir.actions.act_window" id="action_portal_murid_form">
+			<field name="name">Siswa</field>
+			<field name="res_model">res.partner</field>
+			<field name="view_id" ref="view_portal_murid_tree"/>
+			<field name="domain">[('student', '=', 'True'), ('orangtua_id', '=', uid)]</field>
+			<field name="context">{"default_student": 1}</field>
+			<field name="search_view_id" ref="base_sekolah.murid_search"/>
+		</record>
+		
+
+		<record id="action_tree_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_portal_murid_tree"/>
+			<field name="act_window_id" ref="action_portal_murid_form"/>
+		</record>
+
+		<record id="action_form_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_portal_siswa_form"/>
+			<field name="act_window_id" ref="action_portal_murid_form"/>
+		</record>
+
+
+
+
+		<!-- Orang Tua -->
+
+		<record id="view_portal_orangtua_tree" model="ir.ui.view">
+			<field name="name">res.partner.orangtua.tree</field>
+			<field name="model">res.partner</field>
+			<field name="arch" type="xml">
+				<tree string="Orang Tua">
+					<field name="name"/>
+					<!-- <field name="street" string="Address"/> -->
+					<field name="tinggal" />
+					<field name="phone"/>
+					<field name="email"/>
+					<field name="user_id" string="User Login"/>
+				</tree>
+			</field>
+		</record>
+
+        <record id="view_portal_orangtua_form" model="ir.ui.view">
+            <field name="name">res.partner.portal.ortu.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <form string="Orangtua">
+                <sheet>
+                    <field name="image" widget='image' class="oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name" attrs="{'required' : [('type', '=', 'contact')]}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+							<field name="parent_id" invisible="True"/>
+                            <field name="type" attrs="{'invisible': [('parent_id','=', False)]}" groups="base.group_no_one"/>
+                            <label for="street" string="Address"/>
+                            <div class="o_address_format">
+                                <div attrs="{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}" class="oe_edit_only"><b>Company Address:</b></div>
+                                <field name="street" placeholder="Street..." class="o_address_street"
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                <field name="city" placeholder="City" class="o_address_city"
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                <field name="state_id" class="o_address_state" placeholder="State" options='{"no_open": True}'
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" context="{'country_id': country_id, 'zip': zip}"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                            </div>
+                            <field name="vat" placeholder="e.g. BE0477472701" attrs="{'readonly': [('parent_id','!=',False)]}"/>
+							<field name="user_id" readonly="True" string="User Login"/>
+                        </group>
+                        <group>
+                            <field name="phone" widget="phone"/>
+                            <field name="mobile" widget="phone"/>
+                            <field name="email" widget="email" context="{'gravatar_image': True}"/>
+                            <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+						<page string="Siswa" autofocus="autofocus">
+							<field colspan="4" name="anak_line" nolabel="1">
+								<tree>
+									<field name="name"/>
+									<field name="nis"/>
+									<!-- <field name="class_id" /> -->
+									<field name="nisn"/>
+								</tree>
+							</field>
+						</page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+		<!-- Action Portal Orang Tua -->
+
+		<record model="ir.actions.act_window" id="action_portal_orangtua_form">
+			<field name="name">Orang Tua</field>
+			<field name="res_model">res.partner</field>
+			<field name="view_id" ref="view_portal_orangtua_tree"/>
+			<field name="domain">[('parent','=', 'True'), ('user_id', '=', uid)]</field>
+			<field name="context">{"default_parent":1}</field>
+		</record>
+
+		<record id="action_tree_view_portal_orangtua" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_portal_orangtua_tree"/>
+			<field name="act_window_id" ref="action_portal_orangtua_form"/>
+		</record>
+
+		<record id="action_form_view_portal_orangtua" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_portal_orangtua_form"/>
+			<field name="act_window_id" ref="action_portal_orangtua_form"/>
+		</record>
+
+
+
+		<menuitem id="menubar_portal" name="Orang Tua" web_icon="base_sekolah,static/description/ortu.png" groups="group_sekolah_orangtua"/>
+		<menuitem id="menubar_portal_data" name="Data" parent="menubar_portal" sequence="1"/>
+		<menuitem id="menuitem_portal_murid" name="Siswa" parent="menubar_portal_data" action="action_portal_murid_form"/>
+		<menuitem id="menuitem_portal_orangtua" name="Orang Tua" parent="menubar_portal_data" action="action_portal_orangtua_form" />
+
+
+        <menuitem id="menu_website_configuration" name="Website" action="website.action_website" groups="base.group_user" web_icon="base_sekolah,static/description/website.png"/>
+
+
+		<record model="ir.ui.menu" id="calendar.mail_menu_calendar">
+		    <field name="groups_id" eval="[(6,0,[ref('base.group_portal')])]"/>
+		</record>
+
+		<record model="ir.ui.menu" id="website.menu_website_configuration">
+		    <field name="groups_id" eval="[(6,0,[ref('website.group_website_publisher')])]"/>
+			<field name="name">Web Admin</field>
+		</record>
+
+		<record model="ir.ui.menu" id="hr.menu_hr_root">
+		    <field name="groups_id" eval="[(6,0,[ref('hr.group_hr_user')])]"/>
+		</record>
+
+		<record model="ir.ui.menu" id="contacts.menu_contacts">
+		    <field name="groups_id" eval="[(6,0,[ref('base.group_partner_manager')])]"/>
+		</record>
+
+
+
+
+
+        <!-- <menuitem id="" name="Website" groups="" sequence="9" web_icon="website,static/description/icon.png"/> -->
+
+
+	</data>
+</openerp>

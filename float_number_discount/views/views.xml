@@ -1,0 +1,75 @@
+<odoo>
+
+
+        <record id="invoice_supplier_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='invoice_line_ids']//field[@name='discount']" position="after">
+                        <field name="discount_amount"/>
+                    </xpath>
+                    <xpath expr="//field[@name='amount_untaxed']" position="before">
+                        <field name="amount_without_discount_tax"/>
+                        <field name="discount"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+
+        <record id="invoice_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='discount']" position="after">
+                        <field name="discount_amount"/>
+                    </xpath>
+                    <xpath expr="//field[@name='amount_untaxed']" position="before">
+                        <field name="amount_without_discount_tax"/>
+                        <field name="discount"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+
+        <record id="view_invoice_line_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.line.form.inherit</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='discount']" position="after">
+                        <field name="discount_amount"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//page[@name='order_lines']//div[@name='discount']" position="after">
+                        <field name="discount_amount"/>
+                    </xpath>
+                    <xpath expr="//tree/field[@name='discount']" position="after">
+                        <field name="discount_amount"/>
+                    </xpath>
+                    <xpath expr="//field[@name='amount_untaxed']" position="before">
+                        <field name="amount_without_discount_tax"/>
+                        <field name="discount"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+
+</odoo>

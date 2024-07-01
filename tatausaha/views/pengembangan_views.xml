@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="smp_tree" model="ir.ui.view">
+            <field name="name">Pengembangan Karir SMP</field>
+            <field name="model">pengembangan.smp</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="guru_id" />
+                    <field name="penyelenggara" />
+                    <field name="waktu" />
+                    <field name="jenis" />
+                    <field name="tempat" />
+                    <field name="ket" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="smp_form" model="ir.ui.view">
+            <field name="name">Pengembangan Karir SMP</field>
+            <field name="model">pengembangan.smp</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Pengembangan Karir SMP">
+                            <field name="guru_id" />
+                            <field name="penyelenggara" />
+                            <field name="waktu" />
+                            <field name="jenis" />
+                            <field name="tempat" />
+                            <field name="ket" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+
+        <record id="smp_action" model="ir.actions.act_window">
+            <field name="name">Pengembangan Karir SMP</field>
+            <field name="res_model">pengembangan.smp</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="sma_tree" model="ir.ui.view">
+            <field name="name">Pengembangan Karir SMA</field>
+            <field name="model">pengembangan.sma</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="guru_id" />
+                    <field name="penyelenggara" />
+                    <field name="waktu" />
+                    <field name="jenis" />
+                    <field name="tempat" />
+                    <field name="ket" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="sma_form" model="ir.ui.view">
+            <field name="name">Pengembangan Karir SMA</field>
+            <field name="model">pengembangan.sma</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Pengembangan Karir SMA">
+                            <field name="guru_id" />
+                            <field name="penyelenggara" />
+                            <field name="waktu" />
+                            <field name="jenis" />
+                            <field name="tempat" />
+                            <field name="ket" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+
+        <record id="sma_action" model="ir.actions.act_window">
+            <field name="name">Pengembangan Karir SMA</field>
+            <field name="res_model">pengembangan.sma</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="ustadz_tree" model="ir.ui.view">
+            <field name="name">Pengembangan Karir Ustadz</field>
+            <field name="model">pengembangan.ustadz</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" />
+                    <field name="penyelenggara" />
+                    <field name="waktu" />
+                    <field name="jenis" />
+                    <field name="tempat" />
+                    <field name="ket" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="ustadz_form" model="ir.ui.view">
+            <field name="name">Pengembangan Karir Ustadz</field>
+            <field name="model">pengembangan.ustadz</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Pengembangan Karir Ustadz">
+                            <field name="name" />
+                            <field name="penyelenggara" />
+                            <field name="waktu" />
+                            <field name="jenis" />
+                            <field name="tempat" />
+                            <field name="ket" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+
+        <record id="ustadz_action" model="ir.actions.act_window">
+            <field name="name">Pengembangan Karir Ustadz</field>
+            <field name="res_model">pengembangan.ustadz</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

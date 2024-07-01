@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+    Copyright (c) 2017-2019 MuK IT GmbH.
+
+    This file is part of MuK REST API for Odoo 
+    (see https://mukit.at).
+
+    MuK Proprietary License v1.0
+
+    This software and associated files (the "Software") may only be used 
+    (executed, modified, executed after modifications) if you have
+    purchased a valid license from MuK IT GmbH.
+
+    The above permissions are granted for a single database per purchased 
+    license. Furthermore, with a valid license it is permitted to use the
+    software on other databases as long as the usage is limited to a testing
+    or development environment.
+
+    You may develop modules based on the Software or that use the Software
+    as a library (typically by depending on it, importing it and using its
+    resources), but without copying any source code or material from the
+    Software. You may distribute those modules under the license of your
+    choice, provided that this license is compatible with the terms of the 
+    MuK Proprietary License (For example: LGPL, MIT, or proprietary licenses
+    similar to this one).
+
+    It is forbidden to publish, distribute, sublicense, or sell copies of
+    the Software or modified copies of the Software.
+
+    The above copyright notice and this permission notice must be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+    DEALINGS IN THE SOFTWARE.
+
+  -->
+
+<odoo>
+	
+	<record id="search_rest_oauth" model="ir.ui.view">
+		<field name="name">muk_rest_oauth.search</field>
+		<field name="model">muk_rest.oauth</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name" />
+				<filter string="All" name="all" domain="['|', ('active', '=',  True), ('active', '!=',  True)]"/>
+				<filter string="Inactive" name="inactive" domain="[('active', '!=',  True)]"/>
+				<group expand="0" name="group_by" string="Group By"></group>
+			</search>
+		</field>
+	</record>
+	
+	<record id="view_rest_oauth_kanban" model="ir.ui.view">
+		<field name="name">muk_rest_oauth.kanban</field>
+		<field name="model">muk_rest.oauth</field>
+		<field name="arch" type="xml">
+			<kanban class="o_emphasize_colors mk_oauth_kanban" on_create="muk_rest.action_rest_oauth_on_create">
+				<field name="name" />
+				<field name="active"/>
+				<field name="color"/>
+				<field name="logo_url"/>
+				<field name="company"/>
+				<field name="homepage"/>
+				<field name="privacy_policy"/>
+				<field name="service_terms"/>
+				<field name="sessions"/>
+				<field name="create_uid"/>
+				<templates>
+					<t t-name="kanban-box">
+						<div t-attf-class="#{kanban_color(record.color.raw_value)}">
+							<div class="o_dropdown_kanban dropdown">
+							    <a class="dropdown-toggle o-no-caret btn" href="#" role="button" data-toggle="dropdown" aria-label="Dropdown menu" title="Dropdown menu">
+							        <span class="fa fa-ellipsis-v"/>
+							    </a>
+							    <div class="dropdown-menu" role="menu">
+							        <a t-if="! record.active.raw_value" role="menuitem" name="action_set_active" type="object" class="dropdown-item">Restore</a>
+							        <a t-if="record.active.raw_value" role="menuitem" name="action_set_unactive" type="object" class="dropdown-item">Archive</a>
+							        <a role="menuitem" name="action_sessions" type="object" class="dropdown-item">Sessions</a>
+							        <a role="menuitem" name="action_settings" type="object" class="dropdown-item">Settings</a>
+							        <ul class="oe_kanban_colorpicker" data-field="color"/>
+							    </div>
+							</div>
+							<div class="oe_kanban_content">
+								<div class="o_kanban_image">
+									<div class="o_kanban_image_wrapper">
+										<img t-if="record.logo_url.raw_value" class="o_kanban_image" t-att-src="record.logo_url.value" alt="OAuth Logo" />
+										<img t-else="" class="o_kanban_image" src="/muk_rest/static/src/img/oauth.svg" alt="OAuth Logo" />
+									</div>
+								</div>
+								<div class="o_kanban_details">
+									<div class="o_kanban_details_wrapper">
+										<div t-att-title="record.name.value" class="o_kanban_record_title">
+                                            <field name="name" class="o_text_overflow"/>
+                                        </div>
+                                        <div class="o_kanban_record_body">
+                                        	<span t-if="record.company.raw_value">
+										    	<a t-if="record.homepage.raw_value" t-att-href="record.homepage.value" class="o_form_uri" target="_blank">
+										    		<strong><field name="company"/></strong>
+										    	</a>
+										    	<strong t-else=""><field name="company"/></strong>
+										    </span>
+											<ul>
+											    <li t-if="record.privacy_policy.raw_value">
+											    	<a t-att-href="record.privacy_policy.value" class="o_form_uri" target="_blank">
+											    		Privacy policy
+											    	</a>
+											    </li>
+											    <li t-if="record.service_terms.raw_value">
+											    	<a t-att-href="record.service_terms.value" class="o_form_uri" target="_blank">
+											    		Terms of service
+											    	</a>
+											    </li>
+											</ul>
+                                        </div>
+                                        <div class="o_kanban_record_bottom">
+                                            <div class="oe_kanban_bottom_left">
+                                                <a name="action_sessions" type="object">
+			                                        <span class="o_value"><t t-esc="record.sessions.value"/></span>
+			                                        <span class="o_label">Active Sessions</span>
+			                                    </a>
+                                            </div>
+                                            <div class="oe_kanban_bottom_right">
+                                                <img t-att-src="kanban_image('res.users', 'image_small', record.create_uid.raw_value)" class="oe_kanban_avatar"
+                                                	t-att-data-member_id="record.create_uid.raw_value" t-att-alt="record.create_uid.raw_value" width="32" height="32" />
+                                            </div>
+                                        </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</t>
+				</templates>
+			</kanban>
+		</field>
+	</record>
+		
+	<record id="view_rest_oauth_tree" model="ir.ui.view">
+		<field name="name">muk_rest_oauth.tree</field>
+		<field name="model">muk_rest.oauth</field>
+		<field name="arch" type="xml">
+			<tree string="Configurations" decoration-muted="(not active)">
+				<field name="name"/>
+				<field name="company"/>
+				<field name="homepage" widget="url" />
+				<field name="active"/>
+			</tree>
+		</field>
+	</record>
+	
+	<record id="view_rest_oauth_form" model="ir.ui.view">
+		<field name="name">muk_rest_oauth.form</field>
+		<field name="model">muk_rest.oauth</field>
+		<field name="arch" type="xml">
+			<form string="Configuration">
+	        	<sheet>
+				    <div class="oe_button_box" name="button_box">
+				        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-bell">
+				            <field name="active" widget="boolean_button"/>
+				        </button>
+				    </div>
+			        <div class="oe_title">
+			            <label for="name" class="oe_edit_only"/>
+			            <h1>
+			            	<field name="name" placeholder="e.g. MyApp"/>
+			            </h1>
+			        </div>
+			        <group name="data" />
+			        <group name="settings">
+				        <group>
+				        	<field name="security"/>
+				        </group>
+			        </group>
+			        <notebook>
+			        	<page string="Callbacks" name="callback" autofocus="autofocus">
+				      		<field name="callbacks">
+			                	<tree editable="bottom">
+			                		<field name="sequence" widget="handle" />
+			                		<field name="url" widget="url" placeholder="http://www.example.com" />
+			                	</tree>
+			                </field>
+				        </page>
+				        <page string="Access Rules" name="access" attrs="{'invisible': [('security', '=', 'basic')]}">
+				      		<field name="rules">
+			                	<tree editable="bottom" decoration-muted="(not active)">
+			                		<field name="model"/>
+			                		<field name="perm_read"/>
+			                		<field name="perm_write"/>
+			                		<field name="perm_create"/>
+			                		<field name="perm_unlink"/>
+			                		<field name="active"/>
+			                	</tree>
+			                </field>
+				        </page>
+		                <page string="Information" name="info">
+		                    <group>
+						        <group>
+						        	<field name="company"/>
+						        	<field name="homepage" widget="url"/>
+						        	<field name="logo_url" widget="url"/>
+						        </group>
+						        <group>
+						        	<field name="privacy_policy" widget="url"/>
+						        	<field name="service_terms" widget="url"/>
+						        </group>
+					        </group>
+					        <label for="description"/>
+					        <field name="description"/>
+		                </page>
+		                <page string="Meta Data " name="meta" groups="base.group_no_one">
+		                   <group>
+						        <group>
+						        	<field name="create_date" readonly="1"/>
+						        	<field name="create_uid" readonly="1"/>
+						        </group>
+						        <group>
+						        	<field name="write_date" readonly="1"/>
+						        	<field name="write_uid" readonly="1"/>
+						        </group>
+					        </group>
+		                </page>
+			        </notebook>
+		        </sheet>
+			</form>
+		</field>
+	</record>
+	
+	<record id="action_rest_oauth" model="ir.actions.act_window">
+		<field name="name">Dashboard</field>
+		<field name="res_model">muk_rest.oauth</field>
+		<field name="view_mode">kanban</field>
+		<field name="help" type="html">
+		    <p class="o_view_nocontent_smiling_face">
+                OAuth1 setting
+            </p><p>
+                An OAuth1 setting can be used to connect to the system via the Restful API.
+            </p>
+	    </field>
+	</record>
+	
+	<record id="action_rest_oauth_on_create" model="ir.actions.act_window">
+		<field name="name">Create a new OAuth2 Setting</field>
+		<field name="res_model">muk_rest.oauth2</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+	
+	<menuitem id="menu_rest_oauth" name="Dashboard" sequence="1"
+		parent="main_menu_rest" action="action_rest_oauth" />
+	
+</odoo>

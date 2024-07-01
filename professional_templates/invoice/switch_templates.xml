@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+        <template id="report_invoice">
+            <t t-call="web.report_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+                    <t t-set="style" t-value="o.style or res_company.df_style or user.env.ref('professional_templates.df_style_for_all_reports')"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_0_document'" t-call="professional_templates.INVOICE_0_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_1_document'" t-call="professional_templates.INVOICE_1_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_2_document'" t-call="professional_templates.INVOICE_2_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_3_document'" t-call="professional_templates.INVOICE_3_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_4_document'" t-call="professional_templates.INVOICE_4_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_5_document'" t-call="professional_templates.INVOICE_5_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_6_document'" t-call="professional_templates.INVOICE_6_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_7_document'" t-call="professional_templates.INVOICE_7_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_8_document'" t-call="professional_templates.INVOICE_8_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_9_document'" t-call="professional_templates.INVOICE_9_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_10_document'" t-call="professional_templates.INVOICE_10_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_11_document'" t-call="professional_templates.INVOICE_11_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_13_document'" t-call="professional_templates.INVOICE_13_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates.INVOICE_14_document'" t-call="professional_templates.INVOICE_14_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="not style" t-call="account.report_invoice_document_with_payments" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+</data>
+</openerp>

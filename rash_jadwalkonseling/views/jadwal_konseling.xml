@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>	
+  
+        <menuitem name="Jadwal Konseling"
+            id="menu_main_pm"
+            groups="group_jadwal_konseling"
+            web_icon="rash_jadwalkonseling,static/description/jadwalkonseling.png"
+            sequence="50"/>
+
+        <menuitem name="All Tasks" id="menu_project_management" parent="menu_main_pm"
+            action="project.action_view_task" sequence="2" groups="base.group_no_one,project.group_project_user"/>
+
+        <menuitem id="menu_project_config" name="Configuration" parent="menu_main_pm"
+            sequence="100" groups="project.group_project_manager"/>
+
+
+        <menuitem id="menu_tasks_config" name="GTD" parent="menu_project_config" sequence="2"/>
+
+        <menuitem action="project.open_task_type_form" id="menu_project_config_project" name="Stages" parent="menu_project_config" sequence="3" groups="base.group_no_one"/>
+
+        <menuitem action="project.open_view_project_all" id="menu_projects" name="Projects" parent="menu_main_pm" sequence="1"/>
+        <menuitem action="project.open_view_project_all_config" id="menu_projects_config" name="Projects" parent="menu_project_config" sequence="10"/>
+
+        <menuitem action="project.project_tags_action" id="menu_project_tags_act" parent="menu_project_config"/>
+
+        <!-- Reporting menus -->
+        <menuitem id="menu_project_report" name="Reporting"
+            groups="project.group_project_manager"
+            parent="menu_main_pm" sequence="99"/>
+            
+        <menuitem id="project_menu_config_activity_type"
+        action="project.mail_activity_type_action_config_project_types"
+        parent="menu_project_config"/>
+
+        <menuitem id="menu_project_profitability_analysis"
+        parent="menu_project_report"
+        action="sale_timesheet.project_profitability_report_action"
+        name="Project Costs and Revenues"
+        sequence="50"/>
+
+        <menuitem id="menu_project_report_task_analysis"
+            name="Tasks Analysis"
+            action="project.action_project_task_user_tree"
+            parent="menu_project_report"
+            sequence="10"/>
+
+        <menuitem id="rating_rating_menu_project"
+            action="project.rating_rating_action_project_report"
+            parent="menu_project_report"
+            groups="project.group_project_rating"
+            sequence="40"/>
+
+        <menuitem id="project_config_settings_menu_action" name="Settings" parent="menu_project_config"
+            sequence="0" action="project.project_config_settings_action" groups="base.group_system"/>
+
+
+    <menuitem id="project_menu_config_activity_type" action="project.mail_activity_type_action_config_project_types" parent="menu_project_config"/>
+ 
+  </data>
+</openerp>

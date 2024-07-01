@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_period_close" model="ir.ui.view">
+            <field name="name">account.period.close.form</field>
+            <field name="model">account.period.close</field>
+            <field name="arch" type="xml">
+                <form string="Close Period">
+                    <group string="Are you sure?">
+                        <field name="sure"/>
+                    </group>
+                    <footer>
+                        <button string="Close Period" name="data_save" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_account_period_close" model="ir.actions.act_window">
+            <field name="name">Close a Period</field>
+            <field name="res_model">account.period.close</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_account_period_close"/>
+            <field name="target">new</field>
+        </record>
+
+        <act_window
+            id="action_account_period_close_actwindow"
+            name="Close a Period"
+            res_model="account.period.close"
+            src_model="account.period"
+            view_mode="form"
+            multi="True"
+            target="new"
+            key2="client_action_multi"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+<!-- Konsultasi   -->
+
+      <record id="model_konsultasi_tree" model="ir.ui.view">
+            <field name="name">konsultasi.tree</field>
+            <field name="model">konsultasi</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                </tree>
+            </field>
+        </record>
+
+        <record id="model_konsultasi_form" model="ir.ui.view">
+            <field name="name">konsultasi.tree</field>
+            <field name="model">konsultasi</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Konsultasi">
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="model_konsultasi_action" model="ir.actions.act_window">
+            <field name="name">Konsultasi</field>
+            <field name="res_model">konsultasi</field>
+            <field name="view_mode">tree,form</field>
+            <field name="type">ir.actions.act_window</field>
+        </record>
+
+    </data>
+</odoo>

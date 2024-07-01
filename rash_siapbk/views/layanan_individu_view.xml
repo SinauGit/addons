@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+
+  <!-- Layanan Individu -->
+
+      <record id="model_layanan_individu_tree" model="ir.ui.view">
+            <field name="name">layanan.individu.tree</field>
+            <field name="model">layanan.individu</field>
+            <field name="arch" type="xml">
+                <tree string="Layanan Individu">
+                    <!-- <field name="rombel" /> -->
+                    <field name="siswa_id" />
+                    <field name="nisn" />
+                    <field name="class_id" />
+                    <field name="konsolke" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="model_layanan_individu_form" model="ir.ui.view">
+            <field name="name">layanan.individu.form</field>
+            <field name="model">layanan.individu</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                    <group col="4" colspan="4" string="Informasi Siswa" class="oe_title">
+                        <field name="siswa_id" />
+                        <field name="nisn" />
+                        <field name="class_id" />
+                        <field name="konsolke" />
+                    </group>
+                    <group  col="4" colspan="4" string="Detail Layanan" class="oe_title">
+                        <field name="identifikasi" />
+                        <field name="pendekatan" />
+                        <field name="teknik" />
+                        <field name="komponen" />
+                        <field name="bidang" />
+                        <field name="jangka" />
+                        <field name="tempat" />
+                        <field name="penyebab" />
+                        <field name="alternatif" />
+                        <field name="hasil" />
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="model_layanan_individu_action" model="ir.actions.act_window">
+            <field name="name">Layanan Individu</field>
+            <field name="res_model">layanan.individu</field>
+            <field name="view_mode">tree,form</field>
+            <field name="type">ir.actions.act_window</field>
+        </record> 
+
+    </data>
+</odoo>
+

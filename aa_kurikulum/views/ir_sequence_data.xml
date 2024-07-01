@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+
+    <record id="seq_score_list_ws_new" model="ir.sequence">
+      <field name="name">Score List WS</field>
+      <field name="code">score.list.ws</field>
+      <field name="prefix">WS/%(y)s%(month)s/</field>
+      <field name="padding">4</field>
+      <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_score_list_uh_new" model="ir.sequence">
+      <field name="name">Score List UH</field>
+      <field name="code">score.list.uh</field>
+      <field name="prefix">UH/%(y)s%(month)s/</field>
+      <field name="padding">4</field>
+      <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_score_list_ps_new" model="ir.sequence">
+      <field name="name">Score List PS</field>
+      <field name="code">score.list.ps</field>
+      <field name="prefix">PS/%(y)s%(month)s/</field>
+      <field name="padding">4</field>
+      <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_score_list_uts_new" model="ir.sequence">
+      <field name="name">Score List UTS</field>
+      <field name="code">score.list.uts</field>
+      <field name="prefix">UTS/%(y)s%(month)s/</field>
+      <field name="padding">4</field>
+      <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_score_list_uas_new" model="ir.sequence">
+      <field name="name">Score List UAS</field>
+      <field name="code">score.list.uas</field>
+      <field name="prefix">UAS/%(y)s%(month)s/</field>
+      <field name="padding">4</field>
+      <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_summary_book_new" model="ir.sequence">
+      <field name="name">Summary Book</field>
+      <field name="code">summary.book</field>
+      <field name="prefix">SB/%(y)s%(month)s/</field>
+      <field name="padding">4</field>
+      <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_buku_rapot_semester_new" model="ir.sequence">
+      <field name="name">Buku Rapot Semester</field>
+      <field name="code">buku.rapot.semester</field>
+      <field name="prefix">BRS/%(y)s%(month)s/</field>
+      <field name="padding">4</field>
+      <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_buku_rapot_new" model="ir.sequence">
+      <field name="name">Buku Rapot</field>
+      <field name="code">buku.rapot</field>
+      <field name="prefix">BR/%(y)s%(month)s/</field>
+      <field name="padding">4</field>
+      <field name="company_id" eval="False"/>
+    </record>
+
+  </data>
+</odoo>

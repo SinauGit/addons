@@ -1,0 +1,296 @@
+<odoo>
+
+
+		<record id="observasi_adab_portal_view_form" model="ir.ui.view">
+            <field name="name">observasi.adab.portal.form</field>
+			<field name="model">observasi.adab</field>
+			<field name="arch" type="xml">
+				<form string="Observasi Adab">
+					<header>
+						<button name="observasi_open_ortu" type="object" states="Approved_PIC" string="Submit Ortu/Wali" class="oe_highlight" groups="base_sekolah.group_sekolah_orangtua"/>
+						<field name="state" widget="statusbar" statusbar_visible="Draft,Approved_PIC,Approved_Wali,Done"/>
+					</header>
+					<sheet>
+                        <group string="Informasi">
+							<group>
+	                            <field name="siswa_id" readonly='True'/>
+	                            <field name="kelas_id" readonly='True'/>
+								<field name="semester" readonly='True'/>
+								<field name="name" readonly='True'/>
+							</group>
+							<group>
+								<field name="tanggal" readonly='True'/>
+								<field name="period_id" readonly='True'/>
+								<field name="urutan" readonly='True'/>
+                        	</group>
+							<group>
+								<field name="total_avg" attrs="{'invisible': [('state', '!=', 'Done')]}"/>
+							</group>
+						</group>
+						<group>
+	                        <group string="Sikap Bertauhid &amp; Ibadah">
+	                            <field name="tauhid_1_1" widget='radio'/>
+                                <field name="catt_tauhid_1_1"/>
+	                            <field name="tauhid_1_2" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_tauhid_1_2" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="tauhid_1_3" widget='radio'/>
+                                <field name="catt_tauhid_1_3"/>
+	                            <field name="tauhid_1_4" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_tauhid_1_4" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="tauhid_1_5" widget='radio'/>
+                                <field name="catt_tauhid_1_5"/>
+	                            <field name="tauhid_1_6" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_tauhid_1_6" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="tauhid_1_7" widget='radio'/>
+                                <field name="catt_tauhid_1_7"/>
+	                            <field name="tauhid_1_8" widget='radio'/>
+	                            <field name="catt_tauhid_1_8"/>
+	                        </group>
+	                        <group string="Sikap Kepada Orang Tua &amp; Guru">
+	                            <field name="orangtua_2_1" widget='radio'/>
+                                <field name="catt_orangtua_2_1"/>
+	                            <field name="orangtua_2_2" widget='radio'/>
+                                <field name="catt_orangtua_2_2"/>
+	                            <field name="orangtua_2_3" widget='radio'/>
+                                <field name="catt_orangtua_2_3"/>
+	                            <field name="orangtua_2_4" widget='radio'/>
+                                <field name="catt_orangtua_2_4"/>
+	                            <field name="orangtua_2_5" widget='radio'/>
+                                <field name="catt_orangtua_2_5"/>
+	                        </group>
+						</group>
+						<group>
+	                        <group string="Kedisiplinan &amp; Interaksi Sosial di Sekolah" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}">
+	                            <field name="disiplin_3_1" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_disiplin_3_1" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="disiplin_3_2" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_disiplin_3_2" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="disiplin_3_3" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_disiplin_3_3" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="disiplin_3_4" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_disiplin_3_4" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="disiplin_3_5" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_disiplin_3_5" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="disiplin_3_6" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_disiplin_3_6" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="disiplin_3_7" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_disiplin_3_7" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                        </group>
+	                        <group string="Kepemimpinan" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}">
+	                            <field name="pemimpin_4_1" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_pemimpin_4_1" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="pemimpin_4_2" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_pemimpin_4_2" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="pemimpin_4_3" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_pemimpin_4_3" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="pemimpin_4_4" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_pemimpin_4_4" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="pemimpin_4_5" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_pemimpin_4_5" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="pemimpin_4_6" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_pemimpin_4_6" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="pemimpin_4_7" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_pemimpin_4_7" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+							</group>
+						</group>
+						<group>
+	                        <group string="Kebersihan diri &amp; Kesehatan">
+	                            <field name="bersih_5_1" widget='radio'/>
+                                <field name="catt_bersih_5_1"/>
+	                            <field name="bersih_5_2" widget='radio'/>
+                                <field name="catt_bersih_5_2"/>
+	                            <field name="bersih_5_3" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_bersih_5_3" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="bersih_5_4" widget='radio'/>
+                                <field name="catt_bersih_5_4"/>
+	                            <field name="bersih_5_5" widget='radio'/>
+                                <field name="catt_bersih_5_5"/>
+	                            <field name="bersih_5_6" widget='radio'/>
+                                <field name="catt_bersih_5_6"/>
+	                            <field name="bersih_5_7" widget='radio'/>
+                                <field name="catt_bersih_5_7"/>
+	                            <field name="bersih_5_8" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_bersih_5_8" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="bersih_5_9" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_bersih_5_9" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="bersih_5_10" widget='radio'/>
+                                <field name="catt_bersih_5_10"/>
+	                            <field name="bersih_5_11" widget='radio'/>
+                                <field name="catt_bersih_5_11"/>
+                            </group>
+	                        <group string="Kemandirian">
+	                            <field name="mandiri_6_1" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_mandiri_6_1" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="mandiri_6_2" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_mandiri_6_2" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="mandiri_6_3" widget='radio'/>
+                                <field name="catt_mandiri_6_3"/>
+	                            <field name="mandiri_6_4" widget='radio'/>
+                                <field name="catt_mandiri_6_4"/>
+	                            <field name="mandiri_6_5" widget='radio' attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+                                <field name="catt_mandiri_6_5" attrs="{'invisible': [('state', 'in', ('Approved_PIC', 'Approved_Wali'))]}"/>
+	                            <field name="mandiri_6_6" widget='radio'/>
+	                            <field name="catt_mandiri_6_6"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+
+		<!-- Custom Form Menu Siswa -->
+
+    	<record id="laporan_tahfidz_partner_form" model="ir.ui.view">
+    		<field name="name">res.partner.siswa.ortu</field>
+    		<field name="model">res.partner</field>
+    		<field name="inherit_id" ref="base.view_partner_form"/>
+    		<field name="arch" type="xml">
+    			<button name="action_view_partner_invoices" position="after">
+                    <button name="action_view_lp_tahfidz" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('lp_tahfidz_count', '=', 0)]}">
+                        <field name="lp_tahfidz_count" widget="statinfo" string="LP Tahfidz"/>
+                    </button>
+                    <button name="action_view_kbm_tahfidz" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('kbm_tahfidz_count', '=', 0)]}">
+                        <field name="kbm_tahfidz_count" widget="statinfo" string="KBM Tahfidz"/>
+                    </button>
+                    <button name="action_view_mohon_ukj_tahfidz" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('mohon_ukj_tahfidz_count', '=', 0)]}">
+                        <field name="mohon_ukj_tahfidz_count" widget="statinfo" string="Mohon UKJ"/>
+                    </button>
+                    <button name="action_view_ukj_tahfidz" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('ukj_tahfidz_count', '=', 0)]}">
+                        <field name="ukj_tahfidz_count" widget="statinfo" string="UKJ Tahfidz"/>
+                    </button>
+                    <button name="action_view_uas_tahfidz" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('uas_tahfidz_count', '=', 0)]}">
+                        <field name="uas_tahfidz_count" widget="statinfo" string="UAS Tahfidz"/>
+                    </button>
+                    <button name="action_view_buku_rapot" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('buku_rapot_count', '=', 0)]}">
+                        <field name="buku_rapot_count" widget="statinfo" string="Buku Rapot"/>
+                    </button>
+    			</button>
+    		</field>
+    	</record>
+
+
+		<!-- Custom Form Portal Siswa -->
+
+    	<record id="laporan_tahfidz_portal_siswa_form" model="ir.ui.view">
+    		<field name="name">res.partner.portal.siswa.form</field>
+    		<field name="model">res.partner</field>
+    		<field name="inherit_id" ref="base_sekolah.view_portal_siswa_form"/>
+    		<field name="arch" type="xml">
+    			<button name="action_view_partner_invoices" position="after">
+                    <button name="action_view_lp_tahfidz" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('lp_tahfidz_count', '=', 0)]}">
+                        <field name="lp_tahfidz_count" widget="statinfo" string="LP Tahfidz"/>
+                    </button>
+                    <button name="action_view_kbm_tahfidz" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('kbm_tahfidz_count', '=', 0)]}">
+                        <field name="kbm_tahfidz_count" widget="statinfo" string="KBM Tahfidz"/>
+                    </button>
+                    <button name="action_view_mohon_ukj_tahfidz" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('mohon_ukj_tahfidz_count', '=', 0)]}">
+                        <field name="mohon_ukj_tahfidz_count" widget="statinfo" string="Mohon UKJ"/>
+                    </button>
+                    <button name="action_view_ukj_tahfidz" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('ukj_tahfidz_count', '=', 0)]}">
+                        <field name="ukj_tahfidz_count" widget="statinfo" string="UKJ Tahfidz"/>
+                    </button>
+                    <button name="action_view_uas_tahfidz" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('uas_tahfidz_count', '=', 0)]}">
+                        <field name="uas_tahfidz_count" widget="statinfo" string="UAS Tahfidz"/>
+                    </button>
+                    <button name="action_view_buku_rapot" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('buku_rapot_count', '=', 0)]}">
+                        <field name="buku_rapot_count" widget="statinfo" string="Buku Rapot"/>
+                    </button>
+    			</button>
+    		</field>
+    	</record>
+
+
+        <!-- MENU OBSERVASI ADAB -->
+
+        <record model="ir.actions.act_window" id="action_portal_observasi_adab">
+            <field name="name">Observasi Adab</field>
+            <field name="res_model">observasi.adab</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state', '!=', 'Draft'), ('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_tree_view_observasi_adab_portal" >
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="aa_kurikulum.observasi_adab_tree_view"/>
+            <field name="act_window_id" ref="action_portal_observasi_adab"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_form_view_observasi_adab_portal" >
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="observasi_adab_portal_view_form"/>
+            <field name="act_window_id" ref="action_portal_observasi_adab"/>
+        </record>
+
+
+		<record model="ir.actions.act_window" id="action_portal_buku_rapot">
+			<field name="name">Buku Rapot</field>
+			<field name="res_model">buku.rapot</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+		</record>
+
+        <menuitem id="menubar_portal_kurikulum" name="Laporan" parent="base_sekolah.menubar_portal" sequence="3"/>
+       
+        <menuitem id="menu_portal_buku_rapot" name="Buku Rapot" parent="menubar_portal_kurikulum" action="action_portal_buku_rapot" sequence="2" />
+        <menuitem id="menu_laporan_menu_bulanann" name="Laporan Bulanan" parent="menubar_portal_kurikulum" action="model_bulanan_action" groups="base_sekolah.group_sekolah_orangtua"/> 
+		<!-- <menuitem id="menu_portal_observasi_adab" name="Observasi Adab" parent="menubar_portal_kurikulum" action="action_portal_observasi_adab" sequence="3" /> -->
+
+        <menuitem id="menubar_portal_tagihan" name="Tagihan" parent="base_sekolah.menubar_portal" sequence="3"/>
+        <menuitem id="menu_mutasi_pembayaran" name="Mutasi Pembayaran" parent="menubar_portal_tagihan" action="aa_tata_usaha.action_tagihan_kasir" sequence="1"/>
+        <menuitem id="menu_pembayaran_tagihan" name="Tagihan Siswa" parent="menubar_portal_tagihan" action="aa_tata_usaha.action_tagihan_kasir" sequence="2"/>
+        <menuitem id="menu_kasir_manifest_bayar_tagihan" name="Manifest Pembayaran" parent="menubar_portal_tagihan" action="aa_tata_usaha.action_manifest_pembayaran_form" sequence="3"/>
+       
+        <menuitem id="menubar_portal_jadwal" name="Jadwal Pelajaran" parent="base_sekolah.menubar_portal" sequence="4"/> -->
+        <menuitem id="menu_form_jadwal" name="Form Jadwal" parent="menubar_portal_jadwal" action="model_jadwal_pelajaran_action" sequence="1"/> 
+
+
+
+
+
+        <!-- MENU TAHFIDZ -->
+
+		<record model="ir.actions.act_window" id="action_portal_lesson_plan">
+            <field name="name">Lesson Plan Tahfidz</field>
+            <field name="res_model">lesson.plan</field>
+            <field name="domain">[('state', '!=', 'Draft'), ('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+		</record>
+
+        <record model="ir.actions.act_window" id="action_portal_kbm_tahfidz">
+            <field name="name">KBM Tahfidz</field>
+            <field name="res_model">kbm.tahfidz</field>
+            <field name="domain">[('state', '!=', 'Draft'), ('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+		</record>
+
+        <record model="ir.actions.act_window" id="action_portal_permohonan_ukj">
+            <field name="name">Permohonan UKJ</field>
+            <field name="res_model">permohonan.ukj</field>
+			<field name="domain">[('state', '!=', 'Draft'), ('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+		</record>
+
+        <record model="ir.actions.act_window" id="action_portal_ukj_tahfidz">
+            <field name="name">Ujian Kenaikan Juz</field>
+            <field name="res_model">ujian.kenaikan.juz</field>
+            <field name="domain">[('state', '!=', 'Draft'), ('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_portal_uas_tahfidz">
+            <field name="name">UAS Tahfidz</field>
+            <field name="res_model">tahfidz.akhir.semester</field>
+            <field name="domain">[('state', '!=', 'Draft'), ('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+        </record>
+
+        <!-- <menuitem id="menubar_portal_tahfidz" name="Tahfidz" parent="base_sekolah.menubar_portal" sequence="4"/>
+        <menuitem id="menu_portal_lesson_plan" name="LP Tahfizh" parent="menubar_portal_tahfidz" sequence="1" action="action_portal_lesson_plan"/>
+        <menuitem id="menu_portal_kbm_tahfidz" name="KBM Tahfidz" parent="menubar_portal_tahfidz" sequence="2" action="action_portal_kbm_tahfidz"/>
+        <menuitem id="menu_portal_permohonan_ukj" name="Permohonan UKJ" parent="menubar_portal_tahfidz" sequence="3" action="action_portal_permohonan_ukj"/>
+        <menuitem id="menu_portal_jadwal_ukj" name="Jadwal Ujian" parent="menubar_portal_tahfidz" sequence="4" action="jadwal_ujian_action"/>
+        <menuitem id="menu_portal_kenaikan_juz" name="Input Hasil UKJ" parent="menubar_portal_tahfidz" sequence="5" action="action_portal_ukj_tahfidz"/>
+        <menuitem id="menu_portal_uas_tahfidz" name="UAS Tahfidz" parent="menubar_portal_tahfidz" sequence="6" action="action_portal_uas_tahfidz"/> -->
+
+</odoo>

@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_layananindividu,layanan.individu,model_layanan_individu,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1
+access_layananmedia,layanan.media,model_layanan_media,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1
+access_kegiatan_tambahan,kegiatan.tambahan,model_kegiatan_tambahan,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1
+access_konselingkelompok,konseling.kelompok,model_konseling_kelompok,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1
+access_bimbingankelompok,bimbingan.kelompok,model_bimbingan_kelompok,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1
+access_bimbinganklasikal,bimbingan.klasikal,model_bimbingan_klasikal,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1
+access_bimbinganlintas,bimbingan.lintas,model_bimbingan_lintas,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1
+access_konsultasi,konsultasi,model_konsultasi,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1
+access_kolaborasi,kolaborasi,model_kolaborasi,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1
+access_alihtangan,alih.tangan,model_alih_tangan,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1
+access_kunjunganrumah,kunjungan.rumah,model_kunjungan_rumah,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1
+access_layananadvokasi,layanan.advokasi,model_layanan_advokasi,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1
+access_konferensikasus,konverensi.kasus,model_konverensi_kasus,aa_tata_usaha.group_tata_usaha_admin,1,1,1,1

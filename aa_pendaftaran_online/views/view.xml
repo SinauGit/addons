@@ -1,0 +1,318 @@
+<odoo>
+
+
+	<!-- Pendaftaran Online -->
+
+
+	<record id="vcrm_case_tree_view_leads_state" model="ir.ui.view">
+		<field name="name">crm.lead.tree.state</field>
+		<field name="model">crm.lead</field>
+		<field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
+		<field name="arch" type="xml">
+			<field name="email_from" position="after">
+				<field name="state" invisible="True"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="crm_case_form_view_leads_state" model="ir.ui.view">
+		<field name="name">crm.lead.form.state</field>
+		<field name="model">crm.lead</field>
+		<field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+		<field name="arch" type="xml">
+			<button name="action_set_lost" position="after">
+				<field name="state" widget="statusbar" statusbar_visible="Draft,In_Progress,Done" invisible="True"/>
+			</button>
+		</field>
+	</record>
+
+
+	<record id="pendaftaran_online_tree_view" model="ir.ui.view">
+		<field name="name">pendaftaran.online.tree</field>
+		<field name="model">crm.lead</field>
+		<field name="arch" type="xml">
+			<tree decoration-info="state == 'Ujian'" decoration-danger="state == 'Draft'" string="Pendaftaran Siswa">
+				<field name="nis"/>
+				<field name="name" string="Siswa"/>
+				<field name="jenjang"/>
+				<field name="city" string="Kota"/>
+				<field name="birth" string="Tanggal Lahir"/>
+				<field name="kelamin"/>
+				<field name="email_from"/>
+				<field name="mobile" string="No. HP"/>
+				<field name="state"/>
+				<button name="pendaftaran_batal" string="Batal" type="object" states="Draft" icon="fa-trash-o" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+				<button name="pendaftaran_lulus" string="Lulus Seleksi" type="object" states="Ujian" icon="fa-check" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+				<button name="pendaftaran_tidak_lulus" string="Tidak Lulus Seleksi" type="object" icon="fa-ban" states="Ujian" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+				<button name="pendaftaran_undur_diri" string="Mengundurkan Diri" type="object" icon="fa-times" states="Ujian,Lulus" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+				<button name="pendaftaran_gabung" string="Bergabung" type="object" states="Lulus" icon="fa-check-circle" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="pendaftaran_online_view_form" model="ir.ui.view">
+		<field name="name">pendaftaran.online.form</field>
+		<field name="model">crm.lead</field>
+		<field name="arch" type="xml">
+			<form string="Pendaftaran Siswa">
+				<header>
+					<button name="pendaftaran_draft" string="Set to Draft" type="object" states="Upload,Pernyataan" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+					<button name="pendaftaran_hapus" string="Hapus" type="object" states="Draft" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+					<button name="pendaftaran_balik" string="Kembali" type="object" states="Upload,Pernyataan,Ujian" class="oe_highlight"/>
+					<button name="pendaftaran_lanjut" string="Selanjutnya" type="object" states="Draft,Upload,Pernyataan" class="oe_highlight"/>
+					<button name="pendaftaran_draft" string="Batal" type="object" states="Draft,Lulus" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+					<button name="cetak_kartu_ujian" string="Cetak Tanda Bukti Pendaftaran" type="object" states="Ujian" class="oe_highlight"/>
+					<button name="pendaftaran_lulus" string="Lulus Seleksi" type="object" states="Ujian" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+					<button name="pendaftaran_tidak_lulus" string="Tidak Lulus Seleksi" type="object" states="Ujian" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+					<button name="pendaftaran_undur_diri" string="Mengundurkan Diri" type="object" states="Ujian,Lulus" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+					<button name="pendaftaran_gabung" string="Bergabung" type="object" states="Lulus" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+					<field name="state" widget="statusbar" statusbar_visible="Draft,Upload,Pernyataan,Ujian,Lulus"/>
+				</header>
+				<sheet>
+					<group string="Hasil Observasi" attrs="{'invisible': [('state', 'not in', ('Lulus','Bergabung'))]}">
+						<field name="namafile_hasil_observasi" invisible="1" colspan="4"/>
+						<field name="hasil_observasi" filename="namafile_foto_nisn" nolabel="1" colspan="4"/>
+					</group>
+					<group string="Pembayaran" attrs="{'invisible': [('state', 'in', ('Draft','Upload','Pernyataan','Ujian'))]}" groups="aa_pendaftaran_online.group_pendaftaran_panitia">
+						<field name="pembayaran1" colspan="4"/>
+						<field name="pembayaran2" colspan="4"/>
+						<field name="pembayaran3" colspan="4"/>
+					</group>
+					<notebook>
+						<page string="Profil" attrs="{'invisible': [('state', 'in', ('Upload', 'Pernyataan'))]}">
+							<group>
+								<group>
+									<field name="name" string="Nama Lengkap"/>
+									<label for="street" string="Alamat"/>
+									<div class="o_address_format">
+										<field name="street" placeholder="Jalan..." class="o_address_street" attrs="{'required': [('state', '=', 'Draft')]}"/>
+										<field name="city" placeholder="Kota..." class="o_address_city" attrs="{'required': [('state', '=', 'Draft')]}"/>
+										<field name="zip" placeholder="Kode Pos..." class="o_address_zip" attrs="{'required': [('state', '=', 'Draft')]}"/>
+										<field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}' attrs="{'required': [('state', '=', 'Draft')]}"/>
+									</div>
+								</group>
+								<group>
+									<field name="panggilan" attrs="{'required': [('state', '=', 'Draft')]}"/>
+									<field name="phone" widget="phone" string="Telpon Rumah" attrs="{'required': [('state', '=', 'Draft')]}"/>
+									<field name="mobile" string="No Handphone" attrs="{'required': [('state', '=', 'Draft')]}"/>
+									<field name="email_from"/>
+									<field name="partner_id" string="Siswa" readonly="True" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+								</group>
+							</group>
+							<group string="Pendaftaran" col="4" colspan="4">
+								<field name="nis"/>
+								<field name="lembaga" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="fiscalyear_id" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="jenjang" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="user_id" readonly="True"/>
+							</group>
+							<group string="Kelahiran" col="4" colspan="4">
+								<field name="birth" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="place" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="agama" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="warga" attrs="{'required': [('state', '=', 'Draft')]}"/>
+							</group>
+							<group string="Saudara" col="4" colspan="4">
+								<field name="anak_ke" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="kandung" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="tiri" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="angkat" attrs="{'required': [('state', '=', 'Draft')]}"/>
+							</group>
+							<group string="Lainnya" col="4" colspan="4">
+								<field name="kelamin" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="bahasa" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="darah" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="moda" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<label for="berat"/>
+								<div class="o_row">
+									<field name="berat" attrs="{'required': [('state', '=', 'Draft')]}"/>
+									<span>kg</span>
+								</div>
+								<field name="jarak" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<label for="tinggi"/>
+								<div class="o_row">
+									<field name="tinggi" attrs="{'required': [('state', '=', 'Draft')]}"/>
+									<span>cm</span>
+								</div>
+								<field name="tinggal" attrs="{'required': [('state', '=', 'Draft')]}"/>
+							</group>
+							<group string="Ayah" col="4" colspan="4">
+								<field name="ayah" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="didika" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="hpa" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="kerja" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="agama_ayah" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="warga_ayah" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="gaji_ayah" colspan="4" attrs="{'required': [('state', '=', 'Draft')]}"/>
+							</group>
+							<group string="Ibu" col="4" colspan="4">
+								<field name="ibu" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="didiki" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="hpi" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="kerji" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="agama_ibu" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="warga_ibu" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<field name="gaji_ibu" colspan="4" attrs="{'required': [('state', '=', 'Draft')]}"/>
+							</group>
+							<group>
+								<field name="wali_siswa" attrs="{'required': [('state', '=', 'Draft')]}"/>
+							</group>
+							<group string="Wali (Jika Ada)" colspan="4">
+								<field name="wali"/>
+								<field name="relasi"/>
+								<field name="hpw"/>
+								<field name="didikw"/>
+								<field name="pekerjaan"/>
+								<field name="agama_wali"/>
+								<field name="warga_wali"/>
+							</group>
+						</page>
+						<page string="Dokumen (PDF / JPG)" attrs="{'invisible': [('state', 'in', ('Draft', 'Pernyataan'))]}">
+							<group string="Akte Kelahiran">
+								<field name="namafile_akte_lahir" invisible="1"/>
+								<field name="akte_lahir" nolabel="1" filename="namafile_akte_lahir" attrs="{'required': [('state', '=', 'Upload')]}"/>
+							</group>
+							<group string="Kartu Keluarga">
+								<field name="namafile_kartu_keluarga" invisible="1"/>
+								<field name="kartu_keluarga" nolabel="1" filename="namafile_kartu_keluarga" attrs="{'required': [('state', '=', 'Upload')]}"/>
+							</group>
+							<group string="KTP Ayah">
+								<field name="namafile_ktp_ayah" invisible="1"/>
+								<field name="ktp_ayah" nolabel="1" filename="namafile_ktp_ayah" attrs="{'required': [('state', '=', 'Upload')]}"/>
+							</group>
+							<group string="KTP Ibu">
+								<field name="namafile_ktp_ibu" invisible="1"/>
+								<field name="ktp_ibu" nolabel="1" filename="namafile_ktp_ibu" attrs="{'required': [('state', '=', 'Upload')]}"/>
+							</group>
+							<group string="Ijazah Terakhir (Jika Sudah Ada)">
+								<field name="namafile_ijazah_terakhir" invisible="1"/>
+								<field name="ijazah_terakhir" filename="namafile_ijazah_terakhir" nolabel="1"/>
+							</group>
+							<group string="Foto NISN (Jika Ada)">
+								<field name="namafile_foto_nisn" invisible="1"/>
+								<field name="foto_nisn" filename="namafile_foto_nisn" nolabel="1"/>
+							</group>
+							<group string="Pas Foto Calon Siswa">
+								<field name="namafile_foto_siswa" invisible="1"/>
+								<field name="foto_siswa" filename="namafile_foto_siswa" nolabel="1" attrs="{'required': [('state', '=', 'Upload')]}"/>
+							</group>
+							<group string="Foto Keluarga Inti">
+								<field name="namafile_foto_keluarga" invisible="1"/>
+								<field name="foto_keluarga" filename="namafile_foto_keluarga" nolabel="1" attrs="{'required': [('state', '=', 'Upload')]}"/>
+							</group>
+							<group string="Sertifikat / Piagam (Jika Ada)">
+								<field name="namafile_sertifikat" invisible="1"/>
+								<field name="namafile_sertifikat2" invisible="1"/>
+								<field name="namafile_sertifikat3" invisible="1"/>
+								<field name="namafile_sertifikat4" invisible="1"/>
+								<field name="namafile_sertifikat5" invisible="1"/>
+								<field name="sertifikat" filename="namafile_sertifikat" nolabel="1" colspan="4"/>
+								<field name="sertifikat2" filename="namafile_sertifikat2" nolabel="1" colspan="4"/>
+								<field name="sertifikat3" filename="namafile_sertifikat3" nolabel="1" colspan="4"/>
+								<field name="sertifikat4" filename="namafile_sertifikat4" nolabel="1" colspan="4"/>
+								<field name="sertifikat5" filename="namafile_sertifikat5" nolabel="1" colspan="4"/>
+							</group>
+						</page>
+						<page string="Pernyataan Orang Tua" attrs="{'invisible': [('state', 'in', ('Draft', 'Upload'))]}">
+							<group string="Menurut pengamatan Ayah dan Ibu, apakah kekuatan (strength) dan kelemahan (weakness) ananda ?">
+								<field name="kekuatan" nolabel="1" attrs="{'required': [('state', '=', 'Pernyataan')]}"/>
+							</group>
+							<group string="Menurut pengamatan Ayah dan Ibu, apakah ada bakat tertentu yang terlihat (menonjol) pada diri ananda ?">
+								<field name="bakat" nolabel="1" attrs="{'required': [('state', '=', 'Pernyataan')]}"/>
+							</group>
+							<group string="Apakah ada hal khusus terkait ananda yang ingin disampaikan ?">
+								<field name="khusus" nolabel="1"/>
+							</group>
+							<group string="Mengapa Ayah/Ibu memilih Sekolah Alam Citra Insani sebagai sekolah ananda ?">
+								<field name="memilih" nolabel="1" attrs="{'required': [('state', '=', 'Pernyataan')]}"/>
+							</group>
+							<group string="Apa harapan Ayah/Ibu terhadap Sekolah Alam Citra Insani ?">
+								<field name="harapan" nolabel="1" attrs="{'required': [('state', '=', 'Pernyataan')]}"/>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="pendaftaran_siswa_search_view">
+		<field name="name">pendaftaran.siswa.search</field>
+		<field name="model">crm.lead</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="nis"/>
+				<field name="name"/>
+				<field name="email_from" string="Siswa"/>
+				<field name="jenjang"/>
+				<group expand="1" string="Group By">
+					<filter string="Jenjang" name="group_by_jenjang" context="{'group_by': 'jenjang'}"/>
+					<filter string="Lembaga" name="group_by_lembaga" context="{'group_by': 'lembaga'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+
+	<record id="pendaftaran_online_view_graph" model="ir.ui.view">
+		<field name="name">pendaftaran.siswa.graph</field>
+		<field name="model">crm.lead</field>
+		<field name="arch" type="xml">
+			<graph string="Siswa">
+				<field name="jenjang" type="col"/>
+				<field name="lembaga" type="row"/>
+			</graph>
+		</field>
+	</record>
+
+
+	<record model="ir.actions.act_window" id="pendaftaran_online_action">
+		<field name="name">Pendaftaran Siswa</field>
+		<field name="res_model">crm.lead</field>
+		<field name="view_id" ref="pendaftaran_online_tree_view"/>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form,graph</field>
+		<field name="search_view_id" ref="pendaftaran_siswa_search_view"/>
+	</record>
+
+	<record id="action_tree_view_pendaftaran_online" model="ir.actions.act_window.view">
+		<field name="sequence" eval="1"/>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="pendaftaran_online_tree_view"/>
+		<field name="act_window_id" ref="pendaftaran_online_action"/>
+	</record>
+
+	<record id="action_form_view_pendaftaran_online" model="ir.actions.act_window.view">
+		<field name="sequence" eval="2"/>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="pendaftaran_online_view_form"/>
+		<field name="act_window_id" ref="pendaftaran_online_action"/>
+	</record>
+
+	<record id="action_graph_view_pendaftaran_online" model="ir.actions.act_window.view">
+		<field name="sequence" eval="3"/>
+		<field name="view_mode">graph</field>
+		<field name="view_id" ref="pendaftaran_online_view_graph"/>
+		<field name="act_window_id" ref="pendaftaran_online_action"/>
+	</record>
+
+	<record id="seq_pendaftaran_online_new" model="ir.sequence">
+		<field name="name">Pendaftaran Siswa</field>
+		<field name="code">pendaftaran.siswa</field>
+		<field name="prefix">PS/%(y)s/%(month)s/</field>
+		<field name="padding">5</field>
+	</record>
+
+
+	<menuitem id="menu_pendaftaran" name="Pendaftaran" web_icon="aa_pendaftaran_online,static/description/register.png" groups="group_pendaftaran_calon_siswa"/>
+	<menuitem id="menu_pendaftaran_siswa" name="Pendaftaran Siswa" parent="menu_pendaftaran" action="pendaftaran_online_action"/>
+
+
+
+
+</odoo>

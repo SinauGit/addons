@@ -1,0 +1,1016 @@
+<section class="oe_container">
+	<div class="oe_row oe_spaced">
+		<h2 class="oe_slogan">MuK REST API for Odoo</h2>
+		<h3 class="oe_slogan">A customizable Restful API for Odoo</h3>
+		<h4 class="oe_slogan" style="font-size: 23px;">MuK IT GmbH -
+			www.mukit.at</h4>
+		<div class="oe_demo oe_screenshot"
+			style="max-width: 84%; margin: 16px 8%;">
+			<img src="screenshot.png">
+		</div>
+	</div>
+</section>
+
+<section class="oe_container">
+	<div class="oe_row oe_spaced">
+		<div class="text-justify" style="max-width: 84%; margin: 16px 8%;">
+			<h3 class="oe_slogan">Overview</h3>
+			<p class="oe_mt32">Enables a REST API for the Odoo server. The
+				API has routes to authenticate and retrieve a token. Afterwards, a
+				set of routes to interact with the server are provided. The API can
+				be used by any language or framework which can make an HTTP requests
+				and receive responses with JSON payloads and works with both the
+				Community and the Enterprise Edition.</p>
+			<ul class="fa-ul">
+				<li><a
+					href="https://github.com/muk-it/muk_docs/blob/12.0/muk_rest/clients/clients.md" target="_blank">
+						<i class="fa-li fa fa-laptop"></i> Clients
+				</a></li>
+				<li><a
+					href="https://github.com/muk-it/muk_docs/blob/12.0/muk_rest/examples/examples.md" target="_blank">
+						<i class="fa-li fa fa-file-code-o"></i> Examples
+				</a></li>
+				<li><a
+					href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0/" target="_blank">
+						<i class="fa-li fa fa-book"></i> Documentation
+				</a></li>
+				<li><a
+					href="https://github.com/muk-it/muk_docs/blob/12.0/muk_rest/faqs/faqs.md" target="_blank">
+						<i class="fa-li fa fa-question-circle-o"></i> FAQs
+				</a></li>
+			</ul>
+			<p>
+				In case the module should be active in every database just change
+				the auto install flag to
+				<code>True</code>
+				. To activate the routes even if no database is selected the module
+				should be loaded right at the server start. This can be done by
+				editing the configuration file or passing a load parameter to the
+				start script.
+			</p>
+			<p>
+				Parameter:
+				<code>--load=web,muk_rest</code>
+			</p>
+		</div>
+	</div>
+</section>
+
+<section class="oe_container">
+	<div class="oe_row oe_spaced">
+		<div class="text-justify" style="max-width: 84%; margin: 16px 8%;">
+			<h3 class="oe_slogan">Key Features</h3>
+			<div class="oe_demo" style="border: none;">
+				<img src="keyfeatures.png" class="img-responsive" />
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="oe_container oe_dark">
+	<div class="oe_row oe_spaced" style="margin-bottom: 2px;">
+		<div style="margin: 16px 4%;">
+			<h3 class="oe_slogan" style="margin-bottom: 22px;">
+				Authentication with the server can be done either via <a
+					href="https://tools.ietf.org/html/rfc5849" target="_blank">OAuth1</a> or <a
+					href="https://tools.ietf.org/html/rfc6749" target="_blank">OAuth2</a>. <br /> All
+				<a href="https://tools.ietf.org/html/rfc6749#page-8" target="_blank">Grant Types</a>
+				are supported by the API
+			</h3>
+			<div class="row">
+				<div class="col-lg-6">
+					<ul style="list-style-type: none; line-height: 30px;">
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h4>OAuth1
+								- Authentication</h4></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Temporary
+								Credentials Acquisition</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Authentication/post_api_authentication_oauth1_initiate" target="_blank"
+							style="padding-left: 10px;">/api/authentication/oauth1/initiate</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Authorization</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Authentication/get_api_authentication_oauth1_authorize" target="_blank"
+							style="padding-left: 10px;">/api/authentication/oauth1/authorize</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Token
+								Exchange</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Authentication/post_api_authentication_oauth1_token" target="_blank"
+							style="padding-left: 10px;">/api/authentication/oauth1/token</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-6">
+					<ul style="list-style-type: none; line-height: 30px;">
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h4>OAuth2
+								- Authentication</h4></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Authorization</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Authentication/get_api_authentication_oauth2_authorize" target="_blank"
+							style="padding-left: 10px;">/api/authentication/oauth2/authorize</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Token
+								Exchange</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Authentication/post_api_authentication_oauth2_token" target="_blank"
+							style="padding-left: 10px;">/api/authentication/oauth2/token</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Token
+								Revocation</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Authentication/post_api_authentication_oauth2_revoke" target="_blank"
+							style="padding-left: 10px;">/api/authentication/oauth2/revoke</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="oe_container oe_dark">
+	<div class="oe_row oe_spaced"
+		style="margin-top: 2px; margin-bottom: 2px;">
+		<div style="margin: 16px 4%;">
+
+			<h3 class="oe_slogan" style="margin-top: 12px; margin-bottom: 22px;">These
+				API endpoints can be used to communicate with the system</h3>
+			<div class="row">
+				<div class="col-lg-6">
+					<ul style="list-style-type: none; line-height: 30px;">
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Version</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api" target="_blank"
+							style="padding-left: 10px;">/api</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Languages</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_languages" target="_blank"
+							style="padding-left: 10px;">/api/languages</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Countries</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_countries" target="_blank"
+							style="padding-left: 10px;">/api/countries</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>User
+								Info</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_userinfo" target="_blank"
+							style="padding-left: 10px;">/api/userinfo</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Binary</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_binary__xmlid_" target="_blank"
+							style="padding-left: 10px;">/api/binary/{xmlid}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_binary__xmlid___filename_" target="_blank"
+							style="padding-left: 10px;">/api/binary/{xmlid}/{filename}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_binary__id_" target="_blank"
+							style="padding-left: 10px;">/api/binary/{id}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_binary__id___filename_" target="_blank"
+							style="padding-left: 10px;">/api/binary/{id}/{filename}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_binary__id___unique_" target="_blank"
+							style="padding-left: 10px;">/api/binary/{id}-{unique}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_binary__id___unique___filename_" target="_blank"
+							style="padding-left: 10px;">/api/binary/{id}-{unique}/{filename}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_binary__model___id___field_" target="_blank"
+							style="padding-left: 10px;">/api/binary/{model}/{id}/{field}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_binary__model___id___field___filename_" target="_blank"
+							style="padding-left: 10px;">/api/binary/{model}/{id}/{field}/{filename}</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-6">
+					<ul style="list-style-type: none; line-height: 30px;">
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Modules</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_modules" target="_blank"
+							style="padding-left: 10px;">/api/modules</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Call</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/post_api_call__model_" target="_blank"
+							style="padding-left: 10px;">/api/call/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/post_api_call__model___method_" target="_blank"
+							style="padding-left: 10px;">/api/call/{model}/{method}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>User</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_user" target="_blank"
+							style="padding-left: 10px;">/api/user</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Session</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_session" target="_blank"
+							style="padding-left: 10px;">/api/session</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Reports</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_reports__name_" target="_blank"
+							style="padding-left: 10px;">/api/reports{name}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_reports__name___model_" target="_blank"
+							style="padding-left: 10px;">/api/reports/{name}{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Report</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_report__report_" target="_blank"
+							style="padding-left: 10px;">/api/report{report}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/System/get_api_report__report___type_" target="_blank"
+							style="padding-left: 10px;">/api/report/{report}{type}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="oe_container oe_dark">
+	<div class="oe_row oe_spaced"
+		style="margin-top: 2px; margin-bottom: 2px;">
+		<div style="margin: 16px 4%;">
+
+			<h3 class="oe_slogan" style="margin-top: 12px; margin-bottom: 22px;">These
+				API endpoints can be used to communicate with Odoo models</h3>
+			<div class="row">
+				<div class="col-lg-6">
+					<ul style="list-style-type: none; line-height: 30px;">
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Field
+								Names</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_field_names__model_" target="_blank"
+							style="padding-left: 10px;">/api/field_names/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Fields</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_fields__model_" target="_blank"
+							style="padding-left: 10px;">/api/fields/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Metadata</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_metadata__model_" target="_blank"
+							style="padding-left: 10px;">/api/metadata/{model}</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-6">
+					<ul style="list-style-type: none; line-height: 30px;">
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Create</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/post_api_create__model_" target="_blank"
+							style="padding-left: 10px;">/api/create/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Write</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #986E8A; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">PUT</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/put_api_write__model_" target="_blank"
+							style="padding-left: 10px;">/api/write/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Unlink</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #DC7B7A; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">DELETE</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/delete_api_unlink__model_" target="_blank"
+							style="padding-left: 10px;">/api/unlink/{model}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<ul style="list-style-type: none; line-height: 30px;">
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Search</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_search__model_" target="_blank"
+							style="padding-left: 10px;">/api/search/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_search__model___order_" target="_blank"
+							style="padding-left: 10px;">/api/search/{model}/{order}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_search__model___limit___order_" target="_blank"
+							style="padding-left: 10px;">/api/search/{model}/{limit}/{order}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_search__model___limit___offset___order_" target="_blank"
+							style="padding-left: 10px;">/api/search/{model}/{limit}/{offset}/{order}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Search
+								Read</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_search_read__model_" target="_blank"
+							style="padding-left: 10px;">/api/search_read/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_search_read__model___order_" target="_blank"
+							style="padding-left: 10px;">/api/search_read/{model}/{order}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_search_read__model___limit___order_" target="_blank"
+							style="padding-left: 10px;">/api/search_read/{model}/{limit}/{order}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_search_read__model___limit___offset___order_" target="_blank"
+							style="padding-left: 10px;">/api/search_read/{model}/{limit}/{offset}/{order}</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-6">
+					<ul style="list-style-type: none; line-height: 30px;">
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Name</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_name__model_" target="_blank"
+							style="padding-left: 10px;">/api/name/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Read</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_read__model_" target="_blank"
+							style="padding-left: 10px;">/api/read/{model}</a>
+						</li>
+
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Search
+								Group</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_read_group__model_" target="_blank"
+							style="padding-left: 10px;">/api/read_group/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_read_group__model___orderby_" target="_blank"
+							style="padding-left: 10px;">/api/read_group/{model}/{orderby}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_read_group__model___limit___orderby_" target="_blank"
+							style="padding-left: 10px;">/api/read_group/{model}/{limit}/{orderby}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Model/get_api_read_group__model___limit___offset___orderby_" target="_blank"
+							style="padding-left: 10px;">/api/read_group/{model}/{limit}/{offset}/{orderby}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="oe_container oe_dark">
+	<div class="oe_row oe_spaced"
+		style="margin-top: 2px; margin-bottom: 2px;">
+		<div style="margin: 16px 4%;">
+
+			<h3 class="oe_slogan" style="margin-top: 12px; margin-bottom: 22px;">These
+				API endpoints can be used to check access rights</h3>
+			<div class="row">
+				<div class="col-lg-6">
+					<ul style="list-style-type: none; line-height: 30px;">
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Access
+								Rights</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Security/get_api_access_rights__model_" target="_blank"
+							style="padding-left: 10px;">/api/access/rights/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Security/get_api_access_rights__model___operation_" target="_blank"
+							style="padding-left: 10px;">/api/access/rights/{model}/{operation}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Access
+								Rules</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Security/get_api_access_rules__model_" target="_blank"
+							style="padding-left: 10px;">/api/access/rules/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Security/get_api_access_rules__model___operation_" target="_blank"
+							style="padding-left: 10px;">/api/access/rules/{model}/{operation}</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-6">
+					<ul style="list-style-type: none; line-height: 30px;">
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Access
+								Fields</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Security/get_api_access_fields__model_" target="_blank"
+							style="padding-left: 10px;">/api/access/fields/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Security/get_api_access_fields__model___operation_" target="_blank"
+							style="padding-left: 10px;">/api/access/fields/{model}/{operation}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>General
+								Access</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Security/get_api_access__model_" target="_blank"
+							style="padding-left: 10px;">/api/access/{model}</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Security/get_api_access__model___operation_" target="_blank"
+							style="padding-left: 10px;">/api/access/{model}/{operation}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="oe_container oe_dark">
+	<div class="oe_row oe_spaced" style="margin-top: 2px;">
+		<div style="margin: 16px 4%;">
+
+			<h3 class="oe_slogan" style="margin-top: 12px; margin-bottom: 22px;">These
+				API endpoints can be used to interact with the database</h3>
+			<div class="row">
+				<div class="col-lg-6">
+					<ul style="list-style-type: none; line-height: 30px;">
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Master
+								Password</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Database/post_api_change_master_password" target="_blank"
+							style="padding-left: 10px;">/api/change_master_password</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>List
+								Databases</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #6EBE5C; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">GET</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Database/get_api_database_list" target="_blank"
+							style="padding-left: 10px;">/api/database/list</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Backup
+								Database</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Database/post_api_database_backup" target="_blank"
+							style="padding-left: 10px;">/api/database/backup</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Restore
+								Database</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Database/post_api_database_restore" target="_blank"
+							style="padding-left: 10px;">/api/database/restore</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-6">
+					<ul style="list-style-type: none; line-height: 30px;">
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Create
+								Database</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Database/post_api_database_create" target="_blank"
+							style="padding-left: 10px;">/api/database/create</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Duplicate
+								Database</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Database/post_api_database_duplicate" target="_blank"
+							style="padding-left: 10px;">/api/database/duplicate</a>
+						</li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h5>Drop
+								Database</h5></li>
+						<li
+							style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<h5
+								style="background-color: #3A8BB0; color: white; padding: 5px 10px 3px 10px; text-transform: uppercase; display: inline-block; margin: 0; position: relative; top: -1px;">POST</h5>
+							<a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0#/Database/post_api_database_drop" target="_blank"
+							style="padding-left: 10px;">/api/database/drop</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="oe_container">
+	<div class="oe_row oe_spaced">
+		<div class="text-justify" style="max-width: 84%; margin: 16px 8%;">
+			<h3 class="oe_slogan">Testing the API</h3>
+			<div class="row">
+				<div class="mb16 col-lg-6">
+					<div class="oe_demo oe_screenshot">
+						<a href="https://youtu.be/P1BXDCaJO4A" target="_blank"> <img
+							src="screenshot_documentation.png">
+						</a>
+					</div>
+				</div>
+				<div class="mb16 col-lg-6">
+					<p>
+						In addition to the sample code, the API can also be tested using
+						our <a
+							href="https://app.swaggerhub.com/apis-docs/keshrath/muk_rest/3.0.0" target="_blank">demo</a>
+						page. A short explanation <a href="https://youtu.be/P1BXDCaJO4A" target="_blank">video</a>
+						will help you to get started. You can use the following
+						credentials for authentication:
+					</p>
+					<p>
+						Client ID: MobileApplicationFlowDemoClientKey<br> User: demo<br>
+						Password: demo
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="oe_container">
+	<div class="oe_row oe_spaced">
+		<div class="text-justify" style="max-width: 84%; margin: 16px 8%;">
+			<h3 class="oe_slogan">Custom Endpoints</h3>
+			<div class="row">
+				<div class="mb16 col-lg-6">
+					<p>In addition to the existing API endpoints, more can easily
+						be added. It is not necessary to write any kind of code. New
+						endpoints can be created in the backend and are immediately
+						available through the API.</p>
+					<p>Different types of endpoints can be created. For example the
+						domain evaluation can be used to query certain data and return it
+						via the API.</p>
+				</div>
+				<div class="mb16 col-lg-6">
+					<div class="oe_demo oe_screenshot">
+						<img src="screenshot_endpoints.png">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="oe_container">
+	<div class="oe_row oe_spaced">
+		<div class="text-justify" style="max-width: 84%; margin: 16px 8%;">
+			<h3 class="oe_slogan">Contect to the API</h3>
+			<p class="oe_mt32">
+				Since the API follows the OAuth1 and OAuth2 standards, it is
+				advisable to use a suitable client that can be found in almost every
+				programming language. A list of some of them can be found at this <a
+					href="https://github.com/muk-it/muk_docs/blob/12.0/muk_rest/clients/clients.md" target="_blank">link</a>.
+			</p>
+			<pre>
+import json
+import requests
+
+from requests_oauthlib import OAuth2Session
+from oauthlib.oauth2 import LegacyApplicationClient
+
+client_id = 'LegacyApplicationFlowDemoClientKey'
+client_secret = 'LegacyApplicationFlowDemoClientSecret'
+token_url = 'https://demo12.mukit.at/api/authentication/oauth2/token'
+
+username = 'demo'
+password = 'demo'
+scope = ['all']
+
+oauth = OAuth2Session(
+    client=LegacyApplicationClient(client_id=client_id)
+)
+token = oauth.fetch_token(
+    token_url=token_url, 
+    username=username, password=password,
+    client_id=client_id, client_secret=client_secret
+)
+
+print(oauth.get("https://demo12.mukit.at/api/user").json())
+	      </pre>
+			<p>
+				Find more examples about how to connect to the API via a OAuth
+				client in the <a
+					href="https://github.com/muk-it/muk_docs/blob/12,0/muk_rest/examples/examples.md" target="_blank">documentation</a>.
+			</p>
+		</div>
+	</div>
+</section>
+
+<section class="oe_container">
+	<div class="oe_row oe_spaced">
+		<div class="text-justify" style="max-width: 84%; margin: 16px 8%;">
+			<h3 class="oe_slogan">Extend the API</h3>
+			<p class="oe_mt32">Even if the API is extended using Python code,
+				the REST API framework provides a number of helpers. Keep in mind
+				that if these extensions are included in a new module, it may also
+				have to be loaded as a global module to make the created endpoints
+				available without a selected database.</p>
+			<pre>
+from odoo import http
+from odoo.http import request, Response
+
+from odoo.addons.muk_rest import tools
+from odoo.addons.muk_rest.utils.json import ResponseEncoder		
+				
+class ModelController(odoo.http.Controller):
+
+	@odoo.http.route([
+	    '/api/myapp/myroute'
+	], auth="none", type='http', methods=['GET'], csrf=False)
+	@tools.common.parse_exception
+	@tools.common.ensure_database
+	@tools.common.ensure_module()
+	@tools.security.protected()
+	def myroute(self, **kw):
+	    result = ...
+	    content = json.dumps(result, sort_keys=True, indent=4, cls=ResponseEncoder)
+	    return Response(content, content_type='application/json;charset=utf-8', status=200)
+	      </pre>
+			<p>
+				Read more about creating your own API and how to use the provided
+				helpers in the <a
+					href="https://github.com/muk-it/muk_docs/blob/12.0/muk_rest/framework/framework.md" target="_blank">documentation</a>.
+			</p>
+		</div>
+	</div>
+</section>
+
+<section class="oe_container oe_dark" >
+    <div class="oe_row oe_spaced">
+		<h3 class="oe_slogan">Our Services</h3>
+        <div style="display:flex; padding-top: 20px; justify-content: space-between;">
+            <div style="flex-basis: 18%;">
+                <a href="https://mukit.at/r/MQ5" target="_blank">
+                    <div style="width:75px; height:75px; border-radius:100%; margin: auto;">
+                            <img src="service_implementation.png" style="width: 100%; border-radius: 100%;">
+                    </div>
+                     <h3 class="oe_slogan" style="text-align: center; font-size: 14px; width: 100%; margin: 0; margin-top: 14px; color: #000 !important; margin-top: 5px; opacity: 1 !important; line-height: 17px;">
+                        Odoo <br>Implementation
+                     </h3>
+                 </a>
+            </div>
+             <div style="flex-basis: 18%;">
+                 <a href="https://mukit.at/r/u7c" target="_blank">
+	                <div style="width:75px; height:75px; border-radius:100%; margin: auto;">
+	                        <img src="service_integration.png" style="width: 100%; border-radius: 100%;">
+	                </div>
+                     <h3 class="oe_slogan" style="text-align: center; font-size: 14px; width: 100%; margin: 0; margin-top: 14px; color: #000 !important; margin-top: 5px; opacity: 1 !important; line-height: 17px;">
+                     	Odoo <br>Integration
+	                 </h3>
+                     </a>
+            </div>
+             <div style="flex-basis: 18%;">
+                 <a href="https://mukit.at/r/xDJ" target="_blank">
+                <div style="width:75px; height:75px; border-radius:100%; margin: auto;">
+                        <img src="service_customization.png" style="width: 100%; border-radius: 100%;">
+                </div>
+                     <h3 class="oe_slogan" style="text-align: center; font-size: 14px; width: 100%; margin: 0; margin-top: 14px; color: #000 !important; margin-top: 5px; opacity: 1 !important; line-height: 17px;">
+                     	Odoo <br>Customization
+                 </h3>
+                     </a>
+            </div>
+             <div style="flex-basis: 18%;">
+                 <a href="	https://mukit.at/r/J3A" target="_blank">
+                <div style="width:75px; height:75px; border-radius:100%; margin: auto;">
+                        <img src="service_development.png" style="width: 100%; border-radius: 100%;">
+                </div>
+                     <h3 class="oe_slogan" style="text-align: center; font-size: 14px; width: 100%; margin: 0; margin-top: 14px; color: #000 !important; margin-top: 5px; opacity: 1 !important; line-height: 17px;">
+                     	Odoo <br>Development
+                 </h3>
+                     </a>
+            </div>
+             <div style="flex-basis: 18%;">
+                 <a href="	https://mukit.at/r/R1v" target="_blank">
+                <div style="width:75px; height:75px; border-radius:100%; margin: auto;">
+                        <img src="service_support.png" style="width: 100%; border-radius: 100%;">
+                </div>
+                     <h3 class="oe_slogan" style="text-align: center; font-size: 14px; width: 100%; margin: 0; margin-top: 14px; color: #000 !important; margin-top: 5px; opacity: 1 !important; line-height: 17px;">
+                     	Odoo <br>Support
+                 </h3>
+                     </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container" style="padding: 32px 0;">
+    <div class="oe_row oe_spaced" style="margin: auto;">
+        <div class="oe_demo oe_picture oe_screenshot">
+	        <a href="https://mukit.at/r/SgN" target="_blank">
+	            <img src="preview.png">
+	        </a>
+	    </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+	<h3 class="oe_slogan">Help and Support</h3>
+	<h5 class="oe_slogan" style="font-size: 20px;">Feel free to
+		contact us, if you need any help with your Odoo integration or
+		addiontal features.</h5>
+	<h5 class="oe_slogan" style="font-size: 20px;">You will get 30
+		Days free support incase of any bugs or issues (Except data recovery
+		or migration).</h5>
+	<div class="oe_slogan">
+		<a class="btn btn-primary btn-lg mt8" href="https://mukit.at" target="_blank">
+			<i class="fa fa-globe"></i> Website
+		</a> 
+		<a class="btn btn-primary btn-lg mt8" href="mailto:sale@mukit.at"> 
+			<i class="fa fa-envelope"></i> Contact Us
+		</a> 
+		<a class="btn btn-primary btn-lg mt8" href="mailto:support@mukit.at">
+			<i class="fa fa-life-ring"></i> Support
+		</a>
+	</div>
+	<img src="logo.png"
+		style="width: 200px; margin-bottom: 20px; display: block;"
+		class="mx-auto center-block">
+</section>

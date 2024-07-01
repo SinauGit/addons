@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="pendaftaran_html_form" name="Pendaftaran User">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+        <link rel="stylesheet" href="/resources/demos/style.css"/>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>$( function() {$( "#date" ).datepicker();} );</script>
+        <script>$( function() {$( "#check_date" ).datepicker();} );</script>
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="row s_nb_column_fixed">
+                    <div class="col-lg-6 s_title pt16 pb16">
+                        <h3>Form Pendaftaran User</h3>
+                        <form action="/pendaftaran/form/submit">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-3 s_title pt16 pb16 field_booking_chair">Nama *</div>
+                                <div class="col-lg-9 s_title pt16 pb16">
+
+
+                                    <input type="text" name="name" id="name" placeholder="Masukkan nama peserta didik"/>
+                                </div>
+                            </div>
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-3 s_title pt16 pb16 field_booking_chair">Alamat *</div>
+                                <div class="col-lg-9 s_title pt16 pb16">
+                                    <input type="text" name="street" id="street" placeholder="Masukkan alamat peserta didik"/>
+                                </div>
+                            </div>
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-3 s_title pt16 pb16 field_booking_chair">Jenjang Pendidikan *</div>
+                                <div class="col-lg-9 s_title pt16 pb16">
+                                    <select name="jenjang" id="jenjang" required="True">
+                                        <t t-foreach="jenjangs" t-as="l">
+                                            <option t-att-value="l[0]" t-esc="l[1]"/>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-3 s_title pt16 pb16 field_booking_chair">
+                                    Telpon Rumah *
+                                </div>
+                                <div class="col-lg-9 s_title pt16 pb16">
+                                    <input type="text" id="phone" name="phone" required="True" placeholder="Masukkan nomor telpon rumah (ex : 021-8857654)"/>
+                                </div>
+                            </div>
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-3 s_title pt16 pb16 field_booking_chair">
+                                    No. Handphone *
+                                </div>
+                                <div class="col-lg-9 s_title pt16 pb16">
+                                    <input type="text" id="mobile" name="mobile" required="True" placeholder="Masukkan nomor handphone (ex : 081212345678)"/>
+                                </div>
+                            </div>
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-3 s_title pt16 pb16 field_booking_chair">
+                                    E-mail *
+                                </div>
+                                <div class="col-lg-9 s_title pt16 pb16">
+                                    <input type="email" id="email" name="email" required="True" placeholder="Masukkan alamat email (ex : ahmad@gmail.com)"/>
+                                </div>
+                            </div>
+
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title pt16 pb16">
+                                    <button type="submit" class="btn btn-primary">Send</button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="akhir_html" name="Thank you">
+        <t t-call="website.layout">
+            <form>
+                <t t-if="error">
+                    <t t-foreach="error.get('error_message', [])" t-as="err">
+                        <div style="text-align: center;padding: 125px;">
+                            <center>
+                                <h4 class="text-danger" t-esc="err" />
+                            </center>
+                        </div>
+                    </t>
+                </t>
+                <t t-else="">
+                    <div style="text-align: center;padding: 125px;font-size:20px;">
+                        <h1>Terima Kasih</h1>
+                        <p>Data Anda telah kami simpan. </p>
+                        <p>Email : <t t-esc="email_from"/>
+                        </p>
+                        <p>Password : <b>saci</b>
+                        </p>
+                        <p>Silakan lakukan <a href='https://sekolahalamcitrainsani.sch.id/web/login'>login</a> dengan email yang Anda daftarkan untuk melaksanakan pengisian formulir dan tahapan selanjutnya.</p>
+                    </div>
+                </t>
+
+            </form>
+        </t>
+    </template>
+
+    <template id="assets_frontend" name="online_reg website assets" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/aa_pendaftaran_online/static/src/css/pendaftaran.css"/>
+        </xpath>
+    </template>
+
+
+</odoo>

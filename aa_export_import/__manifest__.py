@@ -1,0 +1,20 @@
+{
+    'name': 'Modul Export Import Data',
+    'version': '12.0.1.0.0',
+    'summary': """Export Import""",
+    'description': 'This module is manage export import data',
+    "category": "General",
+    'author': 'Muhammad Azis - 087881071515',
+    'company': 'Ismata Nusantara Abadi',
+    'website': "https://www.ismata.co.id",
+    'depends': [],
+    'data': [
+        'views/views.xml',
+    ],
+    'images': [],
+    'license': 'AGPL-3',
+    'demo': [],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}

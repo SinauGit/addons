@@ -1,0 +1,14 @@
+<odoo>
+
+        <report
+            id="report_pendaftaran_siswa_kartu_ujian"
+            string="Kartu Ujian"
+            model="crm.lead"
+            report_type="qweb-pdf"
+            menu="False"
+            name="aa_pendaftaran_online.report_kartuujian"
+            file="aa_pendaftaran_online.report_kartuujian"
+            print_report_name="'Kartu Ujian - %s' % (object.name)"
+        />
+
+</odoo>

@@ -1,0 +1,52 @@
+<odoo>
+
+        <report
+            id="print_raport_sekolah"
+            string="Buku Rapot"
+            model="buku.rapot"
+            report_type="qweb-pdf"
+            menu="False"
+            name="aa_kurikulum.template_raport_sekolah"
+            file="aa_kurikulum.template_raport_sekolah"
+            print_report_name="'Buku Rapot - %s' % (object.name)"
+        />
+
+
+        <!-- <record id="report_konseling_pelanggaran_action" model="ir.actions.report">
+            <field name="name">Konseling Pelanggaran</field>
+            <field name="model">konseling.pelanggaran</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">aa_kurikulum.report_pelanggaran</field>
+            <field name="report_file">aa_kurikulum.report_pelanggaran</field>
+            <field name="print_report_name">'Perjalanan - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_konseling_pelanggaran"/>
+            <field name="binding_view_types">form</field>
+        </record> -->
+
+        <record id="report_konseling_pelanggaran_action_pdf" model="ir.actions.report">
+            <field name="name">Konseling Pelanggaran PDF</field>
+            <field name="model">konseling.pelanggaran</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">aa_kurikulum.report_print_konseling_pelanggaran</field>
+            <field name="report_file">aa_kurikulum.report_print_konseling_pelanggaran</field>
+            <field name="print_report_name">'Perjalanan - %s' % (object.nama)</field>
+            <field name="binding_model_id" ref="model_konseling_pelanggaran"/>
+            <!-- <field name="binding_view_types">form</field> -->
+            <field name="binding_type">report</field>
+
+        </record>
+
+
+        <record id="report_base_sekolah_laporan_bulanan" model="ir.actions.report">
+            <field name="name">Laporan Bulanan</field>
+            <field name="model">laporan.bulanan</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">aa_kurikulum.report_base_sekolah</field>
+            <field name="report_file">aa_kurikulum.report_base_sekolah</field>
+            <field name="print_report_name">
+                'Laporan Bulanan - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_laporan_bulanan" />
+            <field name="binding_type">report</field>
+        </record>
+
+</odoo>

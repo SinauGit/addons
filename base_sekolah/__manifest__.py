@@ -1,0 +1,27 @@
+{
+    'name': 'Base Sekolah',
+    'version': '12.0.1.0.0',
+    'summary': """Base Sekolah""",
+    'description': 'This module is base for applications school',
+    "category": "Education",
+    'author': 'Muhammad Azis - 087881071515',
+    'company': 'Ismata Nusantara Abadi',
+    'website': "https://www.ismata.co.id",
+    'depends': ['base', 'mail', 'hr', 'fiscal_year_sync_app', 'website', 'calendar', 'contacts'],
+    'data': [
+        'security/security.xml',
+        'security/ir.model.access.csv',
+        'wizard/wizard_view.xml',
+        'views/sekolah_view.xml',
+        'views/orangtua_view.xml',
+        
+        # 'report/report_laporan_bulanan.xml',
+        # 'report/report.xml',
+    ],
+    'images': [],
+    'license': 'AGPL-3',
+    'demo': [],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}

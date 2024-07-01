@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="company_footer" name="page Footer">
+            <t t-if="style.footer">
+                <t t-set="company" t-value="company.sudo()"/>
+                <t t-set="footer_style" t-value="'text-align:left;display:inline-block;width:auto;max-width:100%'"></t>
+                <div class="col-12 text-center float-left" t-attf-style="background-color:transparent !important; color:{{style.text_color}};border-top: 1px solid {{style.text_color}};padding-top:5px;padding-left:0px; padding-right:0px;">
+                    <t t-if="not company.report_footer">
+                        <div t-attf-style="#{footer_style}" t-attf-class="#{style.show_footer_logo and 'mr16' or 'mr32'}"> <!--Address -->
+                            <ul style="padding: 0px;">
+                                <div t-if="company.name"><span t-field="company.name"/></div>
+                                <div t-if="company.street"><i class="fa fa-map-marker"/> <span t-field="company.street"/></div>
+                                <div t-if="company.street2" class="ml8"><span t-field="company.street2"/></div>
+                                <div t-if="company.city or company.state_id or company.zip" class="ml8"><span t-field="company.city"/> <span t-field="company.state_id"/> <span t-field="company.zip"/></div>
+                                <div t-if="company.country_id" class="ml8"><span t-field="company.country_id"/></div>
+                            </ul>
+                        </div>
+                        <div t-attf-style="#{footer_style}" t-attf-class="#{style.show_footer_logo and 'mr16' or 'mr32'}"><!--Contacts -->
+                            <ul style="padding: 0px;">
+                                <div t-if="company.phone"><i class="fa fa-phone-square"/> <span t-field="company.phone"/></div>
+                                <div t-if="company.website"><i class="fa fa-globe"/> <span t-field="company.website"/></div>
+                                <div t-if="company.email"><i class="fa fa-envelope"/> <span t-field="company.email"/></div>
+                                <div t-if="company.facebook or company.twitter or company.youtube">
+                                    <i class="fa fa-facebook-square" t-if="company.facebook" /> <span t-if="company.facebook" t-field="company.facebook"/>
+                                    <i class="fa fa-twitter-square" t-if="company.twitter" /> <span t-if="company.twitter" t-field="company.twitter"/>
+                                    <i class="fa fa-youtube-square" t-if="company.youtube" /> <span t-if="company.youtube" t-field="company.youtube"/>
+                                </div>
+                            </ul>
+                        </div>
+                        <div t-attf-style="#{footer_style}" class="mr16"> <!--Bank Details optional -->
+                            <ul style="padding: 0px;">
+                                <t t-foreach="company.bank_journal_ids" t-as="journal">
+                                    <t t-if="journal.display_on_footer">
+                                        <t t-set="bank_acc" t-value="journal.bank_account_id"/>
+                                        <div t-if="bank_acc">
+                                            <i class="fa fa-building"/>
+                                            <span t-field="bank_acc.bank_name"/><t t-if="bank_acc.bank_bic"> (<span t-field="bank_acc.bank_bic"/>)</t>: <span t-field="bank_acc.acc_number"/>
+                                        </div>
+                                    </t>
+                                </t>
+                                <div t-if="company.vat"><i class="fa fa-certificate" aria-hidden="true"/> VAT: <span t-field="company.vat"/></div>
+                            </ul>
+                        </div>
+                        <div t-if="style.show_footer_logo" t-attf-style="#{footer_style}"> <!--Footer Logo (optional) -->
+                            <ul style="padding: 0px;">
+                                <div>
+                                    <img t-if="style.footer_logo" t-att-src="image_data_uri(style.footer_logo)" class="float-right" alt="Footer Logo" style="max-width:100px;"/>
+                                    <img t-if="not style.footer_logo and style.logo" t-att-src="image_data_uri(style.logo)" class="float-right" alt="Footer Logo" style="max-width:100px;"/>
+                                    <img t-if="not style.footer_logo and not style.logo and company.logo" t-att-src="image_data_uri(company.logo)" class="float-right" alt="Footer Logo" style="max-width:100px;"/>
+                                </div>
+                            </ul>
+                        </div>
+                    </t>
+                    <div t-if="company.report_footer" class="text-center"><span t-field="company.report_footer"/></div>
+                </div>
+            </t>
+            <div class="col-12 text-center text-muted">Page: <span class="page"/> / <span class="topage"/></div>
+        </template>
+    </data>
+</odoo>

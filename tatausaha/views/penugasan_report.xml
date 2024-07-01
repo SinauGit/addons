@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <report
+            id="report_Session"
+            model="data.penugasan"
+            string="Penugasan Report"
+            report_type="qweb-pdf"
+            name="tatausaha.penugasan"
+            file="tatausaha.penugasan"
+        />
+
+        <template id="penugasan">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"></t>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"></t>
+                    </t>
+                    <div class="header">
+                        <div class="row mt32 mb32">
+                            <div class="col-6">
+                                <img t-if="company.logo"
+                                    t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"
+                                    style="max-height: 100px;" />
+                            </div>
+                            <div class="col-6 text-right"
+                                style="font:15px lucida-console,sans-serif !important;background-color:#fffff;padding:10px">
+                                <span t-field="company.partner_id"
+                                    style="font-size: 20px;color:black;font-weight: bold;" />
+                                <br />
+                                <span t-field="company.street"
+                                    style="color:black;font-weight: bold;" />
+                                <br />
+                                <span t-field="company.city"
+                                    style="color:black;font-weight: bold;" />
+                                <br />
+                                <span t-field="company.country_id"
+                                    style="color:black;font-weight: bold;" />
+                                <br />
+                                <span t-field="company.vat" style="color:black;" />
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <h2 style="text-center">Report Penugasan</h2>
+                        <p>
+                            <b>Nama</b>
+                            <t>:</t>
+                            <span t-field="o.name"></span>
+                        </p>
+                        <p>
+                            <b>Jabatan</b>
+                            <t>:</t>
+                            <span t-field="o.jabatan"></span>
+                        </p>
+                        <p>
+                            <b>NIY</b>
+                            <t>:</t>
+                            <span t-field="o.niy"></span>
+                        </p>
+                        <p>
+                            <b>Alamat</b>
+                            <t>:</t>
+                            <span t-field="o.alamat"></span>
+                        </p>
+                        <p>
+                            <b>Waktu</b>
+                            <t>:</t>
+                            <span t-field="o.jam"></span>
+                        </p>
+                        <p>
+                            <b>Tempat</b>
+                            <t>:</t>
+                            <span t-field="o.tempat"></span>
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

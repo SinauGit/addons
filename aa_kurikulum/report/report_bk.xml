@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_konnseling_pelanggaran">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+
+                <t t-call="web.basic_layout">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th  style="width:10%; border: solid 2px #2f4960; height: 35px; vertical-align:middle; text-align:center;background-color:yellow;">NO</th>
+                                <th style="width: 20%; border: solid 2px #2f4960; height: 35px; vertical-align:middle; text-align:center;background-color:yellow;">Nama Santri</th>
+                                <th style="width: 20%; border: solid 2px #2f4960; height: 35px; vertical-align:middle; text-align:center;background-color:yellow;">Pelanggaran</th>
+                                <th style="width: 20%; border: solid 2px #2f4960; height: 35px; vertical-align:middle; text-align:center;background-color:yellow;">Waktu Pelanggaran</th>
+                                <th style="width: 10%; border: solid 2px #2f4960; height: 35px; vertical-align:middle; text-align:center;background-color:yellow;">Point/Sanksi</th>
+                                <th style="width: 20%; border: solid 2px #2f4960; height: 35px; vertical-align:middle; text-align:center;background-color:yellow;">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="no" t-value="1" />
+                            <tr>
+                                <td
+                                style="width: 10%; border: solid 2px #2f4960; height: 35px; vertical-align:middle; text-align:center;">
+                                <t t-esc="no"/></td>
+                                <td
+                                style="width: 20%; border: solid 2px #2f4960; height: 35px; vertical-align:middle; text-align:center;"><t t-esc="o.siswa_id.name"/></td>
+                                <td
+                                style="width: 20%; border: solid 2px #2f4960; height: 35px; vertical-align:middle; text-align:center;"><t t-esc="o.info"/></td>
+                                <td
+                                style="width: 20%; border: solid 2px #2f4960; height: 35px; vertical-align:middle; text-align:center;"><t t-esc="o.waktu_pelanggaran"/></td>
+                                <td
+                                style="width:10%; border: solid 2px #2f4960; height: 35px; vertical-align:middle; text-align:center;"><t t-esc="o.point"/></td>
+                                <td
+                                style="width: 20%; border: solid 2px #2f4960; height: 35px; vertical-align:middle; text-align:center;"><t t-esc="o.keterangan"/></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="report_print_konseling_pelanggaran">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="aa_kurikulum.report_konnseling_pelanggaran"  />
+        </t>
+    </template>
+
+</odoo>

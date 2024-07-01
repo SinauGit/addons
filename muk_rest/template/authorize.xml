@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+    Copyright (c) 2017-2019 MuK IT GmbH.
+
+    This file is part of MuK REST API for Odoo 
+    (see https://mukit.at).
+
+    MuK Proprietary License v1.0
+
+    This software and associated files (the "Software") may only be used 
+    (executed, modified, executed after modifications) if you have
+    purchased a valid license from MuK IT GmbH.
+
+    The above permissions are granted for a single database per purchased 
+    license. Furthermore, with a valid license it is permitted to use the
+    software on other databases as long as the usage is limited to a testing
+    or development environment.
+
+    You may develop modules based on the Software or that use the Software
+    as a library (typically by depending on it, importing it and using its
+    resources), but without copying any source code or material from the
+    Software. You may distribute those modules under the license of your
+    choice, provided that this license is compatible with the terms of the 
+    MuK Proprietary License (For example: LGPL, MIT, or proprietary licenses
+    similar to this one).
+
+    It is forbidden to publish, distribute, sublicense, or sell copies of
+    the Software or modified copies of the Software.
+
+    The above copyright notice and this permission notice must be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+    DEALINGS IN THE SOFTWARE.
+
+  -->
+
+<odoo>
+
+	<template id="muk_rest.authorize" name="Authorize">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="web.assets_common" t-js="false"/>
+                <t t-call-assets="web.assets_frontend" t-js="false"/>
+                <t t-call-assets="web.assets_common" t-css="false"/>
+                <t t-call-assets="web.assets_frontend" t-css="false"/>
+            </t>
+            <t t-set="body_classname" t-value="'mk_authorize'"/>
+            <t t-raw="0"/>
+		</t>
+    </template>
+    
+    <template id="muk_rest.authorize_oauth" name="Authorize">
+        <t t-call="muk_rest.authorize">
+            <main class="container">
+	            <div class="row h-100 align-items-center">
+	                <div class="col-lg-6 offset-lg-3">
+	                    <div class="text-center mk_authorize_logo">
+	                    	<t t-if="logo_url">
+	                    		<img class="img-fluid" t-att-src="logo_url" alt="API Logo"/>
+	                    	</t>
+	                    	<t t-else="">
+	                    		<img class="img-fluid" t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="API Logo"/>
+	                    	</t>
+	                    </div>
+						<t t-raw="0"/>
+	                    <div class="text-center mk_authorize_footer">
+	                        <a href="https://www.mukit.at?utm_source=app&amp;utm_medium=rest" target="_blank">
+	                        	<img src="/muk_rest/static/src/img/logo.svg" alt="Logo"/>
+	                        	<span class="align-middle">Powered by <strong>MuK IT</strong></span>
+	                        </a>
+	                    </div>
+	                </div>
+	            </div>
+			</main>
+			<footer class="footer">
+		     	<div class="container-fluid">
+		        	<div class="float-left ml-4">
+			        	<t t-if="homepage">
+                    		<a t-att-href="homepage" target="_blank">
+								<t t-if="company">
+		                    		<t t-esc="company"/>
+		                    	</t>
+		                    	<t t-else="">
+		                    		Homepage
+		                    	</t>
+							</a>
+                    	</t>
+	                </div>
+		        	<div class="float-right mr-4 d-none d-sm-block">
+			        	<t t-if="privacy_policy">
+	                		<a t-att-href="privacy_policy" target="_blank">Privacy policy</a>
+	                	</t>
+	                	<t t-if="privacy_policy and service_terms">
+	                	</t>
+	                	<t t-if="service_terms">
+	                		<a t-att-href="service_terms" target="_blank" class="pl-3">Terms of service</a>
+	                	</t>
+	                </div>
+		    	</div>
+		    </footer>
+		</t>
+    </template>
+
+    <template id="muk_rest.authorize_oauth1" name="Authorize OAuth1">
+    	<t t-call="muk_rest.authorize_oauth">
+    		<form class="mk_authorize_form" role="form" action="/api/authentication/oauth1/authorize" method="post">
+				<div class="form-group field-login">
+		            <label for="login" class="col-form-label">Email</label>
+		            <input type="text" name="login" t-att-value="login" id="login" class="form-control" 
+		            	required="required" autofocus="autofocus" autocapitalize="off"/>
+		        </div>
+		        <div class="form-group field-password">
+		            <label for="password" class="col-form-label">Password</label>
+		            <input type="password" name="password" id="password" class="form-control" required="required" 
+		            	autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+		        </div>
+    			<p class="alert alert-danger" t-if="error" role="alert">
+                    <t t-esc="error"/>
+                </p>
+ 				<input type="hidden" name="oauth_token" t-att-value="oauth_token" required="required" readonly="readonly"/>
+ 				<input type="hidden" name="callback" t-att-value="callback" readonly="readonly"/>
+		        <input type="hidden" name="db" t-att-value="request.db" required="required" readonly="readonly"/>
+		        <t t-foreach="realms" t-as="realm">
+				    <input type="hidden" name="realms" t-att-value="realm" readonly="readonly"/>
+				</t>
+		        <div class="clearfix d-flex align-items-center">
+		            <button type="submit" class="btn btn-primary">Authorize</button>
+	            	<t t-if="callback">
+                		<a t-att-href="callback" class="btn btn-default">Cancel</a>
+                	</t>
+                	<a class="btn btn-default ml-auto" tabindex="0" role="button" data-content-id="#ressources"
+                		data-placement="top" data-toggle="popover" title="Available resources">
+                		<i class="fa fa-lock"></i> Ressources
+                		<div id="ressources" class="d-none">
+					    	<t t-if="realms">
+						    	The available resources have been restricted. The following
+						    	models can be accessed via the Restful interface:
+					    		<ul class="fa-ul text-nowrap">
+							        <t t-foreach="realms" t-as="realm">
+									    <li>
+									    	<span class="fa-li" ><i class="fa fa-lock"></i></span>
+									    	<span class="text-truncate d-block" ><t t-esc="realm"/></span>
+									    </li>
+									</t>
+			        			</ul>
+				        	</t>
+				        	<t t-else="">
+				        		All resources to which the user has access are accessible
+				        		via the Restful interface.
+				        	</t>
+        				</div>
+                	</a>
+		        </div>
+		        <div >
+		           
+		        </div>
+		    </form>
+		</t>
+    </template>
+    
+    <template id="muk_rest.authorize_oauth2" name="Authorize OAuth2">
+    	<t t-call="muk_rest.authorize_oauth">
+    		<form class="mk_authorize_form" role="form" action="/api/authentication/oauth2/authorize" method="post">
+				<div class="form-group field-login">
+		            <label for="login" class="col-form-label">Email</label>
+		            <input type="text" name="login" t-att-value="login" id="login" class="form-control" 
+		            	required="required" autofocus="autofocus" autocapitalize="off"/>
+		        </div>
+		        <div class="form-group field-password">
+		            <label for="password" class="col-form-label">Password</label>
+		            <input type="password" name="password" id="password" class="form-control" required="required" 
+		            	autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+		        </div>
+    			<p class="alert alert-danger" t-if="error" role="alert">
+                    <t t-esc="error"/>
+                </p>
+ 				<input type="hidden" name="client_id" t-att-value="client_id" required="required" readonly="readonly"/>
+ 				<input type="hidden" name="redirect_uri" t-att-value="redirect_uri" required="required" readonly="readonly"/>
+ 				<input type="hidden" name="response_type" t-att-value="response_type" required="required" readonly="readonly"/>
+		        <input type="hidden" name="state" t-att-value="state" required="required" readonly="readonly"/>
+		        <input type="hidden" name="db" t-att-value="request.db" required="required" readonly="readonly"/>
+		        <t t-foreach="scopes" t-as="scope">
+				    <input type="hidden" name="scope" t-att-value="scope" readonly="readonly"/>
+				</t>
+		        <div class="clearfix d-flex align-items-center">
+		            <button type="submit" class="btn btn-primary">Authorize</button>
+	            	<a t-att-href="redirect_uri" class="btn btn-default">Cancel</a>
+                	<a class="btn btn-default ml-auto" tabindex="0" role="button" data-content-id="#ressources"
+                		data-placement="top" data-toggle="popover" title="Available resources">
+                		<i class="fa fa-lock"></i> Ressources
+                		<div id="ressources" class="d-none">
+					    	<t t-if="realms">
+						    	The available resources have been restricted. The following
+						    	models can be accessed via the Restful interface:
+					    		<ul class="fa-ul text-nowrap">
+							        <t t-foreach="scopes" t-as="scope">
+									    <li>
+									    	<span class="fa-li" ><i class="fa fa-lock"></i></span>
+									    	<span class="text-truncate d-block" ><t t-esc="scope"/></span>
+									    </li>
+									</t>
+			        			</ul>
+				        	</t>
+				        	<t t-else="">
+				        		All resources to which the user has access are accessible
+				        		via the Restful interface.
+				        	</t>
+        				</div>
+                	</a>
+		        </div>
+		        <div >
+		           
+		        </div>
+		    </form>
+		</t>
+    </template>
+
+	<template id="muk_rest.authorize_error" name="Authorize Error">
+		<t t-call="muk_rest.authorize">
+			<main class="container-fluid text-center mk_authorize_error">
+				<div class="row h-100 align-items-center">
+					<div class="col pr-xl-5">
+						<div class="row no-gutters">
+							<div class="col-xl-5 pb-3 text-xl-right">
+								<span class="text-secondary">
+									<i id="gearBig" class="fa fa-gear spin-back"></i>
+								</span>
+								<span class="text-primary">
+									<i id="gearSmall" class="fa fa-gear spin"></i>
+								</span>
+							</div>
+							<div class="col-xl-7 p-1 pt-xl-5 text-xl-left">
+								<h1 class="text-primary mb-xl-3">Authorization Error</h1>
+								<p class="d-none d-sm-block ml-xl-2">We're sorry, but something unexpected happened..</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</t>
+	</template>
+	
+</odoo>

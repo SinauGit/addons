@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="suratpesenan_tree" model="ir.ui.view">
+            <field name="name">Surat Pesenan Barang</field>
+            <field name="model">surat.pesenan</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" />
+                    <field name="nobarang" />
+                    <field name="tanggal" />
+                    <field name="jumlah" />
+                    <field name="ket" />
+                    <field name="dokumentasi" type="binary"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="suratpesenan_form" model="ir.ui.view">
+            <field name="name">Surat Pesenan Barang</field>
+            <field name="model">surat.pesenan</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Surat Pesenan Barang">
+                            <field name="name" />
+                            <field name="nobarang" />
+                            <field name="tanggal" />
+                            <field name="jumlah" />
+                            <field name="ket" />
+                            <field name="dokumentasi" type="binary" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+        
+        <record id="suratpengajuan_tree" model="ir.ui.view">
+            <field name="name">Surat Pengajuan Barang</field>
+            <field name="model">surat.pengajuan</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" />
+                    <field name="nobarang" />
+                    <field name="tanggal" />
+                    <field name="jumlah" />
+                    <field name="ket" />
+                    <field name="dokumentasi" type="binary"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="suratpengajuan_form" model="ir.ui.view">
+            <field name="name">Surat Pengajuan Barang</field>
+            <field name="model">surat.pengajuan</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Surat Pengajuan">
+                            <field name="name" />
+                            <field name="nobarang" />
+                            <field name="tanggal" />
+                            <field name="jumlah" />
+                            <field name="ket" />
+                            <field name="dokumentasi" type="binary" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+
+        <record id="tandaterima_tree" model="ir.ui.view">
+            <field name="name">Tanda Terima Barang</field>
+            <field name="model">tanda.terima</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" />
+                    <field name="nobarang" />
+                    <field name="tanggal" />
+                    <field name="jumlah" />
+                    <field name="ket" />
+                    <field name="dokumentasi" type="binary"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tandaterima_form" model="ir.ui.view">
+            <field name="name">Tanda Terima Barang</field>
+            <field name="model">tanda.terima</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Tanda Terima">
+                            <field name="name" />
+                            <field name="nobarang" />
+                            <field name="tanggal" />
+                            <field name="jumlah" />
+                            <field name="ket" />
+                            <field name="dokumentasi" type="binary" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+
+        <record id="bukumpem_tree" model="ir.ui.view">
+            <field name="name">Buku Pembelian Barang</field>
+            <field name="model">buku.pembelian</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="tandaterima" />
+                    <field name="name" />
+                    <field name="deskripsi" />
+                    <field name="jumlah" />
+                    <field name="harga" />
+                    <field name="buktipengiriman" type="binary"/>
+                    <field name="ket" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="bukupem_form" model="ir.ui.view">
+            <field name="name">Buku Pembelian Barang</field>
+            <field name="model">buku.pembelian</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Buku Pembelian">
+                            <field name="tandaterima" />
+                            <field name="name" />
+                            <field name="deskripsi" />
+                            <field name="jumlah" />
+                            <field name="harga" />
+                            <field name="buktipengiriman" type="binary"/>
+                            <field name="ket" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+
+        <record id="bukumpene_tree" model="ir.ui.view">
+            <field name="name">Buku Penerimaan Barang</field>
+            <field name="model">data.bukupenerimaan</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="tandaterima" />
+                    <field name="name" />
+                    <field name="uraian" />
+                    <field name="jumlah" />
+                    <field name="harga" />
+                    <field name="tanggal" />
+                    <field name="buktipembayaran" type="binary"/>
+                    <field name="ket" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="bukupene_form" model="ir.ui.view">
+            <field name="name">Buku Penerimaan Barang</field>
+            <field name="model">data.bukupenerimaan</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Buku Penerimaan">
+                            <field name="tandaterima" />
+                            <field name="name" />
+                            <field name="uraian" />
+                            <field name="jumlah" />
+                            <field name="harga" />
+                            <field name="tanggal" />
+                            <field name="buktipembayaran" type="binary"/>
+                            <field name="ket" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+
+        <record id="bukumpeng_tree" model="ir.ui.view">
+            <field name="name">Buku Pengeluaran Barang</field>
+            <field name="model">data.bukupengeluaran</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="tanggal" />
+                    <field name="diberikan" />
+                    <field name="buktipengeluaran" />
+                    <field name="nomor" />
+                    <field name="name" />
+                    <field name="jumlah" />
+                    <field name="hargasat"/>
+                    <field name="harjum" />
+                    <field name="stok"/>
+                    <field name="ket" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="bukupeng_form" model="ir.ui.view">
+            <field name="name">Buku Pengeluaran Barang</field>
+            <field name="model">data.bukupengeluaran</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Buku Pengeluaran">
+                            <field name="tanggal" />
+                            <field name="diberikan" />
+                            <field name="buktipengeluaran" />
+                            <field name="nomor" />
+                            <field name="name" />
+                            <field name="jumlah" />
+                            <field name="hargasat"/>
+                            <field name="harjum" />
+                            <field name="stok"/>
+                            <field name="ket" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+
+        <record id="kartubarang_tree" model="ir.ui.view">
+            <field name="name">Kartu Barang</field>
+            <field name="model">data.kartubarang</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="tanggal" />
+                    <field name="uraian" />
+                    <field name="kodebukti" />
+                    <field name="masuk" />
+                    <field name="keluar" />
+                    <field name="sisa" />
+                    <field name="paraf" type="binary"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="kartubarang_form" model="ir.ui.view">
+            <field name="name">Kartu Barang</field>
+            <field name="model">data.kartubarang</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Kartu Barang">
+                            <field name="tanggal" />
+                            <field name="uraian" />
+                            <field name="kodebukti" />
+                            <field name="masuk" />
+                            <field name="keluar" />
+                            <field name="sisa" />
+                            <field name="paraf" type="binary"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>   
+
+        <record id="suratpesenan_action" model="ir.actions.act_window">
+            <field name="name">Surat Pesenan Barang</field>
+            <field name="res_model">surat.pesenan</field>
+            <field name="view_mode">tree,form</field>
+            <field name="type">ir.actions.act_window</field>
+        </record>
+
+        <record id="suratpengajuan_action" model="ir.actions.act_window">
+            <field name="name">Surat Pengajuan Barang</field>
+            <field name="res_model">surat.pengajuan</field>
+            <field name="view_mode">tree,form</field>
+            <field name="type">ir.actions.act_window</field>
+        </record>
+
+        <record id="tandaterima_action" model="ir.actions.act_window">
+            <field name="name">Tanda Terima Barang</field>
+            <field name="res_model">tanda.terima</field>
+            <field name="view_mode">tree,form</field>
+            <field name="type">ir.actions.act_window</field>
+        </record>
+
+        <record id="bukupem_action" model="ir.actions.act_window">
+            <field name="name">Buku Pembelian Barang</field>
+            <field name="res_model">buku.pembelian</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="bukupene_action" model="ir.actions.act_window">
+            <field name="name">Buku Penerimaan Barang</field>
+            <field name="res_model">data.bukupenerimaan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="bukupeng_action" model="ir.actions.act_window">
+            <field name="name">Buku Pengeluaran Barang</field>
+            <field name="res_model">data.bukupengeluaran</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="kartubarang_action" model="ir.actions.act_window">
+            <field name="name">Kartu Barang</field>
+            <field name="res_model">data.kartubarang</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
