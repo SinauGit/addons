@@ -57,7 +57,6 @@ class BimbinganKonseling(models.Model):
     #                 existing_siswa_names = ', '.join(existing_records.mapped('siswa_id.name'))
     #                 raise ValidationError('Siswa {} sudah dipilih. Pilih siswa yang berbeda.'.format(existing_siswa_names))
     
-    
     @api.multi
     def name_get(self):
         result = []

@@ -456,8 +456,6 @@ class buku_rapot(models.Model):
     def print_rapot(self):
         return self.env.ref('aa_kurikulum.print_raport_sekolah').report_action(self)
 
-   
-
     @api.onchange('siswa_id')
     def onchange_siswa_id(self):
         if self.siswa_id:

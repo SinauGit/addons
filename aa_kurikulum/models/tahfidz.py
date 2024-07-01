@@ -1248,14 +1248,14 @@ class Menu_Deresan(models.Model):
 
     # #DERESAN
 
-    # @api.multi
-    # def name_get(self):
-    #     result = []
-    #     for o in self:
-    #         # name = "Menu Deresan"
-    #         name = "Menu Deresan - {}".format(o.siswa_id.name)
-    #         result.append((o.id, name))
-    #     return result
+    @api.multi
+    def name_get(self):
+        result = []
+        for o in self:
+            # name = "Menu Deresan"
+            name = "Menu Deresan - {}".format(o.siswa_id.name)
+            result.append((o.id, name))
+        return result
     
     # @api.depends('total_a_pj','total_b_pj')
     # def _compute_total_deresan(self):
