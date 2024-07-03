@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+
+
+        <menuitem id="menu_siapbk" name="Siap BK" web_icon="rash_siapbk,logo/siapbk.png"/>
+
+        <menuitem id="menu_layanan_langsung" name="Layanan Langsung" parent="menu_siapbk" sequence="1"/>
+        <menuitem id="submenu_layanan_individu" name="Layanan Individu" parent="menu_layanan_langsung" action="model_layanan_individu_action" sequence="1" />
+        <menuitem id="submenu_konseling_kelompok" name="Konseling Kelompok" parent="menu_layanan_langsung" action="model_konseling_kelompok_action" sequence="2"/>
+        <menuitem id="submenu_bimbingan_kelompok" name="Bimbingan Kelompok" parent="menu_layanan_langsung" action="model_bimbingan_kelompok_action" sequence="3"/>
+        <menuitem id="submenu_bimbingan_klasikal" name="Bimbingan Klasikal" parent="menu_layanan_langsung" action="model_bimbingan_klasikal_action" sequence="4"/>
+        <menuitem id="submenu_lintas_kelas" name="Bimbingan Lintas Kelas" parent="menu_layanan_langsung" action="model_bimbingan_lintas_action" sequence="5"/>
+        <menuitem id="submenu_konsultasi" name="Konsultasi" parent="menu_layanan_langsung" action="model_konsultasi_action" sequence="6"/>
+        <menuitem id="submenu_kolaborasi" name="Kolaborasi" parent="menu_layanan_langsung" action="model_kolaborasi_action" sequence="7"/>
+        <menuitem id="submenu_tangan_kosong" name="Alih Tangan Kasus" parent="menu_layanan_langsung" action="model_alih_tangan_action" sequence="8"/>
+        <menuitem id="submenu_kunjungan_rumah" name="Kunjungan Rumah" parent="menu_layanan_langsung" action="model_kunjungan_rumah_action" sequence="9"/>
+        <menuitem id="submenu_layanan_advokasi" name="Layanan Advokasi" parent="menu_layanan_langsung" action="model_layanan_advokasi_action" sequence="10"/>
+        <menuitem id="submenu_konverensi_kasus" name="Konverensi Kasus" parent="menu_layanan_langsung" action="model_konverensi_kasus_action" sequence="11"/>
+
+        <menuitem id="menu_layanan_media" name="Layanan Media" parent="menu_siapbk" action="model_layanan_media_action" sequence="2" />
+        <menuitem id="menu_kegiatan_tambahan" name="Kegiatan Tambahan" parent="menu_siapbk" action="model_kegiatan_tambahan_action" sequence="3"/>
+
+    </data>
+</odoo>

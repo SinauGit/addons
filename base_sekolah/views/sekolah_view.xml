@@ -14,6 +14,7 @@
 					<field name="grade" />
 					<field name="rombel" />
 					<field name="guru_id" />
+					<field name="fiscalyear_id"/>
 				</tree>
 			</field>
 		</record>
@@ -30,6 +31,7 @@
 							<field name="grade" />
 							<field name="rombel" />
 							<field name="guru_id" />
+							<field name="fiscalyear_id"/>
 						</group>
 					</sheet>
 				</form>
@@ -349,7 +351,7 @@
 					<page string="Other Info" name="Info" attrs="{'invisible':[('student', '!=', True)]}">
 						<group>
 							<!-- <field name="orang_user_id"/> -->
-							<field name="ziyadah_id" />
+							<!-- <field name="ziyadah_id" /> -->
 							<field name="deresan_id" />
 							<field name="bk_id" />
 							<field name="bk_1_id" />
@@ -362,7 +364,7 @@
 					<page string="Laporan Bulanan" name="Info" attrs="{'invisible':[('student', '!=', True)]}">
 						<group>
 							<!-- <field name="orang_user_id"/> -->
-							<field name="ziyadah_id" />
+							<!-- <field name="ziyadah_id" /> -->
 							<field name="deresan_id" />
 							<field name="bk_id" />
 							<field name="bk_1_id" />

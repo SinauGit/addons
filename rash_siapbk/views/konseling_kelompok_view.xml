@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+
+      <record id="model_konseling_kelompok_tree" model="ir.ui.view">
+            <field name="name">konseling.kelompok.tree</field>
+            <field name="model">konseling.kelompok</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                </tree>
+            </field>
+        </record>
+
+        <record id="model_konseling_kelompok_form" model="ir.ui.view">
+            <field name="name">konseling.kelompok.tree</field>
+            <field name="model">konseling.kelompok</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Konseling Kelompok">
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="model_konseling_kelompok_action" model="ir.actions.act_window">
+            <field name="name">Konseling Kelompok</field>
+            <field name="res_model">konseling.kelompok</field>
+            <field name="view_mode">tree,form</field>
+            <field name="type">ir.actions.act_window</field>
+        </record>
+
+    </data>
+</odoo>

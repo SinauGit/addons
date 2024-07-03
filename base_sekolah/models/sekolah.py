@@ -43,15 +43,18 @@ religion = [('islam', 'Islam'), ('katolik', 'Katolik'), ('Protestan', 'Protestan
 class master_kelas(models.Model):
     _name = 'master.kelas'
     _description = 'Master Kelas'
-    res_line = fields.One2many('res.partner', 'class_id', string='siswa')
+    
+    siswa_ids = fields.Many2many('res.partner', 'siswa_rel', 'siswa_id', 'partner_id', 'Siswa', domain=[('student', '=', True)])
+    res_line = fields.One2many('res.partner', 'class_id', string='Siswa')
+    fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
     name = fields.Char('Nama', required=True)
     lembaga = fields.Selection(lembaga, string='Lembaga', required=True, default='SD')
     grade = fields.Selection([
-                            ('A', 'A'), ('B', 'B'),
-                            ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'),
-                            ('7', '7'), ('8', '8'), ('9', '9'),
-                            ('10', '10'), ('11', '11'), ('12', '12')
-                            ], string='Grade', required=True)
+        ('A', 'A'), ('B', 'B'),
+        ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'),
+        ('7', '7'), ('8', '8'), ('9', '9'),
+        ('10', '10'), ('11', '11'), ('12', '12')
+    ], string='Grade', required=True)
     rombel = fields.Selection([('banin', 'Banin'), ('banat', 'Banat')], string='Jenis', required=True, default='banin')
     guru_id = fields.Many2one('hr.employee', string='Wali Kelas')
     
@@ -59,7 +62,7 @@ class master_kelas(models.Model):
     def name_get(self):
         result = []
         for o in self:
-            name = '[' + o.grade + '] ' + o.name
+            name = '[{}] {}'.format(o.grade, o.name)
             result.append((o.id, name))
         return result
 
@@ -71,19 +74,21 @@ class mata_pelajaran(models.Model):
     urut = fields.Integer('No. Urut', required=True)
     name = fields.Char('Nama', required=True)
     lembaga = fields.Selection(lembaga, string='Lembaga', required=True)
-    
 
-class ruang_kelas(models.Model):
+
+class RuangKelas(models.Model):
     _name = 'ruang.kelas'
     _description = 'Ruang Kelas'
 
+    siswa_id = fields.Many2one('res.partner', 'Siswa')
     name = fields.Many2one('master.kelas', 'Rombel', required=True)
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
     lembaga = fields.Selection(lembaga, string='Lembaga', related='name.lembaga')
     siswa_ids = fields.Many2many('res.partner', 'siswa_rel', 'siswa_id', 'partner_id', 'Siswa', domain=[('student', '=', True)])
-    res_line = fields.One2many('res.partner', 'class_id', string='siswa')
+    res_line = fields.One2many('res.partner', 'class_id', string='Siswa')
     data_file = fields.Binary('Import File')
     filename = fields.Char(string='Filename')
+
 
     _sql_constraints = [('name_uniq', 'unique(name, fiscalyear_id)', 'Kelas & Tahun Ajaran harus unik !')]
 
@@ -229,7 +234,7 @@ class res_partner(models.Model):
     alamat = fields.Char('Alamat',compute='_compute_alamat_id')
     
     # ziyadah_line = fields.One2many('menu.ziyadah', 'siswa_id', string='Ziyadah')
-    ziyadah_id = fields.Many2one('menu.ziyadah', string='Ziyadah')
+    # ziyadah_id = fields.Many2one('menu.ziyadah', string='Ziyadah')
     deresan_id = fields.Many2one('menu.deresan', string='Deresan')
     bk_id = fields.Many2one('bimbingan.konseling', string='Bimbingan Konseling Absen')
     bk_1_id = fields.Many2one('konseling.pelanggaran', string='Bimbingan Konseling Pelanggaran')
@@ -310,6 +315,24 @@ class res_partner(models.Model):
         if self._context.get('show_vat') and partner.vat:
             name = "%s ‒ %s" % (name, partner.vat)
         return name
+    
+class kamar(models.Model):
+    _name = 'master.kamar'
+    _description = 'Kamar'
 
+    urut = fields.Integer('No. Urut', required=True)
+    lembaga = fields.Selection(lembaga, string='Lembaga', required=True, default='SMP')
+    grade = fields.Selection([
+                            ('A', 'A'), ('B', 'B'),
+                            ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'),
+                            ('7', '7'), ('8', '8'), ('9', '9'),
+                            ('10', '10'), ('11', '11'), ('12', '12')
+                            ], string='Grade', required=True)
+    class_id = fields.Many2one('master.kelas', string='Rombel', required=True)
+    guru_id = fields.Many2one('hr.employee', string='Nama Halaqah')
+
+class KamarSiswa(models.Model):
+    _name = 'kamar.siswa'
+    _description = 'Kamar Siswa'    
   
             

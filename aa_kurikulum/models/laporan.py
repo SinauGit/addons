@@ -44,7 +44,7 @@ class laporan_bulanan(models.Model):
         komponen_id = fields.Many2one('laporan.yayasan', string='komponen')
         nisq = fields.Char('NISQ', related='komponen_id.nisq')
         
-        tanggal_input = fields.Date('Tanggal Input') 
+        # tanggal_input = fields.Date('Tanggal Input') 
         tanggal_cetak = fields.Date('Tanggal Cetak', readonly=False, default=fields.Date.today)
         filename = fields.Char(string='Filename')
         data = fields.Binary(string='Data')
@@ -118,12 +118,13 @@ class RekapRapot(models.Model):
     mapel_id = fields.Many2one('mata.pelajaran',string='Mata Pelajaran')
     tgl_input = fields.Date('Tanggal Input', default=fields.Date.context_today)
     # mapel_id = fields.Many2one('hr.employee', string='Mata Pelajaran', related='guru_id.job_id')
-    class_id = fields.Many2one('master.kelas', string='Rombel', required=True)
+    # class_id = fields.Many2one('ruang.kelas', string='Rombel', required=True)
+    class_id = fields.Many2one('master.kelas', 'Rombel', required=True, domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     
     kkm = fields.Integer('KKM')
     # rombel_id = fields.Many2one('ruang.kelas', string='Rombel')
     rapot_line = fields.One2many('rekap.rapot.line', 'rekap_id', 'Daftar Nilai' )
-    tahun_id = fields.Many2one('account.fiscalyear', string='Tahun Ajaran')
+    fiscalyear_id = fields.Many2one('account.fiscalyear', string='Tahun Ajaran', required=True)
     total = fields.Integer('Total', compute="_compute_total")
     total_line = fields.Integer('Total Line', compute="_compute_total_line")
     rata = fields.Integer('Rata', compute="_compute_rata")
@@ -195,7 +196,7 @@ class rekap_rapot_line(models.Model):
 
     rekap_id = fields.Many2one('rekap.rapot', 'Buku Raport', required=True, ondelete='cascade')
     # siswa_id = fields.Many2one('res.partner', string='Nama', domain="[('student', '=', True)]")
-    siswa_id = fields.Many2one('res.partner', string='Nama', domain="[('student', '=', True)]", readonly=True)
+    siswa_id = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)])
     name = fields.Many2one('mata.pelajaran', 'Mata Pelajaran')
     kkm = fields.Integer('KKM', related='rekap_id.kkm')
     # nilai = fields.Integer('Nilai')

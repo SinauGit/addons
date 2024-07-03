@@ -75,7 +75,7 @@
                 <field name="guru_id" />
                 <field name="class_id" />
                 <field name="operator_id" />
-                <field name="tanggal_input" />
+                <!-- <field name="tanggal_input" /> -->
                 <field name="tanggal_cetak" />
                 <field name="filename" invisible="1"/>
 				<field name="data" filename="filename" widget="binary"/>
@@ -102,7 +102,7 @@
                         <field name="komponen_line" mode="tree">
                             <tree string="Komponen Lines" editable="bottom">
                                 <field name="nisq" />
-                                <field name="siswa_id" domain="[('class_id','=',parent.class_id)]" />
+                                <field name="siswa_id"/>
                             </tree>
                         </field>
 
@@ -135,7 +135,7 @@
                         </field> -->
                     </group>
                     <group col="4" colspan="4">
-                        <field name="tanggal_input" />
+                        <!-- <field name="tanggal_input" /> -->
                     </group>
                     <group col="4" colspan="4">
                         <field name="tanggal_cetak" />
@@ -183,7 +183,7 @@
                 <field name="mapel_id" options="{'no_open': True}" string="Mata Pelajaran"/>
                 <field name="class_id" />
                 <field name="date" />
-                <field name="tahun_id" />
+                <field name="fiscalyear_id" />
             </tree>
         </field>
     </record>
@@ -199,7 +199,7 @@
                         <field name="mapel_id"/>
                         <field name="class_id" />
                         <field name="kkm" />
-                        <field name="tahun_id" />
+                        <field name="fiscalyear_id" />
                         <field name="date" />
                         <notebook colspan="5">
 							<page string="Mata Pelajaran">
@@ -207,7 +207,7 @@
 									<tree string="rapot_lines" editable="bottom">
 										<!-- <field name="sequence"/> -->
 										<!-- <field name="name"/> -->
-                                        <field name="siswa_id" domain="[('class_id','=',parent.class_id)]" />
+                                        <field name="siswa_id"/>
 										<field name="kkm"/>
 										<field name="nilai"/>
 										<field name="status"/>

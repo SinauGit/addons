@@ -20,7 +20,7 @@ access_pembagian_halaqah_admin,pembagian.halaqah.admin,model_pembagian_halaqah,g
 access_pembagian_halaqah_manager,pembagian.halaqah.manager,model_pembagian_halaqah,group_tahfidz_manager,1,1,1,1
 access_lesson_plan,lesson.plan,model_lesson_plan,group_tahfidz_admin,1,1,1,1
 access_kbm_tahfidz,kbm.tahfidz,model_kbm_tahfidz,group_tahfidz_admin,1,1,1,1
-access_tahfidz_account_fiscalyear,tahfidz.account.fiscalyear,fiscal_year_sync_app.model_account_fiscalyear,group_tahfidz_admin,1,0,0,0
+access_tahfidz_account_fiscalyear,tahfidz.account.fiscalyear,fiscal_year_sync_app.model_account_fiscalyear,group_tahfidz_admin,1,1,1,1
 access_tahfidz_ruang_kelas,tahfidz.ruang.kelas,base_sekolah.model_ruang_kelas,group_tahfidz_admin,1,0,0,0
 access_tahfidz_res_partner,tahfidz.res.partner,base.model_res_partner,group_tahfidz_admin,1,0,0,0
 access_tahfidz_res_users,tahfidz.res.users,base.model_res_users,group_tahfidz_admin,1,0,0,0
@@ -53,14 +53,16 @@ access_konseling_layanan_user,aa_kurikulum.konseling.layanan,model_konseling_lay
 access_konseling_pelanggaran_user,aa_kurikulum.konseling.pelanggaran,model_konseling_pelanggaran,base.group_user,1,1,1,1
 access_report_aa_kurikulum_report_pelanggaran_user,aa_kurikulum.report.aa_kurikulum.report_pelanggaran,model_report_aa_kurikulum_report_pelanggaran,base.group_user,1,1,1,1
 
-access_menu_ziyadah_user,aa_kurikulum.menu.ziyadah,model_menu_ziyadah,base.group_user,1,1,1,1
 access_menu_deresan_user,aa_kurikulum.menu.deresan,model_menu_deresan,base.group_user,1,1,1,1
 
 access_laporan_yayasan_user,aa_kurikulum.laporan.yayasan,model_laporan_yayasan,base.group_user,1,1,1,1
 access_laporan_bulanan_user,aa_kurikulum.laporan.bulanan,model_laporan_bulanan,base_sekolah.group_sekolah_admin,1,1,1,1
+access_laporan_bulanan_ortu,aa_kurikulum.laporan.bulanan,model_laporan_bulanan,base_sekolah.group_sekolah_orangtua,1,0,0,0
 
 
 access_rekap_laporan_bulanan_user,aa_kurikulum.rekap.laporan.bulanan,model_rekap_laporan_bulanan,base_sekolah.group_sekolah_admin,1,1,1,1
 access_rekap_rapot_user,aa_kurikulum.rekap.rapot,model_rekap_rapot,base.group_user,1,1,1,1
 access_rekap_rapot_line_user,aa_kurikulum.rekap.rapot.line,model_rekap_rapot_line,base.group_user,1,1,1,1
 access_jadwal_pelajaran_user,aa_kurikulum.jadwal.pelajaran,model_jadwal_pelajaran,base.group_user,1,1,1,1
+
+access_menu_kbm_user,aa_kurikulum.menu.kbm,model_menu_kbm,group_tahfidz_admin,1,1,1,1

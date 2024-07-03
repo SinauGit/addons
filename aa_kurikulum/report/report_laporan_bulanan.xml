@@ -80,8 +80,8 @@
                             <span style="text-align: center;">PERKEMBANGAN TAHFIDH DAN AKADEMIK
                                 SANTRI</span>
                             <br />
-                            <span style="text-align: center;">BULAN <t t-esc="(o.tanggal_input).strftime('%B %Y')"/> 
-                            </span>
+                            <!-- <span style="text-align: center;">BULAN <t t-esc="(o.tanggal_input).strftime('%B %Y')"/> 
+                            </span> -->
                         </div>
                         <br />
                         <table style=" width: 100%; height: 108px;"
@@ -162,14 +162,14 @@
                                         style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">
                                         Juz
                                         <t
-                                            t-esc="o.komponen_line.siswa_id.ziyadah_id.awal_juz" />
-                                        pojok <t t-esc="o.komponen_line.siswa_id.ziyadah_id.awal_pj" /></td>
+                                            t-esc="o.komponen_line.siswa_id.deresan_id.awal_juz" />
+                                        pojok <t t-esc="o.komponen_line.siswa_id.deresan_id.awal_pj" /></td>
                                     <td
                                         style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">Juz
                                         3 Pojok 4</td>
                                     <td
                                         tyle="width: 12.5%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;"
-                                        colspan="2"><t t-esc="o.komponen_line.siswa_id.ziyadah_id.total_pj" /></td>
+                                        colspan="2"><t t-esc="o.komponen_line.siswa_id.deresan_id.total_pj" /></td>
                                 </tr>
                                 <tr
                                     style="width: 20%; border: solid 2px black; height: 35px; vertical-align:middle; text-align:center;">

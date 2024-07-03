@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+
+<!-- Kegiatan  Tambahan -->
+
+      <record id="model_kegiatan_tambahan_tree" model="ir.ui.view">
+            <field name="name">kegiatan.tambahan.tree</field>
+            <field name="model">kegiatan.tambahan</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                </tree>
+            </field>
+        </record>
+
+        <record id="model_kegiatan_tambahan_form" model="ir.ui.view">
+            <field name="name">kegiatan.tambahan.form</field>
+            <field name="model">kegiatan.tambahan</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="model_kegiatan_tambahan_action" model="ir.actions.act_window">
+            <field name="name">Kegiatan Tambahan</field>
+            <field name="res_model">kegiatan.tambahan</field>
+            <field name="view_mode">tree,form</field>
+            <field name="type">ir.actions.act_window</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+<!-- Alih Tangan Kasus   -->
+
+      <record id="model_alih_tangan_tree" model="ir.ui.view">
+            <field name="name">alih.tangan.tree</field>
+            <field name="model">alih.tangan</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                </tree>
+            </field>
+        </record>
+
+        <record id="model_alih_tangan_form" model="ir.ui.view">
+            <field name="name">alih.tangan.tree</field>
+            <field name="model">alih.tangan</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Alih Tangan Kasus">
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="model_alih_tangan_action" model="ir.actions.act_window">
+            <field name="name">Alih Tangan Kasus</field>
+            <field name="res_model">alih.tangan</field>
+            <field name="view_mode">tree,form</field>
+            <field name="type">ir.actions.act_window</field>
+        </record>
+
+    </data>
+</odoo>

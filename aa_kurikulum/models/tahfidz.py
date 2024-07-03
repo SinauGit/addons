@@ -1065,44 +1065,44 @@ class res_partner(models.Model):
 
 
 
-class Menu_Ziyadah(models.Model):
-    _name = 'menu.ziyadah'
-    _description = 'Menu Ziyadah'
+# class Menu_Ziyadah(models.Model):
+#     _name = 'menu.ziyadah'
+#     _description = 'Menu Ziyadah'
     
     
     
-    guru_id = fields.Many2one('hr.employee', string='Nama Halaqah')
-    siswa_id = fields.Many2one('res.partner', string='Nama Santri', domain="[('student', '=', True)]", required=True)
-    jenjang = fields.Selection('Jenjang', related='siswa_id.jenjang')
-    nisn = fields.Char('NISN', related='siswa_id.nisn')
+#     guru_id = fields.Many2one('hr.employee', string='Nama Halaqah')
+#     siswa_id = fields.Many2one('res.partner', string='Nama Santri', domain="[('student', '=', True)]", required=True)
+#     jenjang = fields.Selection('Jenjang', related='siswa_id.jenjang')
+#     nisn = fields.Char('NISN', related='siswa_id.nisn')
     
-    awal_juz = fields.Char('Awal Juz')
-    awal_pj = fields.Char('Awal PJ')
-    akhir_pj = fields.Char('Akhir PJ')
-    akhir_juz = fields.Char('Akhir Juz')
+#     awal_juz = fields.Char('Awal Juz')
+#     awal_pj = fields.Char('Awal PJ')
+#     akhir_pj = fields.Char('Akhir PJ')
+#     akhir_juz = fields.Char('Akhir Juz')
     
-    total_pj = fields.Char(string='Total PJ')
-    # total_pj = fields.Char(compute='_compute_total_pj', string='Total PJ')
-    keterangan = fields.Text('Keterangan')
+#     total_pj = fields.Char(string='Total PJ')
+#     total_pj = fields.Char(compute='_compute_total_pj', string='Total PJ')
+#     keterangan = fields.Text('Keterangan')
     
-    laporan_ziyadah_id = fields.Many2one('laporan.bulanan', string='laporan')
+    # laporan_ziyadah_id = fields.Many2one('laporan.bulanan', string='laporan')
     
-    @api.model
-    def create(self, vals):
-        record = super(Menu_Ziyadah, self).create(vals)
-        self._update_partner_ziyadah_id(record.siswa_id.id, record.id)
-        return record
+    # @api.model
+    # def create(self, vals):
+    #     record = super(Menu_Ziyadah, self).create(vals)
+    #     self._update_partner_ziyadah_id(record.siswa_id.id, record.id)
+    #     return record
 
-    def write(self, vals):
-        res = super(Menu_Ziyadah, self).write(vals)
-        for record in self:
-            self._update_partner_ziyadah_id(record.siswa_id.id, record.id)
-        return res
+    # def write(self, vals):
+    #     res = super(Menu_Ziyadah, self).write(vals)
+    #     for record in self:
+    #         self._update_partner_ziyadah_id(record.siswa_id.id, record.id)
+    #     return res
 
-    def _update_partner_ziyadah_id(self, partner_id, ziyadah_id):
-        partner = self.env['res.partner'].browse(partner_id)
-        if partner:
-            partner.ziyadah_id = ziyadah_id
+    # def _update_partner_ziyadah_id(self, partner_id, ziyadah_id):
+    #     partner = self.env['res.partner'].browse(partner_id)
+    #     if partner:
+    #         partner.ziyadah_id = ziyadah_id
     
     # def _domain_siswa_id(self):
     #     used_efakturs = self.env['menu.ziyadah'].search([('siswa_id', '!=', False)])
@@ -1133,20 +1133,20 @@ class Menu_Ziyadah(models.Model):
     #                 raise ValidationError('Siswa {} sudah dipilih. Pilih siswa yang berbeda.'.format(existing_siswa_names))
     
     
-    @api.multi
-    def name_get(self):
-        result = []
-        for record in self:
-            name = "Menu Ziyadah - {}".format(record.siswa_id.name)
-            # name = "Menu Ziyadah"
-            result.append((record.id, name))
-        return result
+    # @api.multi
+    # def name_get(self):
+    #     result = []
+    #     for record in self:
+    #         name = "Menu Ziyadah - {}".format(record.siswa_id.name)
+    #         # name = "Menu Ziyadah"
+    #         result.append((record.id, name))
+    #     return result
    
     
-    @api.depends('awal_pj','akhir_pj')
-    def _compute_total_pj(self):
-        for pj in self:
-            pj.total_pj = pj.awal_pj + pj.akhir_pj
+    # @api.depends('awal_pj','akhir_pj')
+    # def _compute_total_pj(self):
+    #     for pj in self:
+    #         pj.total_pj = pj.awal_pj + pj.akhir_pj
     
 class Menu_Deresan(models.Model):
     _name = 'menu.deresan'
@@ -1157,29 +1157,48 @@ class Menu_Deresan(models.Model):
     guru_id = fields.Many2one('hr.employee', string='Nama Halaqah')
     siswa_id = fields.Many2one('res.partner', string='Nama Santri', domain="[('student', '=', True)]", required=True)
     jenjang = fields.Selection('Jenjang', related='siswa_id.jenjang')
+    tanggal = fields.Date('Tanggal')
+    nisq = fields.Char('NISQ', related='siswa_id.nis')
     
+    awal_juz = fields.Char('Awal Juz')
+    awal_pj = fields.Char('Awal PJ')
+    akhir_pj = fields.Char('Akhir PJ')
+    akhir_juz = fields.Char('Akhir Juz')
+    
+    total_pj = fields.Char(string='Total PJ')
+    # total_pj = fields.Char(compute='_compute_total_pj', string='Total PJ')
+    keterangan = fields.Text('Keterangan')
+
     awal_a_juz = fields.Char('Awal Juz')
     awal_a_pj = fields.Char('Awal PJ')
     akhir_a_pj = fields.Char('Akhir PJ')
     akhir_a_juz = fields.Char('Akhir Juz')
     total_a_pj = fields.Char( string='Total PJ')
-    # total_a_pj = fields.Float(compute='_compute_total_a_pj', string='Total PJ')
+    # total_a_pj = fields.Char(compute='_compute_total_a_pj', string='Total PJ')
     keterangan_a = fields.Text('Keterangan')
     
     awal_b_juz = fields.Char('Awal Juz')
-    awal_b_pj = fields.Char('Awal PJ')
+    awal_b_pj = fields.Char('Awal PJ')  
     akhir_b_pj = fields.Char('Akhir PJ')
     akhir_b_juz = fields.Char('Akhir Juz')
     total_b_pj = fields.Char( string='Total PJ')
     total_deresan = fields.Char(string='Total Deresan A dan B')
-    # total_b_pj = fields.Float(compute='_compute_total_b_pj', string='Total PJ')
-    # total_deresan = fields.Float(compute='_compute_total_deresan', string='Total Deresan A dan B')
+    # total_b_pj = fields.Char(compute='_compute_total_b_pj', string='Total PJ')
+    # total_deresan = fields.Char(compute='_compute_total_deresan', string='Total Deresan A dan B')
     keterangan_b = fields.Text('Keterangan')
     laporan_deresan_id = fields.Many2one('laporan.bulanan', string='laporan')
-    
-    
+
     juz = fields.Char('Juz')
     pojok = fields.Char('Pojok')
+
+    awal_m_juz = fields.Char('Awal Juz')
+    awal_m_pj = fields.Char('Awal PJ')
+    akhir_m_pj = fields.Char('Akhir PJ')
+    akhir_m_juz = fields.Char('Akhir Juz')
+    
+    total_m_pj = fields.Char(string='Total PJ')
+    # total_m_pj = fields.Char(compute='_compute_total_pjm', string='Total PJ')
+    keterangan_m = fields.Text('Keterangan')
     
     tidak_setor = fields.Char('Tidak Setor')
     ijin = fields.Char('Ijin')
@@ -1202,6 +1221,12 @@ class Menu_Deresan(models.Model):
         if partner:
             partner.deresan_id = deresan_id
     
+    # @api.depends('awal_m_pj','akhir_m_pj')
+    # def _compute_total_pjm(self):
+    #     for pjm in self:
+    #         pjm.total_pj = pjm.awal_m_pj + pjm.akhir_m_pj
+
+    
     # @api.constrains('siswa_id')
     # def _check_unique_siswa_id(self):
     #     for record in self:
@@ -1220,28 +1245,101 @@ class Menu_Deresan(models.Model):
     #                 existing_siswa_names = ', '.join(existing_records.mapped('siswa_id.name'))
     #                 raise ValidationError('Siswa {} sudah dipilih. Pilih siswa yang berbeda.'.format(existing_siswa_names))
     
-    @api.multi
-    def name_get(self):
-        result = []
-        for o in self:
-            # name = "Menu Deresan"
-            name = "Menu Deresan - {}".format(o.siswa_id.name)
-            result.append((o.id, name))
-        return result
+    # ZIYADAH
+
+    # @api.multi
+    # def name_get(self):
+    #     result = []
+    #     for record in self:
+    #         name = "Menu Ziyadah - {}".format(record.siswa_id.name)
+    #         result.append((record.id, name))
+    #     return result
    
     
+    # @api.depends('awal_pj','akhir_pj')
+    # def _compute_total_pj(self):
+    #     for pj in self:
+    #         pj.total_pj = pj.awal_pj + pj.akhir_pj
+            
+
+
+    # #DERESAN
+
+    # @api.multi
+    # def name_get(self):
+    #     result = []
+    #     for o in self:
+    #         # name = "Menu Deresan"
+    #         name = "Menu Deresan - {}".format(o.siswa_id.name)
+    #         result.append((o.id, name))
+    #     return result
     
-    @api.depends('total_a_pj','total_b_pj')
-    def _compute_total_deresan(self):
-        for rec in self:
-            rec.total_deresan = rec.total_a_pj + rec.total_b_pj
+    # @api.depends('total_a_pj','total_b_pj')
+    # def _compute_total_deresan(self):
+    #     for rec in self:
+    #         rec.total_deresan = rec.total_a_pj + rec.total_b_pj
     
-    @api.depends('awal_a_pj','akhir_a_pj')
-    def _compute_total_a_pj(self):
-        for pj in self:
-            pj.total_a_pj = pj.awal_a_pj + pj.akhir_a_pj
+    # @api.depends('awal_a_pj','akhir_a_pj')
+    # def _compute_total_a_pj(self):
+    #     for pj in self:
+    #         pj.total_a_pj = pj.awal_a_pj + pj.akhir_a_pj
     
-    @api.depends('awal_b_pj','akhir_b_pj')
-    def _compute_total_b_pj(self):
-        for pj in self:
-            pj.total_b_pj = pj.awal_b_pj + pj.akhir_b_pj
+    # @api.depends('awal_b_pj','akhir_b_pj')
+    # def _compute_total_b_pj(self):
+    #     for pj in self:
+    #         pj.total_b_pj = pj.awal_b_pj + pj.akhir_b_pj
+
+
+        #MUJAWWADAH
+    # @api.multi
+    # def name_get(self):
+    #     result = []
+    #     for record in self:
+    #         name = "Menu Mujawwadah - {}".format(record.siswa_id.name)
+    #         result.append((record.id, name))
+    #     return result
+   
+    
+    # @api.depends('awal_m_pj','akhir_m_pj')
+    # def _compute_total_m_pj(self):
+    #     for pj_m in self:
+    #         pj_m.total_pjm = pj_m.awal_m_pj + pj_m.akhir_m_pj
+            
+
+class Menu_KBM(models.Model):
+    _name = 'menu.kbm'
+    _description = 'Menu KBM'
+    
+    guru_id = fields.Many2one('hr.employee', string='Nama Halaqah')
+    siswa_id = fields.Many2one('res.partner', string='Nama Santri', domain="[('student', '=', True)]", required=True)
+    jenjang = fields.Selection('Jenjang', related='siswa_id.jenjang')
+    tanggal = fields.Date('Tanggal')
+    
+    
+    
+    juz_m = fields.Char('Juz')
+    pojok_m = fields.Char('Pojok')
+    keterangan_mm = fields.Text('Keterangan')
+    
+    juz_z = fields.Char('Juz')
+    pojok_z = fields.Char('Pojok')
+    keterangan_mmm = fields.Text('Keterangan')
+    
+    
+    awal_juz_ma = fields.Char('Awal Juz')
+    awal_pj_ma = fields.Char('Awal PJ')
+    akhir_pj_ma = fields.Char('Akhir PJ')
+    akhir_juz_ma = fields.Char('Akhir Juz')
+    
+    total_pj_ma = fields.Char(string='Total PJ')
+    # total_pj_ma = fields.Char(compute='_compute_total_pjma', string='Total PJ')
+    keterangan_ma = fields.Text('Keterangan')
+    
+    juz_ma = fields.Char('Juz')
+    pojok_ma = fields.Char('Pojok')
+    keterangan_mmmm = fields.Text('Keterangan')
+    
+    # @api.depends('awal_pj_ma','akhir_pj_ma')
+    # def _compute_total_pjma(self):
+    #     for pjma in self:
+    #         pjma.total_pj_ma = pjma.awal_pj_ma + pjma.akhir_pj_ma

@@ -3,4 +3,5 @@ access_master_kelas,master.kelas,model_master_kelas,group_sekolah_admin,1,1,1,1
 access_mata_pelajaran,mata.pelajaran,model_mata_pelajaran,group_sekolah_admin,1,1,1,1
 access_ruang_kelas,ruang.kelas,model_ruang_kelas,group_sekolah_admin,1,1,1,1
 akses_portal_portal_res_partner,portal.res.partner,model_res_partner,group_sekolah_orangtua,1,1,1,1
-
+access_master_kamar,master.kamar,model_master_kamar,group_sekolah_admin,1,1,1,1
+access_kamar_siswa,kamar.siswa,model_kamar_siswa,group_sekolah_admin,1,1,1,1

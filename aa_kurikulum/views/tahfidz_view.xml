@@ -1078,16 +1078,16 @@
         <field name="padding">5</field>
     </record>
 
-    <record id="model_ziyadah_view_tree" model="ir.ui.view">
+    <!-- <record id="model_ziyadah_view_tree" model="ir.ui.view">
         <field name="name">menu.ziyadah.view.tree</field>
         <field name="model">menu.ziyadah</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="guru_id" />
                 <field name="siswa_id" />
-                <field name="jenjang" />
-                <field name="nisn" />
-                <field name="awal_juz" />
+                <field name="jenjang" /> -->
+                <!-- <field name="nisq" /> -->
+                <!-- <field name="awal_juz" />
                 <field name="akhir_juz" />
                 <field name="awal_pj" />
                 <field name="akhir_pj" />
@@ -1105,9 +1105,9 @@
                     <group>
                         <field name="guru_id" />
                         <field name="siswa_id" />
-                        <field name="jenjang" />
-                        <field name="nisn" />
-                    </group>
+                        <field name="jenjang" /> -->
+                        <!-- <field name="nisq" /> -->
+                    <!-- </group>
                     <notebook>
                         <page string="Menu Ziyadah" col="4">
                             <group>
@@ -1137,7 +1137,7 @@
         <field name="code">menu.ziyadah</field>
         <field name="prefix">Ziyadah/%(y)s/%(month)s/</field>
         <field name="padding">5</field>
-    </record>
+    </record> -->
     
     <record id="model_deresan_view_tree" model="ir.ui.view">
         <field name="name">menu.deresan.view.tree</field>
@@ -1147,11 +1147,7 @@
                 <field name="guru_id" />
                 <field name="siswa_id" />
                 <field name="jenjang" />
-                <!-- <field name="awal_juz" />
-                <field name="awal_pj" />
-                <field name="akhir_pj" />
-                <field name="akhir_juz" />
-                <field name="total_pj" /> -->
+                <field name="tanggal" />
             </tree>
         </field>
     </record>
@@ -1166,8 +1162,20 @@
                         <field name="guru_id" />
                         <field name="siswa_id" />
                         <field name="jenjang" />
+                        <field name="tanggal" />
+                        <!-- <field name="nisq" /> -->
                     </group>
                     <notebook>
+                        <page string="Ziyadah" col="4">
+                            <group>
+                                <field name="awal_juz"  />
+                                <field name="akhir_juz" />
+                                <field name="awal_pj" />
+                                <field name="akhir_pj" />
+                                <field name="total_pj"  />
+                                <field name="keterangan" />
+                            </group>
+                        </page>
                         <page string="Deresan A" col="4">
                             <group>
                                 <field name="awal_a_juz"  />
@@ -1185,7 +1193,7 @@
                                 <field name="awal_b_pj" />
                                 <field name="akhir_b_pj" />
                                 <field name="total_b_pj" />
-                                <field name="total_deresan" />
+                                <field name="total_deresan"  />
                                 <field name="keterangan_b" />
                             </group>
                         </page>
@@ -1193,6 +1201,16 @@
                             <group>
                                 <field name="juz"  />
                                 <field name="pojok" />
+                            </group>
+                        </page>
+                        <page string="Mujawwadah" col="4">
+                            <group>
+                                <field name="awal_m_juz"  />
+                                <field name="akhir_m_juz" />
+                                <field name="awal_m_pj" />
+                                <field name="akhir_m_pj" />
+                                <field name="total_m_pj" />
+                                <field name="keterangan_m" />
                             </group>
                         </page>
                         <page string="Total Kehadiran" col="4">
@@ -1209,15 +1227,92 @@
     </record>
 
     <record model="ir.actions.act_window" id="menu_deresan_action">
-        <field name="name">Menu Deresan</field>
+        <field name="name">Hafalan Santri</field>
         <field name="res_model">menu.deresan</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <record id="seq_menu_deresan_new" model="ir.sequence">
-        <field name="name">Menu Deresan</field>
+        <field name="name">Hafalan Santri</field>
         <field name="code">menu.deresan</field>
         <field name="prefix">Ziyadah/%(y)s/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+    <!-- KBM HARIAN -->
+
+    <record id="model_kbm_view_tree" model="ir.ui.view">
+        <field name="name">menu.kbm.view.tree</field>
+        <field name="model">menu.kbm</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="guru_id" />
+                <field name="siswa_id" />
+                <field name="jenjang" />
+                <field name="tanggal" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="model_kbm_view_form" model="ir.ui.view">
+        <field name="name">menu.kbm.view.form</field>
+        <field name="model">menu.kbm</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="guru_id" />
+                        <field name="siswa_id" />
+                        <field name="jenjang" />
+                        <field name="tanggal" />
+                        <!-- <field name="nisq" /> -->
+                    </group>
+                    <notebook>
+                        <page string="ASHAR" col="4">
+                            <group  string="Murojaah" col="4" colspan="2">
+                                <field name="juz_m"  />
+                                <field name="pojok_m" />
+                                <field name="keterangan_mmm" />
+                            </group>
+                        </page>
+                        <page string="MAGRIB" col="4">
+                            <group string="Ziyadah" col="4" colspan="2">
+                                <field name="awal_juz_ma"  />
+                                <field name="akhir_juz_ma" />
+                                <field name="awal_pj_ma" />
+                                <field name="akhir_pj_ma" />
+                                <field name="total_pj_ma" />
+                                <field name="keterangan_ma" />
+                            </group>
+                            <group string="Bin Nazhor" col="4" colspan="2">
+                                <field name="juz_ma"  />
+                                <field name="pojok_ma" />
+                                <field name="keterangan_mmm" />
+                            </group>
+                        </page>
+                        <page string="SUBUH" col="4">
+                            <group  string="Ziyadah" col="4" colspan="2">
+                                <field name="juz_z"  />
+                                <field name="pojok_z" />
+                                <field name="keterangan_mmm" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="menu_kbm_action">
+        <field name="name">KBM Harian</field>
+        <field name="res_model">menu.kbm</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="seq_menu_deresan_new" model="ir.sequence">
+        <field name="name">KBM Harian</field>
+        <field name="code">menu.kbm</field>
+        <field name="prefix">KBM/%(y)s/%(month)s/</field>
         <field name="padding">5</field>
     </record>
 
@@ -1238,8 +1333,9 @@
     <menuitem id="menu_uas_tahfidz" name="UAS Tahfidz" parent="menu_ujian" action="uas_tahfidz_action" sequence="4"/>
 
     <menuitem id="menu_halaqah" name="Halaqah" parent="menu_pendidikan_tahfidz" sequence="3" groups="group_tahfidz_admin"/>
-    <menuitem id="menu_ziyadah" name="Menu Ziyadah" parent="menu_halaqah" action="menu_ziyadah_action" sequence="1"/>
-    <menuitem id="menu_deresan" name="Menu Deresan" parent="menu_halaqah" action="menu_deresan_action" sequence="2"/>
+    <!-- <menuitem id="menu_ziyadah" name="Menu Ziyadah" parent="menu_halaqah" action="menu_ziyadah_action" sequence="1"/> -->
+    <menuitem id="menu_deresan" name="Hafalan Santri" parent="menu_halaqah" action="menu_deresan_action" sequence="1" groups="group_tahfidz_admin"/>
+    <menuitem id="menu_KBM" name="KBM Harian" parent="menu_halaqah" action="menu_kbm_action" sequence="2"/>
 
 
     <menuitem id="menu_config_submenu_kurikulum" name="Kurikulum" parent="base_sekolah.menu_pendidikan_config" sequence="3"/>
@@ -1254,9 +1350,10 @@
 
 
     <!-- Modul -->
-    <menuitem id="menu_modul_halaqah" name="Halaqah" web_icon="base_sekolah,static/description/halaqah.png"  groups="group_tahfidz_admin"/>
-    <menuitem id="menu_modul_ziyadah" name="Menu Ziyadah" parent="menu_modul_halaqah" action="menu_ziyadah_action" sequence="1"/>
-    <menuitem id="menu_modul_deresan" name="Menu Deresan" parent="menu_modul_halaqah" action="menu_deresan_action" sequence="2"/>
+    <menuitem id="menu_modul_halaqah" name="Perkembangan Hafalan" web_icon="base_sekolah,static/description/halaqah.png"  groups="group_tahfidz_admin"/>
+    <!-- <menuitem id="menu_modul_ziyadah" name="Menu Ziyadah" parent="menu_modul_halaqah" action="menu_ziyadah_action" sequence="1"/> -->
+    <menuitem id="menu_modul_deresan" name="Hafalan Santri" parent="menu_modul_halaqah" action="menu_deresan_action" sequence="1" groups="group_tahfidz_admin"/>
+    <menuitem id="menu_KBM" name="KBM Harian" parent="menu_modul_halaqah" action="menu_kbm_action" sequence="2"/>
 
 
 

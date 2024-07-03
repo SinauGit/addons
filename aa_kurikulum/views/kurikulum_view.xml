@@ -49,7 +49,7 @@
 								<group>
 									<field colspan="4" name="score_line" nolabel="1" widget="one2many_list">
 										<tree string="" editable="top">
-											<field name="name"/>
+											<field name="name"/>										
 											<field name="u1"/>
 											<field name="u2"/>
 											<field name="u3"/>

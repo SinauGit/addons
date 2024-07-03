@@ -364,9 +364,9 @@ class buku_rapot(models.Model):
     _name = 'buku.rapot'
 
     name = fields.Char('No. Dokumen', required=True, readonly=True, default='/')
-    siswa_id = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)])
+    siswa_id = fields.Many2one('res.partner', 'Siswa', required=True, domain="[('student', '=', True), ('class_id', '=', class_id)]")
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
-    class_id = fields.Many2one('ruang.kelas', 'Rombel', required=True, domain="[('fiscalyear_id', '=', fiscalyear_id)]")
+    class_id = fields.Many2one('master.kelas', 'Rombel', required=True, domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     semester = fields.Selection([('Gasal', 'Gasal'), ('Genap', 'Genap')], string='Semester', required=True, default='Gasal')
     avg_class = fields.Integer('Nilai Rata-Rata', readonly=True)
     avg_mulok = fields.Integer('Nilai Rata-Rata Mulok', readonly=True)
@@ -427,22 +427,26 @@ class buku_rapot(models.Model):
                 totals += rec.nilai
             total.total = totals
     
+    @api.multi
     def nilai(self):
         for rec in self:
             for line in rec.rapot_line:
-                rekap_line = rec.env['rekap.rapot'].search([
+                # Asumsi bahwa ada field mapel_id pada rapot_line yang menghubungkan ke mata.pelajaran
+                rekap_lines = self.env['rekap.rapot'].search([
                     ('mapel_id', '=', line.name.id),
-                    ('rapot_line.siswa_id', '=', rec.siswa_id.id)
-                ], limit=1)
-                
-                if rekap_line:
-                    rapot_line = rekap_line.rapot_line.filtered(lambda r: r.siswa_id.id == rec.siswa_id.id)
-                    if rapot_line:
-                        line.nilai = rapot_line.nilai
-                        line.kkm = rapot_line.kkm
-                        line.note = rapot_line.note
-                        line.status = rapot_line.status
-    
+                    ('class_id', '=', rec.class_id.id)
+                ])
+                for rekap_line in rekap_lines:
+                    # Asumsi bahwa rekap.rapot memiliki field nilai, kkm, note, dan status
+                    rapot_lines = rekap_line.rapot_line.filtered(lambda r: r.siswa_id.id == rec.siswa_id.id)
+                    for rapot_line in rapot_lines:
+                        line.write({
+                            'nilai': rapot_line.nilai,
+                            'kkm': rapot_line.kkm,
+                            'note': rapot_line.note,
+                            'status': rapot_line.status
+                        })
+        
     @api.multi
     def name_get(self):
         result = []
@@ -450,13 +454,10 @@ class buku_rapot(models.Model):
             name = "Buku Raport - {} - {}".format(o.siswa_id.name, o.date)
             result.append((o.id, name))
         return result
-   
 
     @api.multi
     def print_rapot(self):
         return self.env.ref('aa_kurikulum.print_raport_sekolah').report_action(self)
-
-   
 
     @api.onchange('siswa_id')
     def onchange_siswa_id(self):
@@ -482,6 +483,7 @@ class buku_rapot(models.Model):
                 i.write({'kkm': 70, 'nilai': slid.all, 'avg': 75})
 
         return True
+
 
 class rapot_line(models.Model):
     _name = 'rapot.line'
