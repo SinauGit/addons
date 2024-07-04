@@ -1313,17 +1313,36 @@ class Menu_KBM(models.Model):
     guru_id = fields.Many2one('hr.employee', string='Nama Halaqah')
     siswa_id = fields.Many2one('res.partner', string='Nama Santri', domain="[('student', '=', True)]", required=True)
     jenjang = fields.Selection('Jenjang', related='siswa_id.jenjang')
-    tanggal = fields.Date('Tanggal')
+    tanggaljam = fields.Datetime(string='Tanggal dan Jam', required=True, readonly=True, default=lambda self: fields.Datetime.now())
     
     
-    
-    juz_m = fields.Char('Juz')
-    pojok_m = fields.Char('Pojok')
-    keterangan_mm = fields.Text('Keterangan')
+    status_a = fields.Selection([
+         ('Izin','Izin'),
+        ('Tidak Setor', 'Tidak Setor'),
+        ('Alpha', 'Alpha'),
+        ('Tugas Lembaga', 'Tugas Lembaga'),
+    ], string='Status')
+    count_sakit_a = fields.Char('Sakit')
+    count_izin_a = fields.Char('Izin')
+    count_alpha_a = fields.Char('Alpa')
+    count_tugas_a = fields.Char('Tugas Lembaga')
     
     juz_z = fields.Char('Juz')
     pojok_z = fields.Char('Pojok')
-    keterangan_mmm = fields.Text('Keterangan')
+    keterangan_z = fields.Text('Keterangan')
+    
+    
+    
+    status_b = fields.Selection([
+         ('Izin','Izin'),
+        ('Tidak Setor', 'Tidak Setor'),
+        ('Alpha', 'Alpha'),
+        ('Tugas Lembaga', 'Tugas Lembaga'),
+    ], string='Status')
+    count_sakit_b = fields.Char('Sakit')
+    count_izin_b = fields.Char('Izin')
+    count_alpha_b = fields.Char('Alpa')
+    count_tugas_b = fields.Char('Tugas Lembaga')
     
     
     awal_juz_ma = fields.Char('Awal Juz')
@@ -1331,13 +1350,26 @@ class Menu_KBM(models.Model):
     akhir_pj_ma = fields.Char('Akhir PJ')
     akhir_juz_ma = fields.Char('Akhir Juz')
     
-    total_pj_ma = fields.Char(string='Total PJ')
+    total_pj_ma = fields.Char(string='Total Setor')
     # total_pj_ma = fields.Char(compute='_compute_total_pjma', string='Total PJ')
     keterangan_ma = fields.Text('Keterangan')
     
     juz_ma = fields.Char('Juz')
     pojok_ma = fields.Char('Pojok')
-    keterangan_mmmm = fields.Text('Keterangan')
+    keterangan_mmm = fields.Text('Keterangan')
+    
+    total_pj_z = fields.Char(string='Total Murojaah + Ziyadah')
+    
+    status_c = fields.Selection([
+         ('Izin','Izin'),
+        ('Tidak Setor', 'Tidak Setor'),
+        ('Alpha', 'Alpha'),
+        ('Tugas Lembaga', 'Tugas Lembaga'),
+    ], string='Status')
+    count_sakit_c = fields.Char('Sakit')
+    count_izin_c = fields.Char('Izin')
+    count_alpha_c = fields.Char('Alpa')
+    count_tugas_c = fields.Char('Tugas Lembaga')
     
     # @api.depends('awal_pj_ma','akhir_pj_ma')
     # def _compute_total_pjma(self):

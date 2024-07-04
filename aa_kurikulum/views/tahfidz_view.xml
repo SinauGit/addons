@@ -1249,7 +1249,7 @@
                 <field name="guru_id" />
                 <field name="siswa_id" />
                 <field name="jenjang" />
-                <field name="tanggal" />
+                <field name="tanggaljam" />
             </tree>
         </field>
     </record>
@@ -1260,24 +1260,41 @@
         <field name="arch" type="xml">
             <form string="">
                 <sheet>
-                    <group>
+                    <group col="4" colspan="2">
                         <field name="guru_id" />
-                        <field name="siswa_id" />
                         <field name="jenjang" />
-                        <field name="tanggal" />
+                        <field name="siswa_id" />
+                        <field name="tanggaljam" />
                         <!-- <field name="nisq" /> -->
                     </group>
                     <notebook>
-                        <page string="ASHAR" col="4">
-                            <group  string="Murojaah" col="4" colspan="2">
-                                <field name="juz_m"  />
-                                <field name="pojok_m" />
-                                <field name="keterangan_mmm" />
+                        <page string="Ashar" col="4">
+                        <group string="Deresan A" col="4" colspan="2">
+                                <field name="status_a"  />
+                                <field name="count_sakit_a" />
+                                <field name="count_izin_a" />
+                                <field name="count_alpha_a" />
+                                <field name="count_tugas_a"  />
+                            </group>
+                            <group col="4" colspan="2">
+                                <field name="awal_juz_ma"  />
+                                <field name="akhir_juz_ma" />
+                                <field name="awal_pj_ma" />
+                                <field name="akhir_pj_ma" />
+                                <field name="total_pj_ma" />
+                                <field name="keterangan_ma" />
                             </group>
                         </page>
-                        <page string="MAGRIB" col="4">
-                            <group string="Ziyadah" col="4" colspan="2">
-                                <field name="awal_juz_ma"  />
+                        <page string="Magrib" col="4">
+                            <group string="Deresan B" col="4" colspan="2">
+                                <field name="status_b"  />
+                                <field name="count_sakit_b" />
+                                <field name="count_izin_b" />
+                                <field name="count_alpha_b" />
+                                <field name="count_tugas_b"  />
+                            </group>
+                            <group col="4" colspan="2">
+                                <field name="awal_juz_ma" />
                                 <field name="akhir_juz_ma" />
                                 <field name="awal_pj_ma" />
                                 <field name="akhir_pj_ma" />
@@ -1291,10 +1308,18 @@
                             </group>
                         </page>
                         <page string="SUBUH" col="4">
+                            <group col="4" colspan="2">
+                                <field name="status_c"  />
+                                <field name="count_sakit_c" />
+                                <field name="count_izin_c" />
+                                <field name="count_alpha_c" />
+                                <field name="count_tugas_c"  />
+                            </group>
                             <group  string="Ziyadah" col="4" colspan="2">
                                 <field name="juz_z"  />
                                 <field name="pojok_z" />
-                                <field name="keterangan_mmm" />
+                                <field name="keterangan_z" />
+                                <field name="total_pj_z" />
                             </group>
                         </page>
                     </notebook>
