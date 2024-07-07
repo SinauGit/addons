@@ -119,7 +119,7 @@ class RekapRapot(models.Model):
     tgl_input = fields.Date('Tanggal Input', default=fields.Date.context_today)
     # mapel_id = fields.Many2one('hr.employee', string='Mata Pelajaran', related='guru_id.job_id')
     # class_id = fields.Many2one('ruang.kelas', string='Rombel', required=True)
-    class_id = fields.Many2one('master.kelas', 'Rombel', required=True, domain="[('fiscalyear_id', '=', fiscalyear_id)]")
+    class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     
     kkm = fields.Integer('KKM')
     # rombel_id = fields.Many2one('ruang.kelas', string='Rombel')

@@ -151,7 +151,7 @@
 					<field name="class_id" />
 					<!-- <field name="ruang_id" /> -->
 					<field name="jenjang" />
-					<field name="lembaga" />
+					<field name="lembaga"/>
 					<field name="orangtua_id"/>
 					<field name="fiscalyear_id" />
 				</tree>

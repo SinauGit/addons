@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_registration_crm_lead,crm.lead,crm.model_crm_lead,group_pendaftaran_calon_siswa,1,1,0,0
+access_registration_crm_lead,crm.lead,crm.model_crm_lead,group_pendaftaran_calon_siswa,1,1,1,1

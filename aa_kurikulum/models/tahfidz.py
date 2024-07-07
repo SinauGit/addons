@@ -29,7 +29,7 @@ class kalender_akademik(models.Model):
     _order = 'name desc'
 
     name = fields.Char(string='No. Dokumen', default='/', required=True, readonly=True)
-    lembaga = fields.Selection(LEMBAGA, string='Lembaga', required=True, default='SD', readonly=True, states={'Draft': [('readonly', False)]})
+    lembaga = fields.Selection(LEMBAGA, string='Lembaga', required=True, default='SD', states={'Draft': [('readonly', False)]})
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True, readonly=True, states={'Draft': [('readonly', False)]})
     semester = fields.Selection([('Gasal', 'Gasal'), ('Genap', 'Genap')], string='Semester', required=True, default='Gasal', readonly=True, states={'Draft': [('readonly', False)]})
     pekan = fields.Selection(PEKAN, string='Pekan', required=True, default='1', readonly=True, states={'Draft': [('readonly', False)]})
@@ -108,7 +108,7 @@ class penugasan_guru(models.Model):
 
     name = fields.Char(string='No. Dokumen', default='/', required=True, readonly=True)
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True, readonly=True, states={'Draft': [('readonly', False)]})
-    lembaga = fields.Selection(LEMBAGA, string='Lembaga', required=True, readonly=True, states={'Draft': [('readonly', False)]})
+    lembaga = fields.Selection(LEMBAGA, string='Lembaga', required=True, states={'Draft': [('readonly', False)]})
     guru_id = fields.Many2one('hr.employee', 'Guru', required=True, domain="[('lembaga', '=', lembaga)]", readonly=True, states={'Draft': [('readonly', False)]})
     bidang_guru = fields.Selection([('Tahfizh', 'Tahfizh'), ('Umum', 'Umum'), ('Diniyah', 'Diniyah'), ('Centra', 'Centra')], string='Bidang Guru', required=True, default='Tahfizh', readonly=True, states={'Draft': [('readonly', False)]})
     kelas_id = fields.Many2one('master.kelas', 'Rombel', required=True, readonly=True, states={'Draft': [('readonly', False)]})

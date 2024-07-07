@@ -78,7 +78,7 @@
                     <notebook colspan="4">
 						<page string="Siswa" autofocus="autofocus">
 							<group col="4" colspan="4">
-								<field name="lembaga" readonly='True'/>
+								<field name="lembaga"/>
 								<field name="fiscalyear_id" readonly='True'/>
 								<field name="class_id"/>
 								<!-- <field name="ruang_id"/> -->
