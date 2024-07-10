@@ -180,10 +180,10 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="guru_id" />
+               <field name="fiscalyear_id" />
+               <field name="class_id" />
                 <field name="mapel_id" options="{'no_open': True}" string="Mata Pelajaran"/>
-                <field name="class_id" />
                 <field name="date" />
-                <field name="fiscalyear_id" />
             </tree>
         </field>
     </record>

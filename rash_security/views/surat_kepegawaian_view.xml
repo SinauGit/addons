@@ -9,6 +9,7 @@
                     <field name="nama_surat" />
                     <field name="name" />
                     <field name="tanggal_jam"/>
+                    <field name="tanggal_masuk"/>
                     <field name="unit" />
                     <field name="keperluan" />
                     <field name="upload" type="binary"/>
@@ -29,6 +30,7 @@
                             <field name="nama_surat" />
                             <field name="name" />
                             <field name="tanggal_jam" widget="datetime"/>
+                            <field name="tanggal_masuk" widget="datetime"/>
                             <field name="unit" />
                             <field name="keperluan" />
                             <field name="upload" type="binary"/>
