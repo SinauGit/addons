@@ -10,7 +10,7 @@
                 <field name="guru_id" />
                 <field name="jumlah_santri" />
                 <field name="total" />
-                <field name="jenjang" />
+                <field name="jenjang" />    
                 <field name="jumlah" />
             </tree>
         </field>
@@ -197,9 +197,9 @@
                     <group>
                         <field name="guru_id" />
                         <field name="mapel_id"/>
+                        <field name="fiscalyear_id" />
                         <field name="class_id" />
                         <field name="kkm" />
-                        <field name="fiscalyear_id" />
                         <field name="date" />
                         <notebook colspan="5">
 							<page string="Mata Pelajaran">
@@ -290,7 +290,7 @@
         parent="base_sekolah.menu_config_submenu_sekolah" action="model_bulanan_action" />
 
     <menuitem id="menu_laporan_rekap_rapot" name="Rekap Rapot"
-        parent="menu_mata_pelajaran" action="model_rekap_rapot_action" />
+        parent="menu_mata_pelajaran" action="model_rekap_rapot_action"  sequence="5"/>
 
     <!-- <menuitem id="menu_laporan_bulanan" name="Laporan Bulanan"
     parent="menubar_portal_kurikulum"

@@ -113,10 +113,11 @@ class RekapRapot(models.Model):
     
     
     # siswa_id = fields.Many2one('res.partner', string='Siswa', domain="[('student', '=', True)]")
-    guru_id = fields.Many2one('hr.employee', string='Nama Guru')
+    guru_id = fields.Many2one('res.users', 'Guru', readonly=True, required=True, default=lambda self: self.env.user)
+    # guru_id = fields.Many2one('hr.employee', string='Nama Guru')
     # mapel = fields.Char(string='Mata Pelajaran', related='guru_id.job_id.name')
     mapel_id = fields.Many2one('mata.pelajaran',string='Mata Pelajaran')
-    tgl_input = fields.Date('Tanggal Input', default=fields.Date.context_today)
+    # tgl_input = fields.Date('Tanggal Input', default=fields.Date.context_today)
     # mapel_id = fields.Many2one('hr.employee', string='Mata Pelajaran', related='guru_id.job_id')
     # class_id = fields.Many2one('ruang.kelas', string='Rombel', required=True)
     class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
@@ -128,7 +129,7 @@ class RekapRapot(models.Model):
     total = fields.Integer('Total', compute="_compute_total")
     total_line = fields.Integer('Total Line', compute="_compute_total_line")
     rata = fields.Integer('Rata', compute="_compute_rata")
-    date = fields.Date('Tanggal Cetak')
+    date = fields.Date('Tanggal Cetak', default=fields.Date.context_today)
     
     
     @api.onchange('class_id')

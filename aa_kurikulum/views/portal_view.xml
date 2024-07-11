@@ -142,7 +142,7 @@
 
 		<!-- Custom Form Menu Siswa -->
 
-    	<record id="laporan_tahfidz_partner_form" model="ir.ui.view">
+    	<!-- <record id="laporan_tahfidz_partner_form" model="ir.ui.view">
     		<field name="name">res.partner.siswa.ortu</field>
     		<field name="model">res.partner</field>
     		<field name="inherit_id" ref="base.view_partner_form"/>
@@ -168,7 +168,7 @@
                     </button>
     			</button>
     		</field>
-    	</record>
+    	</record> -->
 
 
 		<!-- Custom Form Portal Siswa -->
