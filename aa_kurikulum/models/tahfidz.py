@@ -1331,14 +1331,14 @@ class Menu_KBM(models.Model):
     pojok_z = fields.Char('Pojok')
     keterangan_z = fields.Text('Keterangan')
     
-    awal_juz_da = fields.Char('Awal Juz')
-    awal_pj_da = fields.Char('Awal PJ')
-    akhir_pj_da = fields.Char('Akhir PJ')
-    akhir_juz_da = fields.Char('Akhir Juz')
+    awal_juz_ma = fields.Char('Awal Juz')
+    awal_pj_ma = fields.Char('Awal PJ')
+    akhir_pj_ma = fields.Char('Akhir PJ')
+    akhir_juz_ma = fields.Char('Akhir Juz')
     
-    total_pj_da = fields.Char(string='Total Setor')
+    total_pj_ma = fields.Char(string='Total Setor')
     # total_pj_ma = fields.Char(compute='_compute_total_pjma', string='Total PJ')
-    keterangan_da = fields.Text('Keterangan')
+    keterangan_ma = fields.Text('Keterangan')
     
     
     

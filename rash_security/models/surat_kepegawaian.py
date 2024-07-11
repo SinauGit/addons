@@ -11,7 +11,7 @@ class SuratKepegawaian(models.Model):
     no_surat = fields.Char(string='No. Dokumen', default='/')
     nama_surat = fields.Char(string='Nama Surat')
     name = fields.Char(string='Nama Pegawai')
-    tanggal_jam = fields.Datetime(string='Tanggal dan Jam Keluar', readonly=True)
+    tanggal_jam = fields.Datetime(string='Tanggal dan Jam Keluar')
     tanggal_masuk = fields.Datetime(string='Tanggal dan Jam Masuk')
     unit = fields.Char(string='Unit')
     # unit = fields.Selection([

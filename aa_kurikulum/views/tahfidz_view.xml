@@ -1277,12 +1277,12 @@
                                 <field name="count_tugas_a"  />
                             </group>
                             <group col="4" colspan="2">
-                                <field name="awal_juz_da"  />
-                                <field name="akhir_juz_da" />
-                                <field name="awal_pj_da" />
-                                <field name="akhir_pj_da" />
-                                <field name="total_pj_da" />
-                                <field name="keterangan_da" />
+                                <field name="awal_juz_ma"  />
+                                <field name="akhir_juz_ma" />
+                                <field name="awal_pj_ma" />
+                                <field name="akhir_pj_ma" />
+                                <field name="total_pj_ma" />
+                                <field name="keterangan_ma" />
                             </group>
                         </page>
                         <page string="Magrib" col="4">
