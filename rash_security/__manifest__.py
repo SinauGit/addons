@@ -10,6 +10,7 @@
     'depends': ['base', 'base_sekolah',],
     'data': [
         'security/ir.model.access.csv',     # File hak akses
+        'security/security.xml',
         'views/surat_kepegawaian_view.xml',   # File yang mendefinisikan views dan menuitem
     ],
     'images': [],

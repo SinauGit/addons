@@ -13,13 +13,13 @@ from io import StringIO, BytesIO
 from openpyxl import load_workbook
 
 jenjang = [
-    ('TK', 'TK'), 
-    ('SD1', 'SD - Kelas 1'), 
-    ('SD2', 'SD - Kelas 2'), 
-    ('SD3', 'SD - Kelas 3'), 
-    ('SD4', 'SD - Kelas 4'), 
-    ('SD5', 'SD - Kelas 5'), 
-    ('SD6', 'SD - Kelas 6'), 
+    # ('TK', 'TK'), 
+    # ('SD1', 'SD - Kelas 1'), 
+    # ('SD2', 'SD - Kelas 2'), 
+    # ('SD3', 'SD - Kelas 3'), 
+    # ('SD4', 'SD - Kelas 4'), 
+    # ('SD5', 'SD - Kelas 5'), 
+    # ('SD6', 'SD - Kelas 6'), 
     ('SMP7', 'SMP - Kelas 7'), ('SMP8', 'SMP - Kelas 8'), ('SMP9', 'SMP - Kelas 9'), 
     ('SMA10', 'SMA - Kelas 10'), ('SMA11', 'SMA - Kelas 11'), ('SMA12', 'SMA - Kelas 12')
 ]
@@ -204,8 +204,8 @@ class res_partner(models.Model):
     tinggi = fields.Char('Tinggi Badan')
     moda = fields.Selection([('umum', 'Kendaraan Umum'), ('jalan', 'Jalan'), ('sepeda', 'Sepeda'), ('motor', 'Motor'), ('mobil', 'mobil')], 'Moda Transportasi')
 
-    ayah = fields.Char('Nama')
-    ibu = fields.Char('Nama')
+    ayah = fields.Char('Nama Ayah')
+    ibu = fields.Char('Nama Ibu')
     didika = fields.Selection(school, 'Pendidikan')
     didiki = fields.Selection(school, 'Pendidikan')
     kerja = fields.Char('Pekerjaan')

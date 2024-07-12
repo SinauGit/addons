@@ -277,7 +277,7 @@
 
 		<menuitem id="menubar_portal" name="Orang Tua" web_icon="base_sekolah,static/description/ortu.png" groups="group_sekolah_orangtua"/>
 		<menuitem id="menubar_portal_data" name="Data" parent="menubar_portal" sequence="1"/>
-		<menuitem id="menuitem_portal_murid" name="Siswa" parent="menubar_portal_data" action="action_portal_murid_form"/>
+		<!-- <menuitem id="menuitem_portal_murid" name="Siswa" parent="menubar_portal_data" action="action_portal_murid_form"/> -->
 		<!-- <menuitem id="menuitem_portal_murid" name="Siswa" parent="menubar_portal_data" action="action_portal_murid_form"/> -->
 		<menuitem id="menuitem_portal_orangtua" name="Orang Tua" parent="menubar_portal_data" action="action_portal_orangtua_form"/>
 

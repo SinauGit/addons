@@ -239,14 +239,14 @@
        
         <menuitem id="menu_portal_buku_rapot" name="Buku Rapot" parent="menubar_portal_kurikulum" action="action_portal_buku_rapot" sequence="2" />
 		<!-- <menuitem id="menu_portal_observasi_adab" name="Observasi Adab" parent="menubar_portal_kurikulum" action="action_portal_observasi_adab" sequence="3" /> -->
-
+<!-- 
         <menuitem id="menubar_portal_tagihan" name="Tagihan" parent="base_sekolah.menubar_portal" sequence="3"/>
         <menuitem id="menu_mutasi_pembayaran" name="Mutasi Pembayaran" parent="menubar_portal_tagihan" action="aa_tata_usaha.action_tagihan_kasir" sequence="1"/>
         <menuitem id="menu_pembayaran_tagihan" name="Tagihan Siswa" parent="menubar_portal_tagihan" action="aa_tata_usaha.action_tagihan_kasir" sequence="2"/>
         <menuitem id="menu_kasir_manifest_bayar_tagihan" name="Manifest Pembayaran" parent="menubar_portal_tagihan" action="aa_tata_usaha.action_manifest_pembayaran_form" sequence="3"/>
        
         <menuitem id="menubar_portal_jadwal" name="Jadwal Pelajaran" parent="base_sekolah.menubar_portal" sequence="4"/> -->
-        <menuitem id="menu_form_jadwal" name="Form Jadwal" parent="menubar_portal_jadwal" action="model_jadwal_pelajaran_action" sequence="1"/> 
+        <!-- <menuitem id="menu_form_jadwal" name="Form Jadwal" parent="menubar_portal_jadwal" action="model_jadwal_pelajaran_action" sequence="1"/>  --> -->
 
 
       
