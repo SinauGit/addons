@@ -10,7 +10,6 @@
     'depends': [ 'base', 'project', 'sale_timesheet',],
     'data': [
         'security/ir.model.access.csv',     # File hak akses
-        'security/security.xml'
         'views/jadwal_konseling.xml',   # File yang mendefinisikan views dan menuitem
     ],
     'images': [],
