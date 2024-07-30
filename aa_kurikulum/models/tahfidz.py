@@ -1154,10 +1154,10 @@ class Menu_Deresan(models.Model):
     
     
     
-    guru_id = fields.Many2one('hr.employee', string='Nama Halaqah')
+    guru_id = fields.Many2one('res.users', 'Nama Halaqah', readonly=True, required=True, default=lambda self: self.env.user)
     siswa_id = fields.Many2one('res.partner', string='Nama Santri', domain="[('student', '=', True)]", required=True)
     jenjang = fields.Selection('Jenjang', related='siswa_id.jenjang')
-    tanggal = fields.Date('Tanggal')
+    tanggal = fields.Date('Tanggal Cetak', default=fields.Date.context_today)
     nisq = fields.Char('NISQ', related='siswa_id.nis')
     
     awal_juz = fields.Char('Awal Juz')

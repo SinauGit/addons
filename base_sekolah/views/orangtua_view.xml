@@ -143,7 +143,7 @@
 
 		<!-- Action Portal Siswa -->
 
-		<record model="ir.actions.act_window" id="action_portal_murid_form">
+		<!-- <record model="ir.actions.act_window" id="action_portal_murid_form">
 			<field name="name">Siswa</field>
 			<field name="res_model">res.partner</field>
 			<field name="view_id" ref="view_portal_murid_tree"/>
@@ -165,7 +165,7 @@
 			<field name="view_mode">form</field>
 			<field name="view_id" ref="view_portal_siswa_form"/>
 			<field name="act_window_id" ref="action_portal_murid_form"/>
-		</record>
+		</record> -->
 
 
 

@@ -35,7 +35,8 @@
 							<field name="fiscalyear_id"/>
 							<field name="semester"/>
 							<field name="class_id"/>
-							<field name="subject_id" colspan="4"/>
+							<field name="lembaga"/>
+							<field name="subject_id"/>
 						</group>
 						<notebook colspan="5">
 							<page string="Score Line" autofocus="autofocus" attrs="{'invisible':[('type', 'not in', ('Work_Sheet', 'Daily_Test'))]}">
@@ -48,7 +49,7 @@
 								</group>
 								<group>
 									<field colspan="4" name="score_line" nolabel="1" widget="one2many_list">
-										<tree string="" editable="top">
+										<tree string="" editable="bottom">
 											<field name="name"/>										
 											<field name="u1"/>
 											<field name="u2"/>
@@ -63,7 +64,7 @@
 							</page>
 							<page string="UTS Score" autofocus="autofocus" attrs="{'invisible':[('type', '!=', 'UTS')]}">
 								<field colspan="4" name="uts_line" nolabel="1" widget="one2many_list">
-									<tree string="" editable="top">
+									<tree string="" editable="bottom">
 										<field name="name"/>
 										<field name="nilai"/>
 									</tree>
@@ -71,7 +72,7 @@
 							</page>
 							<page string="UAS Score" autofocus="autofocus" attrs="{'invisible':[('type', '!=', 'UAS')]}">
 								<field colspan="4" name="uas_line" nolabel="1" widget="one2many_list">
-									<tree string="" editable="top">
+									<tree string="" editable="bottom">
 										<field name="name"/>
 										<field name="nilai"/>
 									</tree>
@@ -86,6 +87,7 @@
 		<record model="ir.actions.act_window" id="action_score_list_form">
 			<field name="name">Daftar Nilai</field>
 			<field name="res_model">score.list</field>
+			<field name="view_mode">tree,form</field>
 		</record>
 
 		<!-- Prestasi Sholat -->

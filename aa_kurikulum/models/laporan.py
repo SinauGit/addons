@@ -68,7 +68,8 @@ class laporan_bulanan(models.Model):
             'url': '/web/content/{}/data/{}?download=true'.format(self.id, judul),
             'target': 'self',
         }
-        
+            
+            
         @api.model
         def create(self, vals):
                 if vals.get('name', '/') == '/':
@@ -82,7 +83,7 @@ class laporan_bulanan(models.Model):
             result = []
             for o in self:
                 # name = 'Rekap Laporan Bulanan'
-                name = "Rekap Laporan Bulanan - {}".format(o.name)
+                name = "Laporan Bulanan - {}".format(o.name)
                 result.append((o.id, name))
             return result
         
@@ -116,7 +117,8 @@ class RekapRapot(models.Model):
     guru_id = fields.Many2one('res.users', 'Guru', readonly=True, required=True, default=lambda self: self.env.user)
     # guru_id = fields.Many2one('hr.employee', string='Nama Guru')
     # mapel = fields.Char(string='Mata Pelajaran', related='guru_id.job_id.name')
-    mapel_id = fields.Many2one('mata.pelajaran',string='Mata Pelajaran')
+    lembaga = fields.Selection(related='class_id.lembaga', store=True, string='Jenjang')
+    mapel_id = fields.Many2one('mata.pelajaran', string='Mata Pelajaran', domain="[('lembaga', '=', lembaga)]")
     # tgl_input = fields.Date('Tanggal Input', default=fields.Date.context_today)
     # mapel_id = fields.Many2one('hr.employee', string='Mata Pelajaran', related='guru_id.job_id')
     # class_id = fields.Many2one('ruang.kelas', string='Rombel', required=True)

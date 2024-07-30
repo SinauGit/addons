@@ -166,11 +166,11 @@
         <field name="view_mode">form</field>
     </record> -->
 
-    <record id="model_bulanan_action" model="ir.actions.act_window">
-        <field name="name">Laporan bulanan</field>
-        <field name="res_model">laporan.bulanan</field>
-        <field name="view_mode">tree,form</field>
-    </record>
+<record id="model_bulanan_action" model="ir.actions.act_window">
+    <field name="name">Laporan bulanan</field>
+    <field name="res_model">laporan.bulanan</field>
+    <field name="view_mode">tree,form</field>
+</record>
 
 
 
@@ -196,9 +196,10 @@
                 <sheet>
                     <group>
                         <field name="guru_id" />
-                        <field name="mapel_id"/>
                         <field name="fiscalyear_id" />
                         <field name="class_id" />
+                        <field name="lembaga" />
+                        <field name="mapel_id" domain="[('lembaga', '=', lembaga)]"/>
                         <field name="kkm" />
                         <field name="date" />
                         <notebook colspan="5">

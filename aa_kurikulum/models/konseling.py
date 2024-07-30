@@ -7,7 +7,7 @@ class BimbinganKonseling(models.Model):
     _name = 'bimbingan.konseling'
     
     name = fields.Char(string='No. Dokumen', default='/', required=True, readonly=True)
-    guru_id = fields.Many2one('hr.employee', string='Nama Guru')
+    guru_id = fields.Many2one('res.users', 'Nama Guru', readonly=True, required=True, default=lambda self: self.env.user)
     siswa_id = fields.Many2one('res.partner', string='Nama Siswa', domain="[('student', '=', True)]", required=True)
     info = fields.Selection([
          ('sakit', 'Sakit'),

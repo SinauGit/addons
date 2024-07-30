@@ -48,10 +48,10 @@ class master_kelas(models.Model):
     res_line = fields.One2many('res.partner', 'class_id', string='Siswa')
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
     name = fields.Char('Nama', required=True)
-    lembaga = fields.Selection(lembaga, string='Lembaga', required=True, default='SD')
+    lembaga = fields.Selection(lembaga, string='Lembaga', required=True, default='SMP')
     grade = fields.Selection([
-        ('A', 'A'), ('B', 'B'),
-        ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'),
+        # ('A', 'A'), ('B', 'B'),
+        # ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'),
         ('7', '7'), ('8', '8'), ('9', '9'),
         ('10', '10'), ('11', '11'), ('12', '12')
     ], string='Grade', required=True)

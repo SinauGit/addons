@@ -8,16 +8,17 @@ class score_list(models.Model):
     type = fields.Selection([('Work_Sheet', 'Work Sheet (WS)'), ('Daily_Test', 'Daily Test (UH)'), ('UTS', 'UTS'), ('UAS', 'UAS')], string='Tipe', required=True, default='Work_Sheet')
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
     user_id = fields.Many2one('res.users', 'Guru', readonly=True, required=True, default=lambda self: self.env.user)
-    class_id = fields.Many2one('ruang.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
-    subject_id = fields.Many2one('mata.pelajaran', 'Mata Pelajaran', required=True)
+    class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
+    lembaga = fields.Selection(related='class_id.lembaga', store=True, string='Jenjang')
+    subject_id = fields.Many2one('mata.pelajaran', string='Mata Pelajaran', domain="[('lembaga', '=', lembaga)]")
     date1 = fields.Date('Tanggal U1')
     date2 = fields.Date('Tanggal U2')
     date3 = fields.Date('Tanggal U3')
     date4 = fields.Date('Tanggal U4')
     date5 = fields.Date('Tanggal U5')
-    score_line = fields.One2many('score.line', 'score_id', 'Tabel Nilai')
-    uts_line = fields.One2many('uts.line', 'score_id', 'Nilai UTS')
-    uas_line = fields.One2many('uas.line', 'score_id', 'Nilai UAS')
+    score_line = fields.One2many('score.line', 'score_id', 'Tabel Nilai', compute='_compute_score_lines')
+    uts_line = fields.One2many('uts.line', 'score_id', 'Nilai UTS', compute='_compute_score_lines')
+    uas_line = fields.One2many('uas.line', 'score_id', 'Nilai UAS', compute='_compute_score_lines')
     semester = fields.Selection([('Gasal', 'Gasal'), ('Genap', 'Genap')], string='Semester', required=True, default='Gasal')
 
     _sql_constraints = [('subject_uniq', 'unique(subject_id, type, semester, class_id, fiscalyear_id)', 'Data harus unik !')]
@@ -36,23 +37,38 @@ class score_list(models.Model):
         result = super(score_list, self).create(vals)
         return result
 
-    @api.onchange('class_id', 'type')
-    def onchange_class_id(self):
-        if self.class_id:
+    # @api.onchange('class_id', 'type')
+    # def onchange_class_id(self):
+    #     if self.class_id:
 
-            nilai = []
-            for x in self.class_id.siswa_ids:
-                nilai.append({'name': x.id})
+    #         nilai = []
+    #         for x in self.class_id.siswa_ids:
+    #             nilai.append({'name': x.id})
 
-            data = {'score_line': nilai}
-            if self.type == 'UTS':
-                data = {'uts_line': nilai}
-            elif self.type == 'UAS':
-                data = {'uas_line': nilai}
+    #         data = {'score_line': nilai}
+    #         if self.type == 'UTS':
+    #             data = {'uts_line': nilai}
+    #         elif self.type == 'UAS':
+    #             data = {'uas_line': nilai}
 
-            self.update(data)
+    #         self.update(data)
+            
+    @api.depends('class_id', 'type')
+    def _compute_score_lines(self):
+     for record in self:
+        nilai = [(5, 0, 0)]
+        if record.class_id:
+            for x in record.class_id.siswa_ids:
+                nilai.append((0, 0, {'name': x.id}))
 
-    @api.one
+        if record.type == 'UTS':
+            record.uts_line = nilai
+        elif record.type == 'UAS':
+            record.uas_line = nilai
+        else:
+            record.score_line = nilai
+
+    @api.onchange
     def compute_score(self):
         if self.type in ('Work_Sheet', 'Daily_Test'):
             n = 0
@@ -78,8 +94,8 @@ class score_list(models.Model):
 class score_line(models.Model):
     _name = 'score.line'
 
-    score_id = fields.Many2one('score.list', 'Daftar Nilai', required=True, ondelete='cascade')
-    name = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)])
+    score_id = fields.Many2one('score.list', 'Daftar Nilai', required=True, ondelete='cascade', readonly=False)
+    name = fields.Many2one('res.partner', 'Siswa', required=True, readonly=False, domain=[('student', '=', True)])
     u1 = fields.Integer('U1')
     u2 = fields.Integer('U2')
     u3 = fields.Integer('U3')
