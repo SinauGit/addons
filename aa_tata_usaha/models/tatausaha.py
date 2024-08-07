@@ -3,7 +3,10 @@ from odoo import api, fields, models, _
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
 
-LEMBAGA = [('KB', 'KB'), ('TK', 'TK'), ('SD', 'SD'), ('SMP', 'SMP'), ('SMA', 'SMA')]
+LEMBAGA = [
+    # ('KB', 'KB'), ('TK', 'TK'), ('SD', 'SD'), 
+    ('SMP', 'SMP'), ('SMA', 'SMA')
+    ]
 
 class account_fiscalyear(models.Model):
     _inherit = 'account.fiscalyear'
@@ -102,7 +105,7 @@ class kehadiran_siswa(models.Model):
 
     name = fields.Integer('Hari', required=True, default=1)
     tanggal = fields.Date('Tanggal', required=True, default=fields.Date.context_today)
-    siswa_id = fields.Many2one('res.partner', "Siswa", required=True, domain=[('student', '=', True)])
+    siswa_id = fields.Many2one('res.partner', "Siswa", required=True, domain=[('student', '=', True)],ondelete='cascade')
     catering = fields.Boolean("Catering", default=1)
     jemputan = fields.Boolean("Jemputan", default=1)
 

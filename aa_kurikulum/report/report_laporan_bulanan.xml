@@ -704,7 +704,8 @@
 
                                     <td
                                         style="width: 20%;border: solid 0px white; height: 35px; vertical-align:middle; text-align:center;">
-                                        ( Ahmad Zainuddin )<br /> NIY. 20000716 2020 0061</td>
+                                        ( <t t-esc="o.guru_id.name" /> ) <br /> NIY. <t t-esc="o.guru_id.nip" />
+                                    </td>
 
                                 </tr>
                             </tbody>

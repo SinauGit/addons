@@ -19,7 +19,7 @@ class laporan_yayasan(models.Model):
         total = fields.Char('Total')
         jenjang = fields.Selection('Jenjang', related='siswa_id.jenjang')
         jumlah = fields.Char('Jumlah')
-        
+        user_id = fields.Many2one('res.partner', string='Orang tua', related='siswa_id.user_id', readonly=False)
         laporan_id = fields.Many2one('laporan.bulanan', string='Laporan Bulanan')
         
         
@@ -42,7 +42,7 @@ class laporan_bulanan(models.Model):
         
         komponen_line = fields.One2many('laporan.yayasan', 'laporan_id', string='Komponen')
         komponen_id = fields.Many2one('laporan.yayasan', string='komponen')
-        nisq = fields.Char('NISQ', related='komponen_id.nisq')
+        # nisq = fields.Char('NISQ', related='komponen_id.nisq')
         
         # tanggal_input = fields.Date('Tanggal Input') 
         tanggal_cetak = fields.Date('Tanggal Cetak', readonly=False, default=fields.Date.today)

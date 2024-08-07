@@ -518,7 +518,7 @@ class permohonan_ukj(models.Model):
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True, readonly=True, states={'Draft': [('readonly', False)]})
     lembaga = fields.Selection(LEMBAGA, string='Lembaga', required=True, readonly=True, states={'Draft': [('readonly', False)]})
     kelas_id = fields.Many2one('master.kelas', 'Rombel', required=True, readonly=True, states={'Draft': [('readonly', False)]})
-    siswa_id = fields.Many2one('res.partner', 'Siswa', required=True, domain="[('student', '=', True)]", readonly=True, states={'Draft': [('readonly', False)]})
+    siswa_id = fields.Many2one('res.partner', 'Siswa', required=True, domain="[('student', '=', True)]", readonly=True, states={'Draft': [('readonly', False)]}, ondelete='cascade')
     juz = fields.Integer(string='Materi UKJ', readonly=True, states={'Draft': [('readonly', False)]})
     jumlah_surat = fields.Integer('Jumlah Surat', readonly=True, states={'Draft': [('readonly', False)]})
     persiapan = fields.Integer(string='Persiapan UKJ (Hari)', readonly=True, states={'Draft': [('readonly', False)]})

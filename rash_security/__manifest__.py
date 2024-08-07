@@ -7,7 +7,7 @@
     'author': 'RizkyAbdiSyahputraHasibuan-085175257741',
     'company': 'PT LINTANG UTAMA INFOTEK',
     'website': "https://lui.co.id/",
-    'depends': ['base', 'base_sekolah',],
+    'depends': ['base', 'base_sekolah', 'hr_holidays',],
     'data': [
         'security/ir.model.access.csv',     # File hak akses
         'security/security.xml',

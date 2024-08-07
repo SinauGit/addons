@@ -85,7 +85,7 @@ class RuangKelas(models.Model):
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
     lembaga = fields.Selection(lembaga, string='Lembaga', related='name.lembaga')
     siswa_ids = fields.Many2many('res.partner', 'siswa_rel', 'siswa_id', 'partner_id', 'Siswa', domain=[('student', '=', True)])
-    res_line = fields.One2many('res.partner', 'class_id', string='Siswa')
+    res_line = fields.One2many('res.partner', 'ruang_id', string='Siswa')
     data_file = fields.Binary('Import File')
     filename = fields.Char(string='Filename')
 
@@ -98,10 +98,10 @@ class RuangKelas(models.Model):
 
         iid = obj_invoice.search([('partner_id', 'in', [i.id for i in self.res_line])])
         if iid:
-            iid.write({'class_id': self.name.name})
+            iid.write({'ruang_id': self.name.id})
 
         for x in self.res_line:
-            x.write({'class_id': self.name.name})
+            x.write({'ruang_id': self.name.id})
         return True
     
     
@@ -180,7 +180,7 @@ class res_partner(models.Model):
 
     jenjang = fields.Selection(jenjang, string='Jenjang')
     class_id = fields.Many2one('master.kelas', 'Ruang Kelas')
-    # ruang_id = fields.Many2one('ruang.kelas', 'Ruang Kelas')
+    ruang_id = fields.Many2one('ruang.kelas', 'Kelas')
     lembaga = fields.Selection(lembaga, string='Lembaga', related='class_id.lembaga', store=True)
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran')
     

@@ -37,21 +37,21 @@ class score_list(models.Model):
         result = super(score_list, self).create(vals)
         return result
 
-    # @api.onchange('class_id', 'type')
-    # def onchange_class_id(self):
-    #     if self.class_id:
+    @api.onchange('class_id', 'type')
+    def onchange_class_id(self):
+        if self.class_id:
 
-    #         nilai = []
-    #         for x in self.class_id.siswa_ids:
-    #             nilai.append({'name': x.id})
+            nilai = []
+            for x in self.class_id.siswa_ids:
+                nilai.append({'name': x.id})
 
-    #         data = {'score_line': nilai}
-    #         if self.type == 'UTS':
-    #             data = {'uts_line': nilai}
-    #         elif self.type == 'UAS':
-    #             data = {'uas_line': nilai}
+            data = {'score_line': nilai}
+            if self.type == 'UTS':
+                data = {'uts_line': nilai}
+            elif self.type == 'UAS':
+                data = {'uas_line': nilai}
 
-    #         self.update(data)
+            self.update(data)
             
     @api.depends('class_id', 'type')
     def _compute_score_lines(self):
@@ -271,7 +271,7 @@ class summary_book(models.Model):
     name = fields.Char('No. Dokumen', required=True, readonly=True, default='/')
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
     user_id = fields.Many2one('res.users', 'Guru', readonly=True, required=True, default=lambda self: self.env.user)
-    class_id = fields.Many2one('ruang.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
+    class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     subject_id = fields.Many2one('mata.pelajaran', 'Mata Pelajaran', required=True)
     semester = fields.Selection([('Gasal', 'Gasal'), ('Genap', 'Genap')], string='Semester', required=True, default='Gasal')
     summary_line = fields.One2many('summary.line', 'summary_id', 'Ringkasan')
