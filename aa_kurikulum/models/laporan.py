@@ -115,7 +115,7 @@ class RekapRapot(models.Model):
     
     guru_id = fields.Many2one('res.users', 'Guru', readonly=True, required=True, default=lambda self: self.env.user)
     lembaga = fields.Selection(related='class_id.lembaga', store=True, string='Jenjang')
-    mapel_id = fields.Many2one('mata.pelajaran', string='Mata Pelajaran', domain="[('lembaga', '=', lembaga)]")
+    mapel_id = fields.Many2one('mata.pelajaran', string='Mata Pelajaran', domain="[('lembaga', '=', lembaga)]", required=True)
     class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     
     kkm = fields.Integer('KKM')
@@ -193,7 +193,7 @@ class rekap_rapot_line(models.Model):
 
     rekap_id = fields.Many2one('rekap.rapot', 'Buku Raport', required=True, ondelete='cascade')
     # siswa_id = fields.Many2one('res.partner', string='Nama', domain="[('student', '=', True)]")
-    siswa_id = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)])
+    siswa_id = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)], readonly=True)
     name = fields.Many2one('mata.pelajaran', 'Mata Pelajaran')
     kkm = fields.Integer('KKM', related='rekap_id.kkm')
     # nilai = fields.Integer('Nilai')

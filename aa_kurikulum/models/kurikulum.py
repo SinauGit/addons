@@ -19,7 +19,7 @@ class ScoreList(models.Model):
     user_id = fields.Many2one('res.users', 'Guru', readonly=True, required=True, default=lambda self: self.env.user)
     class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     lembaga = fields.Selection(related='class_id.lembaga', store=True, string='Jenjang')
-    subject_id = fields.Many2one('mata.pelajaran', string='Mata Pelajaran', domain="[('lembaga', '=', lembaga)]")
+    subject_id = fields.Many2one('mata.pelajaran', string='Mata Pelajaran', domain="[('lembaga', '=', lembaga)]", required=True)
     date1 = fields.Date('Tanggal U1')
     date2 = fields.Date('Tanggal U2')
     date3 = fields.Date('Tanggal U3')
@@ -107,7 +107,7 @@ class ScoreLine(models.Model):
     _name = 'score.line'
 
     score_id = fields.Many2one('score.list', 'Daftar Nilai', required=True, ondelete='cascade')
-    name = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)])
+    name = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)], readonly=True)
     u1 = fields.Integer('U1')
     u2 = fields.Integer('U2')
     u3 = fields.Integer('U3')
@@ -514,7 +514,7 @@ class rapot_line(models.Model):
 
     rapot_id = fields.Many2one('buku.rapot', 'Buku Raport', required=True, ondelete='cascade')
     sequence = fields.Integer('Sequence')
-    name = fields.Many2one('mata.pelajaran', 'Mata Pelajaran', required=True)
+    name = fields.Many2one('mata.pelajaran', 'Mata Pelajaran', required=True, readonly=True)
     kkm = fields.Integer('KKM')
     nilai = fields.Integer('Nilai')
     avg = fields.Integer('Rata-Rata Kelas')

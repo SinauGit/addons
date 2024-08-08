@@ -283,37 +283,36 @@
                         <br />
                         <span>&#160;&#160;&#160;&#160; 2. Catatan Pelanggaran</span>
                         <br />
-                        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -</span>
-                        <br />
-                        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -</span>
-                        <br />
-                        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -</span>
-                        <br />
-                        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -</span>
-                        <br />
-                        <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -</span>
+                        <t t-foreach="o.komponen_line" t-as="komponen">
+                            <t t-if="komponen.siswa_id.bk_1_id">
+                                <t t-foreach="komponen.siswa_id.bk_1_id" t-as="pelanggaran">
+                                    <span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; - <t t-esc="pelanggaran.keterangan"/></span>
+                                    <br/>
+                                </t>
+                            </t>
+                        </t>
+
                         <br />
                         <span>&#160;&#160;&#160;&#160; 3. Penilaian Sikap:</span>
-                        <table
-                            style=" width: 90%; height: 72px; margin: 0 auto;"
-                            border="1">
+                        <table style=" width: 90%; height: 72px; margin: 0 auto;" border="1">
                             <tbody>
                                 <tr>
                                     <td style="width: 10.3333%;">a. Nilai</td>
                                     <td style="width: 3.73771%;">:</td>
                                     <td style="width: 62.9289%;">
-                                        <t t-esc="o.komponen_line.siswa_id.bk_1_id.info" />
+                                        <!-- <t t-esc="o.komponen_line.siswa_id.bk_1_id.info" /> -->
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="width: 10.3333%;">b. Deskripsi</td>
                                     <td style="width: 3.73771%;">:</td>
                                     <td style="width: 62.9289%;">
-                                        <t t-esc="o.komponen_line.siswa_id.bk_1_id.keterangan" />
+                                        <!-- <t t-esc="o.komponen_line.siswa_id.bk_1_id.keterangan" /> -->
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+
                         <span>&#160;&#160;&#160;&#160; 3. LAYANAN BK </span>
                         <table   style=" width: 90%; height: 72px; margin: 0 auto;"
                         border="1">
