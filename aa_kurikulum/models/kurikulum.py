@@ -51,10 +51,15 @@ class ScoreList(models.Model):
         result = super(ScoreList, self).create(vals)
         return result
 
-    @api.onchange('class_id', 'type')
+    @api.onchange('class_id')
     def onchange_class_id(self):
         if self.class_id:
             _logger.info('res_line: %s', self.class_id.res_line)
+
+            # Hapus data siswa yang ada terlebih dahulu
+            self.score_line = [(5, 0, 0)]
+            self.uts_line = [(5, 0, 0)]
+            self.uas_line = [(5, 0, 0)]
 
             # Gunakan res_line sebagai sumber data siswa
             siswa_field = self.class_id.res_line
@@ -72,21 +77,6 @@ class ScoreList(models.Model):
                 self.uas_line = [(0, 0, line) for line in nilai]
             else:
                 self.score_line = [(0, 0, line) for line in nilai]
-
-    @api.depends('class_id', 'type')
-    def _compute_score_lines(self):
-        for record in self:
-            nilai = [(5, 0, 0)]
-            if record.class_id:
-                for x in record.class_id.res_line:  # Gunakan res_line
-                    nilai.append((0, 0, {'name': x.id}))
-
-            if record.type == 'UTS':
-                record.uts_line = nilai
-            elif record.type == 'UAS':
-                record.uas_line = nilai
-            else:
-                record.score_line = nilai
 
     @api.depends('score_line.u1', 'score_line.u2', 'score_line.u3', 'score_line.u4', 'score_line.u5')
     def compute_score(self):
@@ -141,6 +131,7 @@ class UasLine(models.Model):
     score_id = fields.Many2one('score.list', 'Daftar Nilai', required=True, ondelete='cascade')
     name = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)])
     nilai = fields.Integer('Nilai')
+
 
 
 
