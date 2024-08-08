@@ -205,12 +205,15 @@ class rekap_rapot_line(models.Model):
     
     nilai = fields.Integer('Nilai', compute='_compute_nilai', readonly=False)
 
-    @api.depends('siswa_id')
+    @api.depends('siswa_id', 'rekap_id.mapel_id')
     def _compute_nilai(self):
         for record in self:
-            if record.siswa_id:
-                # Cari field `avg` di model `score.line` berdasarkan `siswa_id`
-                score_line = self.env['score.line'].search([('name', '=', record.siswa_id.id)], limit=1)
+            if record.siswa_id and record.rekap_id.mapel_id:
+                # Cari field `avg` di model `score.line` berdasarkan `siswa_id` dan `subject_id`
+                score_line = self.env['score.line'].search([
+                    ('name', '=', record.siswa_id.id),
+                    ('score_id.subject_id', '=', record.rekap_id.mapel_id.id)
+                ], limit=1)
                 record.nilai = score_line.avg if score_line else 0
             else:
                 record.nilai = 0
