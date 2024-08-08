@@ -95,7 +95,7 @@ class RekapLaporanBulanan(models.Model):
     date = fields.Date('Tanggal Cetak')
     siswa_id = fields.Many2one('res.partner', string='Nama Santri', domain="[('student', '=', True)]")
     bulanan_id = fields.Many2one('laporan.bulanan', string='Laporan Bulanan')
-    data = fields.Binary(string='Data')
+    data = fields.Binary(string='Data', readonly=True)
     # attachment_ids = fields.Many2many(
     #     'ir.attachment', string="File Laporan Bulanan", copy=False)
     
@@ -196,14 +196,14 @@ class rekap_rapot_line(models.Model):
     siswa_id = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)])
     name = fields.Many2one('mata.pelajaran', 'Mata Pelajaran')
     kkm = fields.Integer('KKM', related='rekap_id.kkm')
-    nilai = fields.Integer('Nilai')
+    # nilai = fields.Integer('Nilai')
     note = fields.Char('Catatan Guru')
     status = fields.Selection([
         ('remidi', 'REMIDI'),
         ('tuntas', 'TUNTAS')
     ], string='Status', compute='_compute_status', store=True)  
     
-    # nilai = fields.Integer('Nilai', compute='_compute_nilai', readonly=False)
+    nilai = fields.Integer('Nilai', compute='_compute_nilai', readonly=False)
 
     @api.depends('siswa_id')
     def _compute_nilai(self):
