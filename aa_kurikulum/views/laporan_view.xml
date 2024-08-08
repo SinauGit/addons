@@ -205,7 +205,7 @@
                         <field name="fiscalyear_id" />
                         <field name="class_id" />
                         <field name="lembaga" />
-                        <field name="mapel_id" domain="[('lembaga', '=', lembaga)]"/>
+                        <field name="mapel_id"/>
                         <field name="kkm" />
                         <field name="date" />
                         <notebook colspan="5">

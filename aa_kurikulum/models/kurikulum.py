@@ -1,11 +1,20 @@
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError, ValidationError
+from odoo.osv.expression import get_unaccent_wrapper
+import logging
+_logger = logging.getLogger(__name__)
 
-
-class score_list(models.Model):
+class ScoreList(models.Model):
     _name = 'score.list'
 
+    # Field Definitions
     name = fields.Char('No. Dokumen', required=True, readonly=True, default='/')
-    type = fields.Selection([('Work_Sheet', 'Work Sheet (WS)'), ('Daily_Test', 'Daily Test (UH)'), ('UTS', 'UTS'), ('UAS', 'UAS')], string='Tipe', required=True, default='Work_Sheet')
+    type = fields.Selection([
+        ('Work_Sheet', 'Work Sheet (WS)'),
+        ('Daily_Test', 'Daily Test (UH)'),
+        ('UTS', 'UTS'),
+        ('UAS', 'UAS')
+    ], string='Tipe', required=True, default='Work_Sheet')
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
     user_id = fields.Many2one('res.users', 'Guru', readonly=True, required=True, default=lambda self: self.env.user)
     class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
@@ -16,15 +25,20 @@ class score_list(models.Model):
     date3 = fields.Date('Tanggal U3')
     date4 = fields.Date('Tanggal U4')
     date5 = fields.Date('Tanggal U5')
-    score_line = fields.One2many('score.line', 'score_id', 'Tabel Nilai', compute='_compute_score_lines')
-    uts_line = fields.One2many('uts.line', 'score_id', 'Nilai UTS', compute='_compute_score_lines')
-    uas_line = fields.One2many('uas.line', 'score_id', 'Nilai UAS', compute='_compute_score_lines')
-    semester = fields.Selection([('Gasal', 'Gasal'), ('Genap', 'Genap')], string='Semester', required=True, default='Gasal')
+    score_line = fields.One2many('score.line', 'score_id', 'Tabel Nilai', store=True)
+    uts_line = fields.One2many('uts.line', 'score_id', 'Nilai UTS', store=True)
+    uas_line = fields.One2many('uas.line', 'score_id', 'Nilai UAS', store=True)
+    semester = fields.Selection([
+        ('Gasal', 'Gasal'),
+        ('Genap', 'Genap')
+    ], string='Semester', required=True, default='Gasal')
 
     _sql_constraints = [('subject_uniq', 'unique(subject_id, type, semester, class_id, fiscalyear_id)', 'Data harus unik !')]
 
     @api.model
     def create(self, vals):
+        if 'type' not in vals:
+            raise ValidationError(_('Tipe harus diisi.'))
         if vals['type'] == 'Work_Sheet':
             vals['name'] = self.env['ir.sequence'].next_by_code('score.list.ws')
         elif vals['type'] == 'Daily_Test':
@@ -34,78 +48,86 @@ class score_list(models.Model):
         elif vals['type'] == 'UAS':
             vals['name'] = self.env['ir.sequence'].next_by_code('score.list.uas')
 
-        result = super(score_list, self).create(vals)
+        result = super(ScoreList, self).create(vals)
         return result
 
     @api.onchange('class_id', 'type')
     def onchange_class_id(self):
         if self.class_id:
+            _logger.info('res_line: %s', self.class_id.res_line)
 
-            nilai = []
-            for x in self.class_id.siswa_ids:
-                nilai.append({'name': x.id})
+            # Gunakan res_line sebagai sumber data siswa
+            siswa_field = self.class_id.res_line
 
-            data = {'score_line': nilai}
+            if not siswa_field:
+                raise UserError(_('Tidak ada siswa terdaftar di kelas ini.'))
+
+            nilai = [{'name': x.id} for x in siswa_field]
+
+            _logger.info('Nilai: %s', nilai)
+
             if self.type == 'UTS':
-                data = {'uts_line': nilai}
+                self.uts_line = [(0, 0, line) for line in nilai]
             elif self.type == 'UAS':
-                data = {'uas_line': nilai}
+                self.uas_line = [(0, 0, line) for line in nilai]
+            else:
+                self.score_line = [(0, 0, line) for line in nilai]
 
-            self.update(data)
-            
     @api.depends('class_id', 'type')
     def _compute_score_lines(self):
-     for record in self:
-        nilai = [(5, 0, 0)]
-        if record.class_id:
-            for x in record.class_id.siswa_ids:
-                nilai.append((0, 0, {'name': x.id}))
+        for record in self:
+            nilai = [(5, 0, 0)]
+            if record.class_id:
+                for x in record.class_id.res_line:  # Gunakan res_line
+                    nilai.append((0, 0, {'name': x.id}))
 
-        if record.type == 'UTS':
-            record.uts_line = nilai
-        elif record.type == 'UAS':
-            record.uas_line = nilai
-        else:
-            record.score_line = nilai
+            if record.type == 'UTS':
+                record.uts_line = nilai
+            elif record.type == 'UAS':
+                record.uas_line = nilai
+            else:
+                record.score_line = nilai
 
-    @api.onchange
+    @api.depends('score_line.u1', 'score_line.u2', 'score_line.u3', 'score_line.u4', 'score_line.u5')
     def compute_score(self):
-        if self.type in ('Work_Sheet', 'Daily_Test'):
-            n = 0
-            r = self.score_line[0]
+        for record in self:
+            if record.type in ('Work_Sheet', 'Daily_Test'):
+                n = 0
+                r = record.score_line[0] if record.score_line else None
 
-            if r.u1:
-                n += 1
-            if r.u2:
-                n += 1
-            if r.u3:
-                n += 1
-            if r.u4:
-                n += 1
-            if r.u5:
-                n += 1
+                if r and r.u1:
+                    n += 1
+                if r and r.u2:
+                    n += 1
+                if r and r.u3:
+                    n += 1
+                if r and r.u4:
+                    n += 1
+                if r and r.u5:
+                    n += 1
 
-            for x in self.score_line:
-                sum = x.u1 + x.u2 + x.u3 + x.u4 + x.u5
-                x.write({'sum': sum, 'avg': sum/n})
-        return True
+                for x in record.score_line:
+                    total_sum = x.u1 + x.u2 + x.u3 + x.u4 + x.u5
+                    if n > 0:
+                        x.sum = total_sum
+                        x.avg = total_sum / n
 
 
-class score_line(models.Model):
+class ScoreLine(models.Model):
     _name = 'score.line'
 
-    score_id = fields.Many2one('score.list', 'Daftar Nilai', required=True, ondelete='cascade', readonly=False)
-    name = fields.Many2one('res.partner', 'Siswa', required=True, readonly=False, domain=[('student', '=', True)])
+    score_id = fields.Many2one('score.list', 'Daftar Nilai', required=True, ondelete='cascade')
+    name = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)])
     u1 = fields.Integer('U1')
     u2 = fields.Integer('U2')
     u3 = fields.Integer('U3')
     u4 = fields.Integer('U4')
     u5 = fields.Integer('U5')
     sum = fields.Integer('Total', readonly=True)
-    avg = fields.Integer('Rata-Rata', readonly=False)
+    avg = fields.Integer('Rata-Rata', readonly=True)
 
 
-class uts_line(models.Model):
+class UtsLine(models.Model):
     _name = 'uts.line'
 
     score_id = fields.Many2one('score.list', 'Daftar Nilai', required=True, ondelete='cascade')
@@ -113,7 +135,7 @@ class uts_line(models.Model):
     nilai = fields.Integer('Nilai')
 
 
-class uas_line(models.Model):
+class UasLine(models.Model):
     _name = 'uas.line'
 
     score_id = fields.Many2one('score.list', 'Daftar Nilai', required=True, ondelete='cascade')
@@ -121,12 +143,14 @@ class uas_line(models.Model):
     nilai = fields.Integer('Nilai')
 
 
+
+
 class sholat_performance(models.Model):
     _name = 'sholat.performance'
 
     name = fields.Char('No. Dokumen', required=True, readonly=True, default='/')
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
-    class_id = fields.Many2one('ruang.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
+    class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     performance_line = fields.One2many('sholat.performance.line', 'performance_id', 'Prestasi Sholat')
     semester = fields.Selection([('Gasal', 'Gasal'), ('Genap', 'Genap')], string='Semester', required=True, default='Gasal')
 
@@ -145,7 +169,7 @@ class sholat_performance(models.Model):
         if self.class_id:
 
             nilai = []
-            for x in self.class_id.siswa_ids:
+            for x in self.class_id.res_line:
                 nilai.append({'name': x.id, 'u1':100, 'u2':100, 'u3':100, 'u4':100, 'u5':100, 'u6':100, 'u7':100, 'u8':100, 'u9':100, 'u10':100, 'u11':100, 'u12':100, 'u13':100, 'u14':100, 'u15':100, 'u16':100, 'u17':100, 'u18':100, 'u19':100, 'u20':100})
 
             data = {'performance_line': nilai}
@@ -240,7 +264,7 @@ class absen_penilaian(models.Model):
 
     name = fields.Date('Tanggal', required=True, default=fields.Date.context_today)
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
-    class_id = fields.Many2one('ruang.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
+    class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     subject_id = fields.Many2one('mata.pelajaran', 'Mata Pelajaran', required=True)
     semester = fields.Selection([('Gasal', 'Gasal'), ('Genap', 'Genap')], string='Semester', required=True, default='Gasal')
     penilaian_line = fields.One2many('penilaian.line', 'penilaian_id', 'Valuation Lines')
@@ -251,7 +275,7 @@ class absen_penilaian(models.Model):
         if self.class_id:
 
             nilai = []
-            for x in self.class_id.siswa_ids:
+            for x in self.class_id.res_line:
                 nilai.append({'name': x.id})
 
             data = {'penilaian_line': nilai}
@@ -279,38 +303,27 @@ class summary_book(models.Model):
 
     salat_id = fields.Many2one('sholat.performance', 'Prestasi Sholat', domain="[('fiscalyear_id', '=', fiscalyear_id), ('class_id', '=', class_id), ('semester', '=', semester)]")
     sheet_id = fields.Many2one('score.list', 'WS', domain="[('fiscalyear_id', '=', fiscalyear_id), ('class_id', '=', class_id), ('subject_id', '=', subject_id), ('semester', '=', semester), ('type', '=', 'Work_Sheet')]")
-    absen_ids = fields.Many2many('absen.penilaian', 'absen_rel', 'penilaian_id', 'absen_id', 'Penilaian Absensi', domain="[('fiscalyear_id', '=', fiscalyear_id), ('class_id', '=', class_id), ('subject_id', '=', subject_id) ('semester', '=', semester)]")
+    absen_ids = fields.Many2many('absen.penilaian', 'absen_rel', 'penilaian_id', 'absen_id', 'Penilaian Absensi', domain="[('fiscalyear_id', '=', fiscalyear_id), ('class_id', '=', class_id), ('subject_id', '=', subject_id), ('semester', '=', semester)]")
     ulangan_id = fields.Many2one('score.list', 'UH', domain="[('fiscalyear_id', '=', fiscalyear_id), ('class_id', '=', class_id), ('subject_id', '=', subject_id), ('semester', '=', semester), ('type', '=', 'Daily_Test')]")
     uts_id = fields.Many2one('score.list', 'UTS', domain="[('fiscalyear_id', '=', fiscalyear_id), ('class_id', '=', class_id), ('subject_id', '=', subject_id), ('semester', '=', semester), ('type', '=', 'UTS')]")
     uas_id = fields.Many2one('score.list', 'UAS', domain="[('fiscalyear_id', '=', fiscalyear_id), ('class_id', '=', class_id), ('subject_id', '=', subject_id), ('semester', '=', semester), ('type', '=', 'UAS')]")
 
-    _sql_constraints = [('summary_uniq', 'unique(subject_id, semester, class_id, fiscalyear_id)', 'Data harus unik !')]
+    _sql_constraints = [('summary_uniq', 'unique(subject_id, semester, class_id, fiscalyear_id)', 'Data harus unik!')]
 
     @api.model
     def create(self, vals):
         if vals.get('name', '/') == '/':
             vals['name'] = self.env['ir.sequence'].next_by_code('summary.book') or '/'
-
         result = super(summary_book, self).create(vals)
         return result
-
-    @api.onchange('user_id')
-    def onchange_user_id(self):
-        if self.user_id:
-            self.update({'user_id': self.env.uid})
 
     @api.onchange('class_id')
     def onchange_class_id(self):
         if self.class_id:
+            nilai = [{'name': x.id} for x in self.class_id.res_line]
+            self.summary_line = nilai
 
-            nilai = []
-            for x in self.class_id.siswa_ids:
-                nilai.append({'name': x.id})
-
-            data = {'summary_line': nilai}
-            self.update(data)
-
-    @api.one
+    @api.multi
     def compute_score(self):
         obj_sl_line = self.env['score.line']
         obj_sp_line = self.env['sholat.performance.line']
@@ -320,7 +333,7 @@ class summary_book(models.Model):
 
         gt = 0
         for x in self.summary_line:
-            ws = 0; uh = 0; av = 0; sp = 0; uts = 0; uas = 0; all = 0
+            ws = uh = av = sp = uts = uas = all = 0
 
             if self.sheet_id:
                 wsid = obj_sl_line.search([('score_id', '=', self.sheet_id.id), ('name', '=', x.name.id)], limit=1)
@@ -346,20 +359,24 @@ class summary_book(models.Model):
                 abn = [i.id for i in self.absen_ids]
                 avid = obj_ap_line.search([('penilaian_id', 'in', abn), ('name', '=', x.name.id)], limit=1)
                 if avid:
-                    av = int( len(avid) / float(len(abn)) * 100)
+                    av = int(len(avid) / float(len(abn)) * 100)
 
             if self.salat_id:
                 spid = obj_sp_line.search([('performance_id', '=', self.salat_id.id), ('name', '=', x.name.id)], limit=1)
                 if spid:
                     sp = spid.avg
-                all = (0.05*ws)+(0.15*uh)+(0.1*av)+(0.2*sp)+(0.2*uts)+(0.3*uas)
+                all = (0.05 * ws) + (0.15 * uh) + (0.1 * av) + (0.2 * sp) + (0.2 * uts) + (0.3 * uas)
             else:
-                all = (0.05*ws)+(0.15*uh)+(0.1*av)+(0.3*uts)+(0.4*uas)
+                all = (0.05 * ws) + (0.15 * uh) + (0.1 * av) + (0.3 * uts) + (0.4 * uas)
 
             gt += all
             x.write({'ws': ws, 'uh': uh, 'av': av, 'sp': sp, 'uts': uts, 'uas': uas, 'all': all})
 
-        self.write({'avg_class': gt/len(self.summary_line)})
+        if len(self.summary_line) > 0:
+            self.write({'avg_class': gt / len(self.summary_line)})
+        else:
+            self.write({'avg_class': 0})
+
 
 
 class summary_line(models.Model):

@@ -10,20 +10,23 @@
 			<field name="arch" type="xml">
 				<tree string="Rombongan Belajar">
 					<field name="name" />
-					<field name="lembaga" />
+					<!-- <field name="lembaga" /> -->
 					<field name="grade" />
-					<field name="rombel" />
+					<!-- <field name="rombel" /> -->
 					<field name="guru_id" />
 					<field name="fiscalyear_id"/>
 				</tree>
 			</field>
 		</record>
-
 		<record id="view_master_kelas_form" model="ir.ui.view">
 			<field name="name">master.kelas.form</field>
 			<field name="model">master.kelas</field>
 			<field name="arch" type="xml">
 				<form string="Rombongan Belajar">
+					<header>
+						<button name="update_class" type="object" string="Update"
+							class="oe_highlight" />
+					</header>
 					<sheet>
 						<group>
 							<field name="name" />
@@ -32,46 +35,6 @@
 							<field name="rombel" />
 							<field name="guru_id" />
 							<field name="fiscalyear_id"/>
-						</group>
-					</sheet>
-				</form>
-			</field>
-		</record>
-
-		<record model="ir.actions.act_window" id="action_master_kelas_form">
-			<field name="name">Rombongan Belajar</field>
-			<field name="res_model">master.kelas</field>
-		</record>
-
-		<!-- Ruang Kelas -->
-
-		<record id="view_ruang_kelas_tree" model="ir.ui.view">
-			<field name="name">ruang.kelas.tree</field>
-			<field name="model">ruang.kelas</field>
-			<field name="arch" type="xml">
-				<tree string="Ruang Rombongan Belajar">
-					<field name="name" />
-					<field name="fiscalyear_id" />
-					<field name="lembaga" />
-					<!-- <field name="siswa_ids" /> -->
-				</tree>
-			</field>
-		</record>
-
-		<record id="view_ruang_kelas_form" model="ir.ui.view">
-			<field name="name">ruang.kelas.form</field>
-			<field name="model">ruang.kelas</field>
-			<field name="arch" type="xml">
-				<form string="Ruang Rombongan Belajar">
-					<header>
-						<button name="update_class" type="object" string="Update"
-							class="oe_highlight" />
-					</header>
-					<sheet>
-						<group>
-							<field name="name" />
-							<field name="fiscalyear_id" />
-							<field name="lembaga" />
 						</group>
 						<notebook colspan="5">
 							<page string="Siswa">
@@ -96,10 +59,68 @@
 			</field>
 		</record>
 
-		<record model="ir.actions.act_window" id="action_ruang_kelas_form">
+		<record model="ir.actions.act_window" id="action_master_kelas_form">
+			<field name="name">Rombongan Belajar</field>
+			<field name="res_model">master.kelas</field>
+		</record>
+
+		<!-- Ruang Kelas -->
+
+		<!-- <record id="view_ruang_kelas_tree" model="ir.ui.view">
+			<field name="name">ruang.kelas.tree</field>
+			<field name="model">ruang.kelas</field>
+			<field name="arch" type="xml">
+				<tree string="Ruang Rombongan Belajar">
+					<field name="name" />
+					<field name="fiscalyear_id" />
+					<field name="lembaga" />
+					<field name="siswa_ids" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_ruang_kelas_form" model="ir.ui.view">
+			<field name="name">ruang.kelas.form</field>
+			<field name="model">ruang.kelas</field>
+			<field name="arch" type="xml">
+				<form string="Ruang Rombongan Belajar">
+					<header>
+						<button name="update_class" type="object" string="Update"
+							class="oe_highlight" />
+					</header>
+					<sheet>
+						<group>
+							<field name="name" />
+							<field name="fiscalyear_id" />
+							<field name="lembaga" />
+						</group>
+						<notebook colspan="5">
+							<page string="Siswa">
+								<field colspan="4" name="siswa_ids" nolabel="1">
+								<field colspan="4" name="res_line" nolabel="1">
+									<tree>
+										<field name="nis" />
+										<field name="nisn" />
+										<field name="name" />
+									</tree>
+								</field>
+							</page>
+							<page string="Import Siswa">
+								<group>
+									<field name="data_file"/>
+									<button name="import_siswa" type="object" string="Import" class="oe_highlight"/>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record> -->
+
+		<!-- <record model="ir.actions.act_window" id="action_ruang_kelas_form">
 			<field name="name">Ruang Rombongan Belajar</field>
 			<field name="res_model">ruang.kelas</field>
-		</record>
+		</record> -->
 
 		<!-- Mata Pelajaran -->
 
@@ -434,8 +455,8 @@
 			sequence="1" />
 		<menuitem id="menu_master_kelas" name="Rombel" parent="menu_config_submenu_sekolah"
 			action="action_master_kelas_form" />
-		<menuitem id="menu_ruang_kelas" name="Siswa Rombel" parent="menu_config_submenu_sekolah"
-			action="action_ruang_kelas_form" />
+		<!-- <menuitem id="menu_ruang_kelas" name="Siswa Rombel" parent="menu_config_submenu_sekolah"
+			action="action_ruang_kelas_form" /> -->
 		<menuitem id="menu_mata_pelajaran" name="Mata Pelajaran"
 			parent="menu_config_submenu_sekolah" action="action_mata_pelajaran_form" />
 

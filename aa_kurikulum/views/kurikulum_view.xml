@@ -34,7 +34,7 @@
 							<field name="type"/>
 							<field name="fiscalyear_id"/>
 							<field name="semester"/>
-							<field name="class_id"/>
+							<field name="class_id" onchange="onchange_class_id"/>
 							<field name="lembaga"/>
 							<field name="subject_id"/>
 						</group>

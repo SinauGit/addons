@@ -36,7 +36,9 @@ gaji = [
     ('4', '> Rp. 5.000.000'),
 ]
 negara = [('wni', 'WNI'), ('wna', 'WNA'), ('turunan', 'WNI Keturunan')]
-lembaga = [('KB', 'KB'), ('TK', 'TK'), ('SD', 'SD'), ('SMP', 'SMP'), ('SMA', 'SMA')]
+lembaga = [
+    # ('KB', 'KB'), ('TK', 'TK'), ('SD', 'SD'), 
+    ('SMP', 'SMP'), ('SMA', 'SMA')]
 religion = [('islam', 'Islam'), ('katolik', 'Katolik'), ('Protestan', 'Protestan'), ('hindu', 'Hindu'), ('budha', 'Budha')]
 
 
@@ -44,6 +46,7 @@ class master_kelas(models.Model):
     _name = 'master.kelas'
     _description = 'Master Kelas'
     
+    siswa_id = fields.Many2one('res.partner', 'Siswa')
     siswa_ids = fields.Many2many('res.partner', 'siswa_rel', 'siswa_id', 'partner_id', 'Siswa', domain=[('student', '=', True)])
     res_line = fields.One2many('res.partner', 'class_id', string='Siswa')
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
@@ -58,39 +61,10 @@ class master_kelas(models.Model):
     rombel = fields.Selection([('banin', 'Banin'), ('banat', 'Banat')], string='Jenis', required=True, default='banin')
     guru_id = fields.Many2one('hr.employee', string='Wali Kelas')
     
-    @api.multi
-    def name_get(self):
-        result = []
-        for o in self:
-            name = '[{}] {}'.format(o.grade, o.name)
-            result.append((o.id, name))
-        return result
-
-
-class mata_pelajaran(models.Model):
-    _name = 'mata.pelajaran'
-    _description = 'Mata Pelajaran'
-
-    urut = fields.Integer('No. Urut', required=True)
-    name = fields.Char('Nama', required=True)
-    lembaga = fields.Selection(lembaga, string='Lembaga', required=True)
-
-
-class RuangKelas(models.Model):
-    _name = 'ruang.kelas'
-    _description = 'Ruang Kelas'
-
-    siswa_id = fields.Many2one('res.partner', 'Siswa')
-    name = fields.Many2one('master.kelas', 'Rombel', required=True)
-    fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
-    lembaga = fields.Selection(lembaga, string='Lembaga', related='name.lembaga')
-    siswa_ids = fields.Many2many('res.partner', 'siswa_rel', 'siswa_id', 'partner_id', 'Siswa', domain=[('student', '=', True)])
-    res_line = fields.One2many('res.partner', 'ruang_id', string='Siswa')
     data_file = fields.Binary('Import File')
     filename = fields.Char(string='Filename')
-
-
-    _sql_constraints = [('name_uniq', 'unique(name, fiscalyear_id)', 'Kelas & Tahun Ajaran harus unik !')]
+    
+    sql_constraints = [('name_uniq', 'unique(name, fiscalyear_id)', 'Kelas & Tahun Ajaran harus unik !')]
 
     @api.one
     def update_class(self):
@@ -98,10 +72,10 @@ class RuangKelas(models.Model):
 
         iid = obj_invoice.search([('partner_id', 'in', [i.id for i in self.res_line])])
         if iid:
-            iid.write({'ruang_id': self.name.id})
+            iid.write({'class_id': self.id})
 
         for x in self.res_line:
-            x.write({'ruang_id': self.name.id})
+            x.write({'class_id': self.id})
         return True
     
     
@@ -151,6 +125,100 @@ class RuangKelas(models.Model):
             print (row)
             
         self.write({'siswa_ids': [(6, 0, res)]}) 
+    
+    @api.multi
+    def name_get(self):
+        result = []
+        for o in self:
+            name = '[{}] {}'.format(o.grade, o.name)
+            result.append((o.id, name))
+        return result
+
+
+class mata_pelajaran(models.Model):
+    _name = 'mata.pelajaran'
+    _description = 'Mata Pelajaran'
+
+    urut = fields.Integer('No. Urut', required=True)
+    name = fields.Char('Nama', required=True)
+    lembaga = fields.Selection(lembaga, string='Lembaga', required=True)
+
+
+# class RuangKelas(models.Model):
+#     _name = 'ruang.kelas'
+#     _description = 'Ruang Kelas'
+
+#     siswa_id = fields.Many2one('res.partner', 'Siswa')
+#     name = fields.Many2one('master.kelas', 'Rombel', required=True)
+#     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
+#     lembaga = fields.Selection(lembaga, string='Lembaga', related='name.lembaga')
+#     siswa_ids = fields.Many2many('res.partner', 'siswa_rel', 'siswa_id', 'partner_id', 'Siswa', domain=[('student', '=', True)])
+#     res_line = fields.One2many('res.partner', 'ruang_id', string='Siswa')
+#     data_file = fields.Binary('Import File')
+#     filename = fields.Char(string='Filename')
+
+
+#     _sql_constraints = [('name_uniq', 'unique(name, fiscalyear_id)', 'Kelas & Tahun Ajaran harus unik !')]
+
+#     @api.one
+#     def update_class(self):
+#         obj_invoice = self.env['account.invoice']
+
+#         iid = obj_invoice.search([('partner_id', 'in', [i.id for i in self.res_line])])
+#         if iid:
+#             iid.write({'ruang_id': self.name.id})
+
+#         for x in self.res_line:
+#             x.write({'ruang_id': self.name.id})
+#         return True
+    
+    
+    # @api.multi
+    # def import_siswa(self):
+    #     if not self.data_file:
+    #         raise UserError('Silahkan memilih file yang akan diimport!')
+
+    #     # Membaca data file
+    #     csv_data = base64.b64decode(self.data_file)
+    #     data_file = StringIO(csv_data.decode("utf-8"))
+        
+
+    #     # Membaca file CSV
+    #     csv_reader = csv.reader(data_file, delimiter=';')
+
+    #     # Mengumpulkan data siswa dari file CSV
+    #     siswa_data = []
+    #     for row in csv_reader:
+    #         nis, nisn, name = row  # Sesuaikan dengan kolom yang sesuai dengan data siswa
+    #         siswa_data.append((0, 0, {'nis': nis, 'nisn': nisn, 'name': name}))
+
+    #     # Memperbarui bidang siswa_ids dengan data siswa yang baru
+    #     self.write({'siswa_ids': siswa_data})
+            
+
+    
+    
+    
+
+
+    # @api.multi
+    # def import_siswa(self):
+    #     if not self.data_file:
+    #         raise UserError(('Silahkan memilih file yang akan diimport !'))
+    #     if self.siswa_ids:
+    #         raise UserError(('Data siswa sudah terisi !'))
+
+    #     csv_data = base64.b64decode(self.data_file)
+    #     data_file = StringIO(csv_data.decode("utf-8"))
+    #     data_file.seek(0)
+    #     csv_reader = csv.reader(data_file, delimiter=';')
+
+    #     res = []
+    #     for row in csv_reader:
+    #         res.append(int(row[0]))
+    #         print (row)
+            
+    #     self.write({'siswa_ids': [(6, 0, res)]}) 
         
         
     
@@ -162,7 +230,7 @@ class hr_employee(models.Model):
     _inherit = 'hr.employee'
 
     nip = fields.Char('NIP')
-    lembaga = fields.Selection(lembaga, string='Lembaga', default='SD')
+    lembaga = fields.Selection(lembaga, string='Lembaga', default='SMP')
 
 
 class res_partner(models.Model):
@@ -180,7 +248,6 @@ class res_partner(models.Model):
 
     jenjang = fields.Selection(jenjang, string='Jenjang')
     class_id = fields.Many2one('master.kelas', 'Ruang Kelas')
-    ruang_id = fields.Many2one('ruang.kelas', 'Kelas')
     lembaga = fields.Selection(lembaga, string='Lembaga', related='class_id.lembaga', store=True)
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran')
     
@@ -233,13 +300,11 @@ class res_partner(models.Model):
     anak_line = fields.One2many('res.partner', 'orangtua_id', 'Siswa')
     alamat = fields.Char('Alamat',compute='_compute_alamat_id')
     
-    # ziyadah_line = fields.One2many('menu.ziyadah', 'siswa_id', string='Ziyadah')
-    # ziyadah_id = fields.Many2one('menu.ziyadah', string='Ziyadah')
     deresan_id = fields.Many2one('menu.deresan', string='Deresan')
     bk_id = fields.Many2one('bimbingan.konseling', string='Bimbingan Konseling Absen')
     bk_1_id = fields.Many2one('konseling.pelanggaran', string='Bimbingan Konseling Pelanggaran')
     bk_2_id = fields.Many2one('konseling.layanan', string='Bimbingan Konseling Layanan')
-    rekap_id = fields.Many2one('buku.rapot', string='Buku Raport')
+    rekap_id = fields.Many2one('buku.rapot', string='Rekap Raport')
     
     orang_user_id = fields.Many2one('res.users', string='Nama Orang Tua')
 
@@ -323,8 +388,8 @@ class kamar(models.Model):
     urut = fields.Integer('No. Urut', required=True)
     lembaga = fields.Selection(lembaga, string='Lembaga', required=True, default='SMP')
     grade = fields.Selection([
-                            ('A', 'A'), ('B', 'B'),
-                            ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'),
+                            # ('A', 'A'), ('B', 'B'),
+                            # ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'),
                             ('7', '7'), ('8', '8'), ('9', '9'),
                             ('10', '10'), ('11', '11'), ('12', '12')
                             ], string='Grade', required=True)

@@ -19,7 +19,7 @@ class laporan_yayasan(models.Model):
         total = fields.Char('Total')
         jenjang = fields.Selection('Jenjang', related='siswa_id.jenjang')
         jumlah = fields.Char('Jumlah')
-        user_id = fields.Many2one('res.partner', string='Orang tua', related='siswa_id.user_id', readonly=False)
+        # user_id = fields.Many2one('res.partner', string='Orang tua', related='siswa_id.user_id', readonly=False)
         laporan_id = fields.Many2one('laporan.bulanan', string='Laporan Bulanan')
         
         
@@ -113,15 +113,9 @@ class RekapRapot(models.Model):
     _name = 'rekap.rapot'
     
     
-    # siswa_id = fields.Many2one('res.partner', string='Siswa', domain="[('student', '=', True)]")
     guru_id = fields.Many2one('res.users', 'Guru', readonly=True, required=True, default=lambda self: self.env.user)
-    # guru_id = fields.Many2one('hr.employee', string='Nama Guru')
-    # mapel = fields.Char(string='Mata Pelajaran', related='guru_id.job_id.name')
     lembaga = fields.Selection(related='class_id.lembaga', store=True, string='Jenjang')
     mapel_id = fields.Many2one('mata.pelajaran', string='Mata Pelajaran', domain="[('lembaga', '=', lembaga)]")
-    # tgl_input = fields.Date('Tanggal Input', default=fields.Date.context_today)
-    # mapel_id = fields.Many2one('hr.employee', string='Mata Pelajaran', related='guru_id.job_id')
-    # class_id = fields.Many2one('ruang.kelas', string='Rombel', required=True)
     class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     
     kkm = fields.Integer('KKM')
@@ -202,14 +196,14 @@ class rekap_rapot_line(models.Model):
     siswa_id = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)])
     name = fields.Many2one('mata.pelajaran', 'Mata Pelajaran')
     kkm = fields.Integer('KKM', related='rekap_id.kkm')
-    # nilai = fields.Integer('Nilai')
+    nilai = fields.Integer('Nilai')
     note = fields.Char('Catatan Guru')
     status = fields.Selection([
         ('remidi', 'REMIDI'),
         ('tuntas', 'TUNTAS')
     ], string='Status', compute='_compute_status', store=True)  
     
-    nilai = fields.Integer('Nilai', compute='_compute_nilai', readonly=False)
+    # nilai = fields.Integer('Nilai', compute='_compute_nilai', readonly=False)
 
     @api.depends('siswa_id')
     def _compute_nilai(self):
@@ -235,7 +229,7 @@ class Jadwal_Pelajaran(models.Model):
     
     pelajaran_id = fields.Many2one('mata.pelajaran', string='Mata Pelajaran')
     guru_id = fields.Many2one('hr.employee', string='Nama Halaqah')
-    class_id = fields.Many2one('ruang.kelas', string='Rombel')
+    class_id = fields.Many2one('master.kelas', string='Rombel')
     
     
     @api.multi

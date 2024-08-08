@@ -8,7 +8,7 @@ class PrestasiSiswa(models.Model):
     _name = 'prestasi.siswa'
     _description = 'Prestasi Siswa'
     name = fields.Many2one('res.partner', 'Nama Siswa')
-    class_id =fields.Many2one('ruang.kelas', 'Kelas')
+    class_id =fields.Many2one('master.kelas', 'Kelas')
     tanggal = fields.Date('Tanggal')
     jenis_lomba = fields.Char('Jenis Lomba')
     hasil_lomba = fields.Char('Hasil Lomba')
