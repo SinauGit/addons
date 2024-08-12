@@ -437,7 +437,7 @@
 		<!-- Menu Item -->
 
 		<menuitem id="menu_master_pendidikan" name="Sekolah"
-			web_icon="base_sekolah,static/description/icon.png" />
+			web_icon="base_sekolah,static/description/icon.png" groups="group_sekolah_admin" />
 
 		<menuitem id="menu_pendidikan_sekolah" parent="menu_master_pendidikan" name="Master Data"
 			sequence="1" groups="group_sekolah_admin" />
