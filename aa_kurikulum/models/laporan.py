@@ -19,7 +19,7 @@ class laporan_yayasan(models.Model):
         total = fields.Char('Total')
         jenjang = fields.Selection('Jenjang', related='siswa_id.jenjang')
         jumlah = fields.Char('Jumlah')
-        user_id = fields.Many2one('res.partner', string='Orang tua', related='siswa_id.user_id', readonly=False)
+        # user_id = fields.Many2one('res.partner', string='Orang tua', related='siswa_id.user_id', readonly=False)
         laporan_id = fields.Many2one('laporan.bulanan', string='Laporan Bulanan')
         
         
@@ -119,7 +119,7 @@ class RekapRapot(models.Model):
     class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     
     kkm = fields.Integer('KKM')
-    # rombel_id = fields.Many2one('ruang.kelas', string='Rombel')s
+    # rombel_id = fields.Many2one('ruang.kelas', string='Rombel')
     rapot_line = fields.One2many('rekap.rapot.line', 'rekap_id', 'Daftar Nilai' )
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True,
                                    default=lambda self: self.env['account.fiscalyear'].search([('name', '=', 'TA. 2024/2025')], limit=1))
