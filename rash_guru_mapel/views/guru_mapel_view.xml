@@ -2,7 +2,7 @@
 <openerp>
 	<data>
 
-	<menuitem id="menu_guru_mapel" name="Modul Guru Mapel" web_icon="rash_guru_mapel,static/description/gurumapel.png"/>
+	<menuitem id="menu_guru_mapel" name="Modul Guru Mapel" web_icon="rash_guru_mapel,static/description/gurumapel.png" groups="group_guru_mapel"/>
 	<menuitem id="menu_murid" parent="menu_guru_mapel" name="Data Master Siswa" action="base_sekolah.action_murid_form" sequence="1"/>
 
 	<menuitem id="menu_kurikulum" name="Kurikulum" parent="menu_guru_mapel" groups="aa_kurikulum.group_kurikulum_admin" sequence="2"/>

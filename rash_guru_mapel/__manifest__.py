@@ -9,6 +9,7 @@
     'website': "https://lui.co.id/",
     'depends': ['aa_kurikulum','base_sekolah','base', ],
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',     # File hak akses
         'views/guru_mapel_view.xml',   # File yang mendefinisikan views dan menuitem
     ],

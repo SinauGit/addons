@@ -15,7 +15,8 @@ class ScoreList(models.Model):
         ('UTS', 'UTS'),
         ('UAS', 'UAS')
     ], string='Tipe', required=True, default='Work_Sheet')
-    fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
+    fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True,
+                                   default=lambda self: self.env['account.fiscalyear'].search([('name', '=', 'TA. 2024/2025')], limit=1))
     user_id = fields.Many2one('res.users', 'Guru', readonly=True, required=True, default=lambda self: self.env.user)
     class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     lembaga = fields.Selection(related='class_id.lembaga', store=True, string='Jenjang')
@@ -389,7 +390,8 @@ class buku_rapot(models.Model):
 
     name = fields.Char('No. Dokumen', required=True, readonly=True, default='/')
     siswa_id = fields.Many2one('res.partner', 'Siswa', required=True, domain="[('student', '=', True), ('class_id', '=', class_id)]")
-    fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
+    fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True,
+                                   default=lambda self: self.env['account.fiscalyear'].search([('name', '=', 'TA. 2024/2025')], limit=1))
     class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     semester = fields.Selection([('Gasal', 'Gasal'), ('Genap', 'Genap')], string='Semester', required=True, default='Gasal')
     avg_class = fields.Integer('Nilai Rata-Rata', readonly=True)

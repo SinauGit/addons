@@ -119,9 +119,10 @@ class RekapRapot(models.Model):
     class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
     
     kkm = fields.Integer('KKM')
-    # rombel_id = fields.Many2one('ruang.kelas', string='Rombel')
+    # rombel_id = fields.Many2one('ruang.kelas', string='Rombel')s
     rapot_line = fields.One2many('rekap.rapot.line', 'rekap_id', 'Daftar Nilai' )
-    fiscalyear_id = fields.Many2one('account.fiscalyear', string='Tahun Ajaran', required=True)
+    fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True,
+                                   default=lambda self: self.env['account.fiscalyear'].search([('name', '=', 'TA. 2024/2025')], limit=1))
     total = fields.Integer('Total', compute="_compute_total")
     total_line = fields.Integer('Total Line', compute="_compute_total_line")
     rata = fields.Integer('Rata', compute="_compute_rata")
