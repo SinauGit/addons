@@ -19,7 +19,7 @@ class laporan_yayasan(models.Model):
         total = fields.Char('Total')
         jenjang = fields.Selection('Jenjang', related='siswa_id.jenjang')
         jumlah = fields.Char('Jumlah')
-        # user_id = fields.Many2one('res.partner', string='Orang tua', related='siswa_id.user_id', readonly=False)
+        user_id = fields.Many2one('res.partner', string='Orang tua', related='siswa_id.user_id', readonly=False)
         laporan_id = fields.Many2one('laporan.bulanan', string='Laporan Bulanan')
         
         

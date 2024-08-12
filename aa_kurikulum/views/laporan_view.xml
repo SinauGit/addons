@@ -12,7 +12,7 @@
                 <field name="total" />
                 <field name="jenjang" />    
                 <field name="jumlah" />
-                <!-- <field name="user_id" invisible="1"/> -->
+                <field name="user_id" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -34,7 +34,7 @@
                     <group>
                         <field name="jenjang" />
                         <field name="jumlah" />
-                        <!-- <field name="user_id"/> -->
+                        <field name="user_id"/>
                     </group>
                 </sheet>
             </form>
@@ -79,7 +79,7 @@
             <field name="operator_id" />
             <field name="komponen_line"> <tree string="Komponen Lines" editable="bottom" invisible="1">
                     <field name="siswa_id" />
-                    <!-- <field name="user_id"/> -->
+                    <field name="user_id"/>
                     </tree>
             </field>
         </tree>
@@ -107,7 +107,7 @@
                             <tree string="Komponen Lines" editable="bottom">
                                 <field name="nisq" />
                                 <field name="siswa_id"/>
-                                <!-- <field name="user_id"/> -->
+                                <field name="user_id"/>
                             </tree>
                         </field>
 
