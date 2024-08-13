@@ -108,7 +108,7 @@ class ScoreLine(models.Model):
     _name = 'score.line'
 
     score_id = fields.Many2one('score.list', 'Daftar Nilai', required=True, ondelete='cascade')
-    name = fields.Many2one('res.partner', 'Siswa', domain=[('student', '=', True)], readonly=True)
+    name = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)])
     u1 = fields.Integer('U1')
     u2 = fields.Integer('U2')
     u3 = fields.Integer('U3')
