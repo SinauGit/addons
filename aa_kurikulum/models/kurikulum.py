@@ -516,7 +516,7 @@ class rapot_line(models.Model):
 
     rapot_id = fields.Many2one('buku.rapot', 'Buku Raport', required=True, ondelete='cascade')
     sequence = fields.Integer('Sequence')
-    name = fields.Many2one('mata.pelajaran', 'Mata Pelajaran', required=True, readonly=True)
+    name = fields.Many2one('mata.pelajaran', 'Mata Pelajaran', required=True)
     kkm = fields.Integer('KKM')
     nilai = fields.Integer('Nilai')
     avg = fields.Integer('Rata-Rata Kelas')
