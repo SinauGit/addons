@@ -166,17 +166,17 @@ class RekapRapot(models.Model):
             
             
             
-    @api.constrains('guru_id', 'class_id')
-    def _check_unique_siswa_id(self):
-        for record in self:
-            if record.guru_id and record.class_id:
-                existing_records = self.env['rekap.rapot'].search([
-                    ('guru_id', '=', record.guru_id.id),
-                    ('class_id', '=', record.class_id.id),
-                    ('id', '!=', record.id)  # Exclude current record
-                ])
-                if existing_records:
-                    raise ValidationError('Mata Pelajaran dan kelas yang sama sudah ada.')
+    # @api.constrains('guru_id', 'class_id')
+    # def _check_unique_siswa_id(self):
+    #     for record in self:
+    #         if record.guru_id and record.class_id:
+    #             existing_records = self.env['rekap.rapot'].search([
+    #                 ('guru_id', '=', record.guru_id.id),
+    #                 ('class_id', '=', record.class_id.id),
+    #                 ('id', '!=', record.id)  # Exclude current record
+    #             ])
+    #             if existing_records:
+    #                 raise ValidationError('Mata Pelajaran dan kelas yang sama sudah ada.')
     
     @api.multi
     def name_get(self):
