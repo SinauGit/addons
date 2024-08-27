@@ -14,7 +14,7 @@ class ScoreList(models.Model):
         ('Daily_Test', 'Daily Test (UH)'),
         ('UTS', 'UTS'),
         ('UAS', 'UAS')
-    ], string='Tipe', required=True, default='Work_Sheet')
+    ], string='Tipe', required=True, default='Daily_Test')
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True,
                                    default=lambda self: self.env['account.fiscalyear'].search([('name', '=', 'TA. 2024/2025')], limit=1))
     user_id = fields.Many2one('res.users', 'Guru', readonly=True, required=True, default=lambda self: self.env.user)
