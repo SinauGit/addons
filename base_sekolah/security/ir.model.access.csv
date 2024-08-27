@@ -6,7 +6,9 @@ base.access_ir_actions_act_window_close_group_system,ir_actions_act_window_close
 base.access_ir_actions_act_window_view_group_system,ir_actions_act_window_view_group_system,base.model_ir_actions_act_window_view,base.group_user,1,1,1,1
 
 access_master_kelas,master.kelas,model_master_kelas,group_sekolah_admin,1,1,1,1
+access_master_kelas,master.kelas,model_master_kelas,group_sekolah_orangtua,1,0,0,0
 access_mata_pelajaran,mata.pelajaran,model_mata_pelajaran,group_sekolah_admin,1,1,1,1
+access_mata_pelajaran,mata.pelajaran,model_mata_pelajaran,group_sekolah_orangtua,1,0,0,0
 access_ruang_kelas,ruang.kelas,model_ruang_kelas,group_sekolah_admin,1,1,1,1
 access_master_kamar,master.kamar,model_master_kamar,group_sekolah_admin,1,1,1,1
 access_kamar_siswa,kamar.siswa,model_kamar_siswa,group_sekolah_admin,1,1,1,1
