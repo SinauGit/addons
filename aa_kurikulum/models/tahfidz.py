@@ -1157,7 +1157,7 @@ class Menu_Deresan(models.Model):
     guru_id = fields.Many2one('res.users', 'Nama Halaqah', readonly=True, required=True, default=lambda self: self.env.user)
     siswa_id = fields.Many2one('res.partner', string='Nama Santri', domain="[('student', '=', True)]", required=True)
     jenjang = fields.Selection('Jenjang', related='siswa_id.jenjang')
-    tanggal = fields.Date('Tanggal Cetak', default=fields.Date.context_today)
+    tanggal = fields.Date('Tanggal', default=fields.Date.context_today)
     nisq = fields.Char('NISQ', related='siswa_id.nis')
     
     awal_juz = fields.Char('Awal Juz')
@@ -1220,6 +1220,13 @@ class Menu_Deresan(models.Model):
         partner = self.env['res.partner'].browse(partner_id)
         if partner:
             partner.deresan_id = deresan_id
+            
+    def name_get(self):
+        result = []
+        for record in self:
+            name = "Menu Deresan - {} - {}".format(record.siswa_id.name, record.tanggal)
+            result.append((record.id, name))
+        return result
     
     # @api.depends('awal_m_pj','akhir_m_pj')
     # def _compute_total_pjm(self):
@@ -1380,6 +1387,13 @@ class Menu_KBM(models.Model):
     count_alpha_c = fields.Char('Alpa')
     count_tugas_c = fields.Char('Tugas Lembaga')
     
+    
+    def name_get(self):
+        result = []
+        for record in self:
+            name = "Menu KBM - {} - {}".format(record.siswa_id.name, record.tanggaljam)
+            result.append((record.id, name))
+        return result
     # @api.depends('awal_pj_ma','akhir_pj_ma')
     # def _compute_total_pjma(self):
     #     for pjma in self:
