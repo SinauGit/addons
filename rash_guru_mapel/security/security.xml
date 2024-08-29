@@ -4,6 +4,5 @@
     <record id="group_guru_mapel" model="res.groups">
         <field name="name">Guru Mapel</field>
     </record>
-
 </data>
 </openerp>

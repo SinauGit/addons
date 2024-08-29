@@ -1,5 +1,4 @@
 <odoo>
-  <data>
       <record id="model_surat_kepegawaian_tree" model="ir.ui.view">
             <field name="name">Surat Kepegawaian</field>
             <field name="model">surat.kepegawaian</field>
@@ -47,10 +46,6 @@
             <field name="type">ir.actions.act_window</field>
         </record>        
 
-    </data>
-
-		<menuitem id="menu_security_root" name="Security" web_icon="rash_security,logo/security.png" groups="group_security"/>
+		<menuitem id="menu_security_root" name="Security" web_icon="rash_security,logo/security.png" groups="group_security" sequence="40"/>/>
         <menuitem id="sub_menu_surat_kepegawaian" name="Surat Kepegawaian" parent="menu_security_root" action="model_surat_kepegawaian_action" />
-
 </odoo>
-
