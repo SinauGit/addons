@@ -42,10 +42,10 @@
 				<field name="mobile" string="No. HP"/>
 				<field name="state"/>
 				<button name="pendaftaran_batal" string="Batal" type="object" states="Draft" icon="fa-trash-o" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
-				<button name="pendaftaran_lulus" string="Lulus Seleksi" type="object" states="Ujian" icon="fa-check" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
-				<button name="pendaftaran_tidak_lulus" string="Tidak Lulus Seleksi" type="object" icon="fa-ban" states="Ujian" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+				<button name="pendaftaran_lulus" string="Lulus Pemberkasan" type="object" states="Ujian" icon="fa-check" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+				<button name="pendaftaran_tidak_lulus" string="Tidak Lulus Pemberkasan" type="object" icon="fa-ban" states="Ujian" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
 				<button name="pendaftaran_undur_diri" string="Mengundurkan Diri" type="object" icon="fa-times" states="Ujian,Lulus" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
-				<button name="pendaftaran_gabung" string="Bergabung" type="object" states="Lulus" icon="fa-check-circle" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+				<button name="pendaftaran_gabung" string="Diterima" type="object" states="Lulus" icon="fa-check-circle" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
 			</tree>
 		</field>
 	</record>
@@ -58,31 +58,34 @@
 				<header>
 					<button name="pendaftaran_draft" string="Set to Draft" type="object" states="Upload,Pernyataan" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
 					<button name="pendaftaran_hapus" string="Hapus" type="object" states="Draft" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
-					<button name="pendaftaran_balik" string="Kembali" type="object" states="Upload,Pernyataan,Ujian" class="oe_highlight"/>
+					<button name="pendaftaran_balik" string="Kembali" type="object" states="Upload,Pernyataan,Ujian" class="btn-danger"/>
 					<button name="pendaftaran_lanjut" string="Selanjutnya" type="object" states="Draft,Upload,Pernyataan" class="oe_highlight"/>
 					<button name="pendaftaran_draft" string="Batal" type="object" states="Draft,Lulus" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
 					<button name="cetak_kartu_ujian" string="Cetak Tanda Bukti Pendaftaran" type="object" states="Ujian" class="oe_highlight"/>
-					<button name="pendaftaran_lulus" string="Lulus Seleksi" type="object" states="Ujian" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
-					<button name="pendaftaran_tidak_lulus" string="Tidak Lulus Seleksi" type="object" states="Ujian" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+					<button name="pendaftaran_lulus" string="Lulus Pemberkasan" type="object" states="Ujian" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+					<button name="pendaftaran_tidak_lulus" string="Tidak Lulus Pemberkasan" type="object" states="Ujian" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
 					<button name="pendaftaran_undur_diri" string="Mengundurkan Diri" type="object" states="Ujian,Lulus" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
-					<button name="pendaftaran_gabung" string="Bergabung" type="object" states="Lulus" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
+					<button name="pendaftaran_gabung" string="Diterima" type="object" states="Lulus" class="oe_highlight" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
 					<field name="state" widget="statusbar" statusbar_visible="Draft,Upload,Pernyataan,Ujian,Lulus"/>
 				</header>
 				<sheet>
 					<group string="Hasil Observasi" attrs="{'invisible': [('state', 'not in', ('Lulus','Bergabung'))]}">
 						<field name="namafile_hasil_observasi" invisible="1" colspan="4"/>
-						<field name="hasil_observasi" filename="namafile_foto_nisn" nolabel="1" colspan="4"/>
+						<field name="hasil_observasi" filename="namafile_hasil_observasi" nolabel="1" colspan="4"/>
 					</group>
-					<group string="Pembayaran" attrs="{'invisible': [('state', 'in', ('Draft','Upload','Pernyataan','Ujian'))]}" groups="aa_pendaftaran_online.group_pendaftaran_panitia">
-						<field name="pembayaran1" colspan="4"/>
-						<field name="pembayaran2" colspan="4"/>
-						<field name="pembayaran3" colspan="4"/>
+					<group string="Konfirmasi Pembayaran" attrs="{'invisible': [('state', 'not in', ('Lulus','Bergabung'))]}">
+						<field name="namafile_pembayaran" invisible="1" colspan="4"/>
+						<field name="pembayaran" filename="namafile_pembayaran" nolabel="1" colspan="4"/>
+						<!-- <field name="pembayaran2" colspan="4"/>
+						<field name="pembayaran3" colspan="4"/> -->
 					</group>
 					<notebook>
 						<page string="Profil" attrs="{'invisible': [('state', 'in', ('Upload', 'Pernyataan'))]}">
 							<group>
 								<group>
 									<field name="name" string="Nama Lengkap"/>
+									<field name="nik" string="NIK" attrs="{'required': [('state', '=', 'Draft')]}"/>
+									<field name="nisn" string="NISN" attrs="{'required': [('state', '=', 'Draft')]}"/>
 									<label for="street" string="Alamat"/>
 									<div class="o_address_format">
 										<field name="street" placeholder="Jalan..." class="o_address_street" attrs="{'required': [('state', '=', 'Draft')]}"/>
@@ -96,6 +99,8 @@
 									<field name="phone" widget="phone" string="Telpon Rumah" attrs="{'required': [('state', '=', 'Draft')]}"/>
 									<field name="mobile" string="No Handphone" attrs="{'required': [('state', '=', 'Draft')]}"/>
 									<field name="email_from"/>
+									<field name="email_siswa" string="Email Siswa" attrs="{'required': [('state', '=', 'Draft')]}"/>
+									
 									<field name="partner_id" string="Siswa" readonly="True" groups="aa_pendaftaran_online.group_pendaftaran_panitia"/>
 								</group>
 							</group>
@@ -122,19 +127,19 @@
 								<field name="kelamin" attrs="{'required': [('state', '=', 'Draft')]}"/>
 								<field name="bahasa" attrs="{'required': [('state', '=', 'Draft')]}"/>
 								<field name="darah" attrs="{'required': [('state', '=', 'Draft')]}"/>
-								<field name="moda" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<!-- <field name="moda" attrs="{'required': [('state', '=', 'Draft')]}"/> -->
 								<label for="berat"/>
 								<div class="o_row">
 									<field name="berat" attrs="{'required': [('state', '=', 'Draft')]}"/>
 									<span>kg</span>
 								</div>
-								<field name="jarak" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<!-- <field name="jarak" attrs="{'required': [('state', '=', 'Draft')]}"/> -->
 								<label for="tinggi"/>
 								<div class="o_row">
 									<field name="tinggi" attrs="{'required': [('state', '=', 'Draft')]}"/>
 									<span>cm</span>
 								</div>
-								<field name="tinggal" attrs="{'required': [('state', '=', 'Draft')]}"/>
+								<!-- <field name="tinggal" attrs="{'required': [('state', '=', 'Draft')]}"/> -->
 							</group>
 							<group string="Ayah" col="4" colspan="4">
 								<field name="ayah" attrs="{'required': [('state', '=', 'Draft')]}"/>
@@ -196,9 +201,13 @@
 								<field name="namafile_foto_siswa" invisible="1"/>
 								<field name="foto_siswa" filename="namafile_foto_siswa" nolabel="1" attrs="{'required': [('state', '=', 'Upload')]}"/>
 							</group>
-							<group string="Foto Keluarga Inti">
+							<group string="Foto NIK">
 								<field name="namafile_foto_keluarga" invisible="1"/>
 								<field name="foto_keluarga" filename="namafile_foto_keluarga" nolabel="1" attrs="{'required': [('state', '=', 'Upload')]}"/>
+							</group>
+							<group string="Foto Surat Keterangan Tidak Mampu (Wajib Bagi Jalur Yaqra', Tidak Perlu Diisi Bagi Jalur Reguler)">
+								<field name="namafile_foto_keterangan" invisible="1"/>
+								<field name="foto_keterangan" filename="namafile_foto_keterangan" nolabel="1"/>
 							</group>
 							<group string="Sertifikat / Piagam (Jika Ada)">
 								<field name="namafile_sertifikat" invisible="1"/>
@@ -223,10 +232,10 @@
 							<group string="Apakah ada hal khusus terkait ananda yang ingin disampaikan ?">
 								<field name="khusus" nolabel="1"/>
 							</group>
-							<group string="Mengapa Ayah/Ibu memilih Sekolah Alam Citra Insani sebagai sekolah ananda ?">
+							<group string="Mengapa Ayah/Ibu memilih Sekolah Yanbu’ul Qur’an 1 Pati sebagai sekolah ananda ?">
 								<field name="memilih" nolabel="1" attrs="{'required': [('state', '=', 'Pernyataan')]}"/>
 							</group>
-							<group string="Apa harapan Ayah/Ibu terhadap Sekolah Alam Citra Insani ?">
+							<group string="Apa harapan Ayah/Ibu terhadap Sekolah Yanbu’ul Qur’an 1 Pati ?">
 								<field name="harapan" nolabel="1" attrs="{'required': [('state', '=', 'Pernyataan')]}"/>
 							</group>
 						</page>

@@ -4,60 +4,32 @@
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.basic_layout">
                     <div class="container">
-                        <div class="header">
-                            <table style="width: 100%; margin-top: 10px;"
-                                border="1">
+                        <!-- Render header only on the first page -->
+                        <div>
+                            <table style="width: 100%; margin-top: 10px;" border="1">
                                 <tbody>
                                     <tr style="height: 117px;">
-                                        <td
-                                            style="width: 20%; height: 117px; border: solid 0px white; vertical-align: top; text-align: left;">
-                                            <div
-                                                style="font-size: 12px; font-family: sans-serif; font-weight: bold;">
-                                                <!-- <img width="120" height="50"
-                                                src="/ab_stock_inventory/static/src/img/npn.png"
-                                                alt="Logo"></img> -->
-                                                <img
-                                                    style="max-height: 3cm; max-width: 3cm; position: relative"
-                                                    src="/base_sekolah/static/description/icon1.png" />
-                                                <br />
-                                                <br />
-                                                <br />
+                                        <td style="width: 20%; height: 117px; border: solid 0px white; vertical-align: top; text-align: left;">
+                                            <div style="font-size: 12px; font-family: sans-serif; font-weight: bold;">
+                                                <img style="max-height: 3cm; max-width: 3cm; position: relative" src="/base_sekolah/static/description/icon1.png" />
                                             </div>
                                         </td>
                                         <td style="text-align: center;">
-                                            <span style="text-align: center;">YAYASAN ASEM BUNGKUK </span>
-                                            <br />
-                                            <span style="font-weight: bold;">YANABU'UL QUR'AN
-                                                BOARDING SCHOOL 1 PATI </span>
-                                            <br />
-                                            <span> PONDOK TAHFIDH-SNPQT-SMAQT</span>
-                                            <br />
-                                            <span
-                                                style="text-align: center; font-size:12px; font-style: italic;">Jalan
-                                                Raya Pati Tayu Km, 06 Sukoharjo RT 001 RW 002
-                                                Wedarijaksa Pati</span>
+                                            <span>YAYASAN ASEM BUNGKUK </span><br />
+                                            <span style="font-weight: bold;">YANABU'UL QUR'AN BOARDING SCHOOL 1 PATI </span><br />
+                                            <span>PONDOK TAHFIDH-SNPQT-SMAQT</span><br />
+                                            <span style="font-size: 12px; font-style: italic;">Jalan Raya Pati Tayu Km, 06 Sukoharjo RT 001 RW 002 Wedarijaksa Pati</span>
                                             <hr />
                                         </td>
-                                        <td
-                                            style="width: 20%; height: 117px; border: solid 0px white; vertical-align: top; text-align: left;">
-                                            <div
-                                                style="font-size: 12px; font-family: sans-serif; font-weight: bold;">
-                                                <!-- <img width="120" height="50"
-                                                src="/ab_stock_inventory/static/src/img/npn.png"
-                                                alt="Logo"></img> -->
-                                                <img
-                                                    style="max-height: 3cm; max-width: 3cm; position: relative"
-                                                    src="/base_sekolah/static/description/icon2.png" />
-                                                <br />
-                                                <br />
-                                                <br />
+                                        <td style="width: 20%; height: 117px; border: solid 0px white; vertical-align: top; text-align: left;">
+                                            <div style="font-size: 12px; font-family: sans-serif; font-weight: bold;">
+                                                <img style="max-height: 3cm; max-width: 3cm; position: relative" src="/base_sekolah/static/description/icon2.png" />
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div style="border:solid 2px black;">
-                            </div>
+                            <div style="border:solid 2px black;"></div>
                         </div>
 
 
@@ -344,8 +316,8 @@
                     
                        
                         <br />
-                        <br />
-                        <span>D. STATUS PEMBAYARANN SYAHRIYYAH </span>
+                        <!-- <br /> -->
+                        <!-- <span>D. STATUS PEMBAYARANN SYAHRIYYAH </span>
                         <br />
                         <table
                             style=" width: 30%; height: 35px; float: left; margin-right: 20px; margin-left:30px;"
@@ -487,15 +459,15 @@
                                 </tr>
 
                             </tbody>
-                        </table>
+                        </table> -->
+                        <!-- <br />
                         <br />
                         <br />
                         <br />
                         <br />
                         <br />
                         <br />
-                        <br />
-                        <br />
+                        <br /> -->
 
                         <table style="width: 90%;" border="1">
                             <br />

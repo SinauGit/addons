@@ -21,7 +21,9 @@ JENIS_KEGIATAN = [
     ('Tidak_Masuk_Sekolah', 'Tidak Masuk Sekolah'),
 ]
 
-LEMBAGA = [('KB', 'KB'), ('TK', 'TK'), ('SD', 'SD'), ('SMP', 'SMP'), ('SMA', 'SMA')]
+LEMBAGA = [
+    # ('KB', 'KB'), ('TK', 'TK'), ('SD', 'SD'), 
+    ('SMP', 'SMP'), ('SMA', 'SMA')]
 
 class kalender_akademik(models.Model):
     _name = 'kalender.akademik'

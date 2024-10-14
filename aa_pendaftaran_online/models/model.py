@@ -13,11 +13,11 @@ jenjang = [
     # ('SD5', 'SD - Kelas 5'), 
     # ('SD6', 'SD - Kelas 6'), 
     ('SMP7', 'SMP - Kelas 7'), 
-    ('SMP8', 'SMP - Kelas 8'), 
-    ('SMP9', 'SMP - Kelas 9'), 
+    # ('SMP8', 'SMP - Kelas 8'), 
+    # ('SMP9', 'SMP - Kelas 9'), 
     ('SMA10', 'SMA - Kelas 10'), 
-    ('SMA11', 'SMA - Kelas 11'), 
-    ('SMA12', 'SMA - Kelas 12')
+    # ('SMA11', 'SMA - Kelas 11'), 
+    # ('SMA12', 'SMA - Kelas 12')
 ]
 school = [
     ('SD', 'SD'), ('SMP', 'SMP'), ('SMA', 'SMA'), 
@@ -25,16 +25,37 @@ school = [
     ('S1', 'S1'), ('S2', 'S2'), ('S3', 'S3')
 ]
 gaji = [
-    ('0', 'Rp. 0 s/d Rp. 500.000'), 
-    ('1', '> Rp. 500.000 s/d Rp. 1.000.000'), 
-    ('2', '> Rp. 1.000.000 s/d Rp. 2.000.000'),
-    ('3', '> Rp. 2.000.000 s/d Rp. 5.000.000'),
-    ('4', '> Rp. 5.000.000'),
+    ('0', 'Tidak berpenghasilan'), 
+    ('1', ' Kurang dari 1.000.000'), 
+    ('2', 'Rp. 1.000.000 s/d Rp. 1.999.999'),
+    ('3', 'Rp. 2.000.000 s/d Rp. 3.999.999'),
+    ('4', 'Rp. 4.000.000 s/d Rp. 9.999.999'),
+    ('5', 'Rp. 10.000.000 s/d Rp. 20.000.000'),
+    ('5', 'Lebih dari Rp. 20.000.000'),
 ]
 negara = [('wni', 'WNI'), ('wna', 'WNA'), ('turunan', 'WNI Keturunan')]
-lembaga = [('KB', 'KB'), ('TK', 'TK'), ('SD', 'SD'), ('SMP', 'SMP'), ('SMA', 'SMA')]
+lembaga = [
+    # ('KB', 'KB'), ('TK', 'TK'), ('SD', 'SD'), 
+    ('SMP', 'SMP'), ('SMA', 'SMA')]
 religion = [('islam', 'Islam'), ('katolik', 'Katolik'), ('Protestan', 'Protestan'), ('hindu', 'Hindu'), ('budha', 'Budha')]
 
+pekerjaan = [
+    ('0', 'Tidak Bekerja'),
+    ('1', 'ASN'),
+    ('2', 'TNI/Polri'),
+    ('3', 'Pensiunan'),
+    ('4', 'Guru/Dosen'),
+    ('5', 'Pegawai Swasta'),
+    ('6', 'Wiraswasta'),
+    ('7', 'Pengacara/Jaksa/Hakim/Notaris'),
+    ('8', 'Seniman/Pelukis/Artis'),
+    ('9', 'Dokter/Bidan/Perawat'),
+    ('10', 'Pedagang'),
+    ('11', 'Petani/Peternak'),
+    ('12', 'Nelayan'),
+    ('13', 'Buruh (tani/pabrik/bangunan)'),
+    ('14', 'Lainnya'),
+    ]
 
 class Lead(models.Model):
     _inherit = "crm.lead"
@@ -49,9 +70,12 @@ class Lead(models.Model):
     
     user_id = fields.Many2one('res.users', string='User login', readonly=True, default=False)
     email_from = fields.Char('Email', required=True, readonly=True, states={'Draft': [('readonly', False)]})
+    email_siswa = fields.Selection([('Reguler', 'Reguler'), ("Yaqro'", "Yaqro'")], 'Email Siswa', default='Reguler', required=True, readonly=True, states={'Draft': [('readonly', False)]})
     nis = fields.Char('No. Pendaftaran', readonly=True)
+    nik = fields.Char('NIK', required=True, readonly=True, states={'Draft': [('readonly', False)]})
+    nisn = fields.Char('NISN',required=True, readonly=True, states={'Draft': [('readonly', False)]})
 
-    name = fields.Char('Opportunity', required=True, index=True, readonly=True, states={'Draft': [('readonly', False)]})
+    name = fields.Char('Nama Lengkap', required=True, index=True, readonly=True, states={'Draft': [('readonly', False)]})
     panggilan = fields.Char('Nama Panggilan', readonly=True, states={'Draft': [('readonly', False)]})
     street = fields.Char('Street', readonly=True, states={'Draft': [('readonly', False)]})
     zip = fields.Char('Zip', readonly=True, states={'Draft': [('readonly', False)]})
@@ -77,18 +101,18 @@ class Lead(models.Model):
     darah = fields.Selection([('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O'), ('-', '-')], 'Gol Darah', default='A', readonly=True, states={'Draft': [('readonly', False)]})
     kelamin = fields.Selection([('Laki', 'Laki-Laki'), ('Perempuan', 'Perempuan')], 'Jenis Kelamin', default='Laki', readonly=True, states={'Draft': [('readonly', False)]})
     bahasa = fields.Char('Bahasa di rumah', default='Indonesia', readonly=True, states={'Draft': [('readonly', False)]})
-    tinggal = fields.Char('Tinggal Bersama', default='Orang Tua', readonly=True, states={'Draft': [('readonly', False)]})
-    jarak = fields.Char('Jarak Sekolah (km)', readonly=True, states={'Draft': [('readonly', False)]})
+    # tinggal = fields.Char('Tinggal Bersama', default='Orang Tua', readonly=True, states={'Draft': [('readonly', False)]})
+    # jarak = fields.Char('Jarak Sekolah (km)', readonly=True, states={'Draft': [('readonly', False)]})
     berat = fields.Char('Berat Badan', readonly=True, states={'Draft': [('readonly', False)]})
     tinggi = fields.Char('Tinggi Badan', readonly=True, states={'Draft': [('readonly', False)]})
-    moda = fields.Selection([('umum', 'Kendaraan Umum'), ('jalan', 'Jalan'), ('sepeda', 'Sepeda'), ('motor', 'Motor'), ('mobil', 'Mobil')], 'Moda Transportasi', readonly=True, states={'Draft': [('readonly', False)]})
+    # moda = fields.Selection([('umum', 'Kendaraan Umum'), ('jalan', 'Jalan'), ('sepeda', 'Sepeda'), ('motor', 'Motor'), ('mobil', 'Mobil')], 'Moda Transportasi', readonly=True, states={'Draft': [('readonly', False)]})
 
     ayah = fields.Char('Nama', readonly=True, states={'Draft': [('readonly', False)]})
     ibu = fields.Char('Nama', readonly=True, states={'Draft': [('readonly', False)]})
     didika = fields.Selection(school, 'Pendidikan', readonly=True, states={'Draft': [('readonly', False)]})
     didiki = fields.Selection(school, 'Pendidikan', readonly=True, states={'Draft': [('readonly', False)]})
-    kerja = fields.Char('Pekerjaan', readonly=True, states={'Draft': [('readonly', False)]})
-    kerji = fields.Char('Pekerjaan', readonly=True, states={'Draft': [('readonly', False)]})
+    kerja = fields.Selection(pekerjaan,'Pekerjaan', readonly=True, states={'Draft': [('readonly', False)]})
+    kerji = fields.Selection(pekerjaan, 'Pekerjaan', readonly=True, states={'Draft': [('readonly', False)]})
     hpa = fields.Char('No. HP', readonly=True, states={'Draft': [('readonly', False)]})
     hpi = fields.Char('No. HP', readonly=True, states={'Draft': [('readonly', False)]})
     agama_ayah = fields.Selection(religion, 'Agama', default='islam', readonly=True, states={'Draft': [('readonly', False)]})
@@ -116,7 +140,8 @@ class Lead(models.Model):
     ijazah_terakhir = fields.Binary('Ijazah Terakhir')
     foto_nisn = fields.Binary('Foto NISN')
     foto_siswa = fields.Binary('Pas Foto Calon Siswa')
-    foto_keluarga = fields.Binary('Foto Keluarga Inti')
+    foto_keluarga = fields.Binary('Foto NIK')
+    foto_keterangan = fields.Binary('Surat Keterangan Tidak Mampu (Khusus Jalur Yaqro)')
     sertifikat = fields.Binary('Sertifikat / Piagam')
     sertifikat2 = fields.Binary('Sertifikat / Piagam')
     sertifikat3 = fields.Binary('Sertifikat / Piagam')
@@ -131,6 +156,7 @@ class Lead(models.Model):
     namafile_foto_nisn = fields.Char('Filename')
     namafile_foto_siswa = fields.Char('Filename')
     namafile_foto_keluarga = fields.Char('Filename')
+    namafile_foto_keterangan = fields.Char('Filename')
     namafile_sertifikat = fields.Char('Filename')
     namafile_sertifikat2 = fields.Char('Filename')
     namafile_sertifikat3 = fields.Char('Filename')
@@ -141,14 +167,18 @@ class Lead(models.Model):
     kekuatan = fields.Text('Menurut pengamatan Bapak dan Ibu, apakah kekuatan (strength) dan kelemahan (weakness) ananda ?', readonly=True, states={'Pernyataan': [('readonly', False)]})
     bakat = fields.Text('Menurut pengamatan Bapak dan Ibu, apakah ada bakat tertentu yang terlihat (menonjol) pada diri ananda ?', readonly=True, states={'Pernyataan': [('readonly', False)]})
     khusus = fields.Text('Apakah ada hal khusus terkait ananda yang ingin disampaikan ?', readonly=True, states={'Pernyataan': [('readonly', False)]})
-    memilih = fields.Text('Megapa Bapak/Ibu memilih Sekolah Alam Citra Insani sebagai sekolah ananda ?', readonly=True, states={'Pernyataan': [('readonly', False)]})
-    harapan = fields.Text('Apa harapan Bapak/Ibu terhadap Sekolah Alam Citra Insani ?', readonly=True, states={'Pernyataan': [('readonly', False)]})
+    memilih = fields.Text('Megapa Bapak/Ibu memilih Sekolah Yanbu’ul Qur’an 1 Pati sebagai sekolah ananda ?', readonly=True, states={'Pernyataan': [('readonly', False)]})
+    harapan = fields.Text('Apa harapan Bapak/Ibu terhadap Sekolah Yanbu’ul Qur’an 1 Pati ?', readonly=True, states={'Pernyataan': [('readonly', False)]})
 
     # PEMBAYARAN
-    pembayaran1 = fields.Boolean('Pembayaran 1')
-    pembayaran2 = fields.Boolean('Pembayaran 2')
-    pembayaran3 = fields.Boolean('Pembayaran 3')
+    pembayaran = fields.Boolean('Konfirmasi Pembayaran')
+    # pembayaran2 = fields.Boolean('Pembayaran 2')
+    # pembayaran3 = fields.Boolean('Pembayaran 3')
 
+    # HASIL OBSERVASI
+    namafile_pembayaran = fields.Char('Filename')
+    pembayaran = fields.Binary('Konfirmasi Pembayaran')
+    
     # HASIL OBSERVASI
     namafile_hasil_observasi = fields.Char('Filename')
     hasil_observasi = fields.Binary('Hasil Observasi')
@@ -292,11 +322,11 @@ class Lead(models.Model):
             'darah': self.darah,
             'kelamin': self.kelamin,
             'bahasa': self.bahasa,
-            'tinggal': self.tinggal,
-            'jarak': self.jarak,
+            # 'tinggal': self.tinggal,
+            # 'jarak': self.jarak,
             'berat': self.berat,
             'tinggi': self.tinggi,
-            'moda': self.moda,
+            # 'moda': self.moda,
 
             'ayah': self.ayah,
             'ibu': self.ibu,
@@ -324,6 +354,10 @@ class Lead(models.Model):
             
             'customer': True,
             'student': True,
+            
+        # Tambahkan NIK ke vat dan nisn
+        'vat': self.nik,
+        'nisn': self.nisn,
         })
         return self.write({'state': 'Bergabung', 'partner_id': self.user_id.partner_id.id})
 

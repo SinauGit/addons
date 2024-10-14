@@ -4,7 +4,9 @@ import time
 from odoo.exceptions import UserError
 
 
-LEMBAGA = [('KB', 'KB'), ('TK', 'TK'), ('SD', 'SD'), ('SMP', 'SMP'), ('SMA', 'SMA')]
+LEMBAGA = [
+    # ('KB', 'KB'), ('TK', 'TK'), ('SD', 'SD'), 
+    ('SMP', 'SMP'), ('SMA', 'SMA')]
 
 
 class bayar_cicil_tagihan(models.TransientModel):

@@ -49,7 +49,7 @@ class OnlineRegistrationWeb(http.Controller):
                 
         create_values = {
                 'body_html': message_body,
-                'subject': "Terimakasih Telah Mendaftar # Sekolah Alam Citra Insani",
+                'subject': "Terimakasih Telah Mendaftar di Sekolah Yanbu’ul Qur’an 1 Pati",
                 'email_to': email,                
             }
 
@@ -65,19 +65,19 @@ class OnlineRegistrationWeb(http.Controller):
     @http.route('/pendaftaran/form', type='http', auth="public", website=True)
     def chair_info(self, **post):
         jenjangs = [
-            ('KB', 'KB'), 
-            ('TKA', 'TK A'), 
-            ('TKB', 'TK B'), 
-            ('SD1', 'SD - Kelas 1'), 
-            ('SD2', 'SD - Kelas 2'), 
-            ('SD3', 'SD - Kelas 3'), 
+            # ('KB', 'KB'), 
+            # ('TKA', 'TK A'), 
+            # ('TKB', 'TK B'), 
+            # ('SD1', 'SD - Kelas 1'), 
+            # ('SD2', 'SD - Kelas 2'), 
+            # ('SD3', 'SD - Kelas 3'), 
             # ('SD4', 'SD - Kelas 4'), 
             # ('SD5', 'SD - Kelas 5'), 
             # ('SD6', 'SD - Kelas 6'), 
             ('SMP7', 'SMP - Kelas 7'), 
             # ('SMP8', 'SMP - Kelas 8'), 
             # ('SMP9', 'SMP - Kelas 9'), 
-            # ('SMA10', 'SMA - Kelas 10'), 
+            ('SMA10', 'SMA - Kelas 10'),
             # ('SMA11', 'SMA - Kelas 11'), 
             # ('SMA12', 'SMA - Kelas 12'),
         ]
