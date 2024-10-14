@@ -45,7 +45,7 @@ class OnlineRegistrationWeb(http.Controller):
         message_body += "<h1>Data Anda telah kami simpan. </h1>"
         message_body += "<h1>Email : <b>%s</b></h1>" % (email)
         message_body += "<h1>Password : <b>saci</b></h1>"
-        message_body += "<h1>Silakan lakukan <a href='https://sekolahalamcitrainsani.sch.id/web/login'>login</a> dengan email yang Anda daftarkan untuk melaksanakan pengisian formulir dan tahapan selanjutnya.</h1>"
+        message_body += "<h1>Silakan lakukan <a href='https://yqbs1.or.id/web/login'>login</a> dengan email yang Anda daftarkan untuk melaksanakan pengisian formulir dan tahapan selanjutnya.</h1>"
                 
         create_values = {
                 'body_html': message_body,
