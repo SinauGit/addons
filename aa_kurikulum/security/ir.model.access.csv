@@ -25,6 +25,7 @@ access_tahfidz_ruang_kelas,tahfidz.ruang.kelas,base_sekolah.model_ruang_kelas,gr
 access_tahfidz_res_partner,tahfidz.res.partner,base.model_res_partner,group_tahfidz_admin,1,0,0,0
 access_tahfidz_res_users,tahfidz.res.users,base.model_res_users,group_tahfidz_admin,1,1,1,1
 access_tahfidz_master_kelas,tahfidz.master.kelas,base_sekolah.model_master_kelas,group_tahfidz_admin,1,0,0,0
+access_tahfidz_master_kelas,tahfidz.master.kelas,base_sekolah.model_master_kelas,group_kurikulum_admin,1,1,1,1
 access_tahfidz_mata_pelajaran,tahfidz.mata.pelajaran,base_sekolah.model_mata_pelajaran,group_tahfidz_admin,1,1,1,1
 access_tahfidz_permohonan_ukj,tahfidz.permohonan.ukj,model_permohonan_ukj,group_tahfidz_admin,1,1,1,1
 access_tahfidz_permohonan_ukj_line,tahfidz.permohonan.ukj.line,model_permohonan_ukj_line,group_tahfidz_admin,1,1,1,1
