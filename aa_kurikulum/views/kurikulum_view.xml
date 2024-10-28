@@ -11,7 +11,7 @@
 					<field name="name"/>
 					<field name="user_id"/>
 					<field name="type"/>
-					<field name="fiscalyear_id"/>
+					<!-- <field name="fiscalyear_id"/> -->
 					<field name="class_id"/>
 					<field name="subject_id"/>
 					<field name="semester"/>
@@ -32,10 +32,10 @@
 							<field name="name"/>
 							<field name="user_id"/>
 							<field name="type"/>
-							<field name="fiscalyear_id"/>
+							<!-- <field name="fiscalyear_id"/> -->
 							<field name="semester"/>
 							<field name="class_id" angonche="onchange_class_id"/>
-							<field name="lembaga"/>
+							<!-- <field name="lembaga"/> -->
 							<field name="subject_id"/>
 						</group>
 						<notebook colspan="5">

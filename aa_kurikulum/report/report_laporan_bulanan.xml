@@ -524,7 +524,10 @@
                                             SUMATIF TENGAH SEMESTER GASAL</span><br />
                                             
                                             <span> TAHUN
-                                            AJARAN <t t-esc="o.komponen_line.siswa_id.rekap_id.fiscalyear_id.name"/> </span><br />
+                                            AJARAN TA. 2024/2025
+                                            <!-- <t t-esc="o.komponen_line.siswa_id.rekap_id.fiscalyear_id.name"/>  -->
+                                            </span
+                                            ><br />
                                             &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 
                                             </td>

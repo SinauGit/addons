@@ -15,12 +15,14 @@ class ScoreList(models.Model):
         ('UTS', 'UTS'),
         ('UAS', 'UAS')
     ], string='Tipe', required=True, default='Daily_Test')
-    fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True,
-                                   default=lambda self: self.env['account.fiscalyear'].search([('name', '=', 'TA. 2024/2025')], limit=1))
+    # fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True,
+    #                                default=lambda self: self.env['account.fiscalyear'].search([('name', '=', 'TA. 2024/2025')], limit=1))
     user_id = fields.Many2one('res.users', 'Guru', readonly=True, required=True, default=lambda self: self.env.user)
-    class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
-    lembaga = fields.Selection(related='class_id.lembaga', store=True, string='Jenjang')
-    subject_id = fields.Many2one('mata.pelajaran', string='Mata Pelajaran', domain="[('lembaga', '=', lembaga)]", required=True)
+    class_id = fields.Many2one('master.kelas', 'Rombel')
+    # class_id = fields.Many2one('master.kelas', 'Rombel', domain="[('fiscalyear_id', '=', fiscalyear_id)]")
+    # lembaga = fields.Selection(related='class_id.lembaga', store=True, string='Jenjang')
+    subject_id = fields.Many2one('mata.pelajaran', string='Mata Pelajaran', required=True)
+    # subject_id = fields.Many2one('mata.pelajaran', string='Mata Pelajaran', domain="[('lembaga', '=', lembaga)]", required=True)
     date1 = fields.Date('Tanggal U1')
     date2 = fields.Date('Tanggal U2')
     date3 = fields.Date('Tanggal U3')
