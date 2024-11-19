@@ -523,7 +523,7 @@
                                             <span>PENILAIAN
                                             SUMATIF TENGAH SEMESTER GASAL</span><br />
                                             
-                                            <span> TAHUN
+                                            <span> TAHUN    
                                             AJARAN TA. 2024/2025
                                             <!-- <t t-esc="o.komponen_line.siswa_id.rekap_id.fiscalyear_id.name"/>  -->
                                             </span
