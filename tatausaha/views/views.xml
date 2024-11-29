@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="tatausaha.list">
+      <field name="name">tatausaha list</field>
+      <field name="model">tatausaha.tatausaha</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="tatausaha.action_window">
+      <field name="name">tatausaha window</field>
+      <field name="res_model">tatausaha.tatausaha</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="tatausaha.action_server">
+      <field name="name">tatausaha server</field>
+      <field name="model_id" ref="model_tatausaha_tatausaha"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="tatausaha" id="tatausaha.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="tatausaha.menu_1" parent="tatausaha.menu_root"/>
+    <menuitem name="Menu 2" id="tatausaha.menu_2" parent="tatausaha.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="tatausaha.menu_1_list" parent="tatausaha.menu_1"
+              action="tatausaha.action_window"/>
+    <menuitem name="Server to list" id="tatausaha" parent="tatausaha.menu_2"
+              action="tatausaha.action_server"/>
+-->
+  </data>
+</odoo>

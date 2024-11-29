@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="persuratan_notification">
+            <div class="o_notification_center">
+                <t t-foreach="notifications" t-as="notification">
+                    <div t-att-class="'o_notification bg-' + notification.type">
+                        <span><t t-esc="notification.message"/></span>
+                    </div>
+                </t>
+            </div>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="suratmasuk_tree" model="ir.ui.view">
+            <field name="name">Surat Masuk</field>
+            <field name="model">surat.masuk</field>
+            <field name="arch" type="xml">
+                <tree string="" decoration-info="state == 'draft'" decoration-success="state == 'done'">
+                    <field name="no" />
+                    <field name="tanggal" />
+                    <field name="tofrom" />
+                    <field name="ringkasan" />
+                    <field name="keterangan" />
+                    <field name="file_surat" type="binary" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="suratmasuk_form" model="ir.ui.view">
+            <field name="name">Surat Masuk</field>
+            <field name="model">surat.masuk</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button name="action_done" string="Konfirmasi" type="object" states="draft" class="oe_highlight" />
+                        <button name="action_draft" string="Set to Draft" type="object" states="done" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" />
+                    </header>
+                    <sheet>
+                        <group string="Surat Masuk">
+                            <field name="no" required="1" />
+                            <field name="tanggal" required="1" />
+                            <field name="tofrom" required="1" />
+                            <field name="ringkasan" required="1" />
+                            <field name="keterangan" required="1" />
+                            <field name="file_surat" type="binary" required="1" />
+                        </group>
+                        <group string="Surat">
+                            <field name="nosurat" required="1" />
+                            <field name="tanggalsurat" required="1" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="suratkeluar_tree" model="ir.ui.view">
+            <field name="name">Surat Keluar</field>
+            <field name="model">surat.keluar</field>
+            <field name="arch" type="xml">
+                <tree string="">
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="suratkeluar_form" model="ir.ui.view">
+            <field name="name">Surat Keluar</field>
+            <field name="model">surat.keluar</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Surat Keluar">
+                            
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+
+        <!-- <record id="penugasan_tree" model="ir.ui.view">
+            <field name="name">Penugasan</field>
+            <field name="model">data.penugasan</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" />
+                    <field name="jabatan" />
+                    <field name="niy" />
+                    <field name="alamat" />
+                    <field name="jam" />
+                    <field name="tempat" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="penugasan_form" model="ir.ui.view">
+            <field name="name">Penugasan</field>
+            <field name="model">data.penugasan</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group string="Penugasan">
+                            <field name="name" required="1" />
+                            <field name="jabatan" required="1" />
+                            <field name="niy" required="1"/>
+                            <field name="alamat" required="1"/>
+                            <field name="jam" widget="time" required="1" options="{'time_format': 'HH:mm'}" />
+                            <field name="tempat" required="1"/>
+                        </group>
+                        <div class="oe_notification_box">
+                            <div class="oe_notification_box_content">
+                                Notifikasi akan ditampilkan di sini saat data berhasil ditambahkan atau diperbarui.
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record> -->
+
+        <record id="suratmasuk_action" model="ir.actions.act_window">
+            <field name="name">Surat Masuk</field>
+            <field name="res_model">surat.masuk</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="suratkeluar_action" model="ir.actions.act_window">
+            <field name="name">Surat Keluar</field>
+            <field name="res_model">surat.keluar</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!-- <record id="penugasan_action" model="ir.actions.act_window">
+            <field name="name">Penugasan</field>
+            <field name="res_model">data.penugasan</field>
+            <field name="view_mode">tree,form</field>
+        </record> -->
+        
+    </data>
+</odoo>
