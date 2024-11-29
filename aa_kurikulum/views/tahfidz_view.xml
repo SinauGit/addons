@@ -1146,7 +1146,7 @@
             <tree>
                 <field name="guru_id" />
                 <field name="siswa_id" />
-                <field name="jenjang" />
+                <!-- <field name="jenjang" /> -->
                 <field name="tanggal" />
             </tree>
         </field>
@@ -1161,7 +1161,7 @@
                     <group>
                         <field name="guru_id" />
                         <field name="siswa_id" />
-                        <field name="jenjang" />
+                        <!-- <field name="jenjang" /> -->
                         <field name="tanggal" />
                         <!-- <field name="nisq" /> -->
                     </group>
@@ -1377,7 +1377,7 @@
     <!-- Modul -->
     <menuitem id="menu_modul_halaqah" name="Perkembangan Hafalan" web_icon="base_sekolah,static/description/halaqah.png"  groups="group_tahfidz_admin"/>
     <!-- <menuitem id="menu_modul_ziyadah" name="Menu Ziyadah" parent="menu_modul_halaqah" action="menu_ziyadah_action" sequence="1"/> -->
-    <menuitem id="menu_modul_deresan" name="Hafalan Santri" parent="menu_modul_halaqah" action="menu_deresan_action" sequence="1" groups="group_tahfidz_admin"/>
+    <!-- <menuitem id="menu_modul_deresan" name="Hafalan Santri" parent="menu_modul_halaqah" action="menu_deresan_action" sequence="1" groups="group_tahfidz_admin"/> -->
     <menuitem id="menu_KBM" name="KBM Harian" parent="menu_modul_halaqah" action="menu_kbm_action" sequence="2"/>
 
 

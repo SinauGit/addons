@@ -36,7 +36,8 @@ class ScoreList(models.Model):
         ('Genap', 'Genap')
     ], string='Semester', required=True, default='Gasal')
 
-    _sql_constraints = [('subject_uniq', 'unique(subject_id, type, semester, class_id, fiscalyear_id)', 'Data harus unik !')]
+    _sql_constraints = [('subject_uniq', 'unique(subject_id, type, semester, class_id)', 'Data harus unik !')]
+        # _sql_constraints = [('subject_uniq', 'unique(subject_id, type, semester, class_id, fiscalyear_id)', 'Data harus unik !')]
 
     @api.model
     def create(self, vals):

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Membuat action window baru dengan domain -->
+        <record id="action_score_list_guru_mapel" model="ir.actions.act_window">
+            <field name="name">Daftar Nilai</field>
+            <field name="res_model">score.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Klik untuk membuat daftar nilai baru
+                </p>
+            </field>
+        </record>
+
+        <!-- Ganti action pada menuitem daftar nilai -->
+        <menuitem id="menu_score_list" 
+                  name="Daftar Nilai" 
+                  parent="menu_mata_pelajaran" 
+                  action="action_score_list_guru_mapel" 
+                  sequence="4"/>
+    </data>
+</openerp>

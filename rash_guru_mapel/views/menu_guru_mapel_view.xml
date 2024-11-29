@@ -3,7 +3,7 @@
 	<data>
 
 	<menuitem id="menu_guru_mapel" name="Modul Guru Mapel" web_icon="rash_guru_mapel,static/description/gurumapel.png" groups="group_guru_mapel"/>
-	<menuitem id="menu_murid" parent="menu_guru_mapel" name="Data Master Siswa" action="base_sekolah.action_murid_form" sequence="1"/>
+	<!-- <menuitem id="menu_murid" parent="menu_guru_mapel" name="Data Master Siswa" action="base_sekolah.action_murid_form" sequence="1"/> -->
 
 	<menuitem id="menu_kurikulum" name="Kurikulum" parent="menu_guru_mapel" groups="aa_kurikulum.group_kurikulum_admin" sequence="2"/>
 
@@ -11,13 +11,13 @@
 
     <menuitem id="menu_sholat_performance" name="Prestasi Sholat" parent="menu_mata_pelajaran" action="aa_kurikulum.action_sholat_performance_form" sequence="1"/>
 	<menuitem id="menu_absen_penilaian" name="Penilaian Kehadiran" parent="menu_mata_pelajaran" action="aa_kurikulum.action_absen_penilaian_form" sequence="2"/>
-	<menuitem id="menu_score_list" name="Daftar Nilai" parent="menu_mata_pelajaran" action="aa_kurikulum.action_score_list_form" sequence="4"/>
+	<!-- <menuitem id="menu_score_list" name="Daftar Nilai" parent="menu_mata_pelajaran" action="aa_kurikulum.action_score_list_form" sequence="4"/> -->
 	<menuitem id="menu_summary_book" name="Perhitungan Nilai Raport" parent="menu_mata_pelajaran" action="aa_kurikulum.action_summary_book_form" sequence="3"/>
 	<menuitem id="menu_buku_rapot" name="Buku Raport" parent="menu_mata_pelajaran" action="aa_kurikulum.action_buku_rapot_form" sequence="6" />
 
     <menuitem id="menu_adab" name="Adab" parent="menu_kurikulum"/>
     <menuitem id="menu_observasi_adab" name="Observasi Adab" parent="menu_adab" action="aa_kurikulum.observasi_adab_action"/>
-	<menuitem id="menu_rekap_rapot" name="Rekap Rapot" parent="menu_mata_pelajaran" action="aa_kurikulum.model_rekap_rapot_action" sequence="5"/>
+	<!-- <menuitem id="menu_rekap_rapot" name="Rekap Rapot" parent="menu_mata_pelajaran" action="aa_kurikulum.model_rekap_rapot_action" sequence="5"/> -->
 
 
 

@@ -21,6 +21,7 @@
         'views/adab_view.xml',
         'views/portal_view.xml',
         'views/konseling_view.xml',
+        'views/tahfidz_view_domain.xml',
         'wizard/wizard_view.xml',
         
         'views/laporan_view.xml'

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Action window untuk Hafalan Santri -->
+        <record id="action_hafalan_santri_guru_mapel" model="ir.actions.act_window">
+            <field name="name">Hafalan Santri</field>
+            <field name="res_model">menu.deresan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Klik untuk membuat data hafalan santri baru
+                </p>
+            </field>
+        </record>
+
+        <record id="model_deresan_view_tree" model="ir.ui.view">
+            <field name="name">menu.deresan.view.tree</field>
+            <field name="model">menu.deresan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="guru_id"/>
+                    <field name="siswa_id"/>
+                    <!-- <field name="jenjang"/> -->
+                    <field name="tanggal"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="model_deresan_view_form" model="ir.ui.view">
+            <field name="name">menu.deresan.view.form</field>
+            <field name="model">menu.deresan</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="guru_id"/>
+                            <field name="siswa_id"/>
+                            <!-- <field name="jenjang"/> -->
+                            <field name="tanggal"/>
+                        </group>
+                        <notebook>
+                            <page string="Ziyadah" col="4">
+                                <group>
+                                    <field name="awal_juz"/>
+                                    <field name="akhir_juz"/>
+                                    <field name="awal_pj"/>
+                                    <field name="akhir_pj"/>
+                                    <field name="total_pj"/>
+                                    <field name="keterangan"/>
+                                </group>
+                            </page>
+                            <page string="Deresan A" col="4">
+                                <group>
+                                    <field name="awal_a_juz"/>
+                                    <field name="akhir_a_juz"/>
+                                    <field name="awal_a_pj"/>
+                                    <field name="akhir_a_pj"/>
+                                    <field name="total_a_pj"/>
+                                    <field name="keterangan_a"/>
+                                </group>
+                            </page>
+                            <page string="Deresan B" col="4">
+                                <group>
+                                    <field name="awal_b_juz"/>
+                                    <field name="akhir_b_juz"/>
+                                    <field name="awal_b_pj"/>
+                                    <field name="akhir_b_pj"/>
+                                    <field name="total_b_pj"/>
+                                    <field name="total_deresan"/>
+                                    <field name="keterangan_b"/>
+                                </group>
+                            </page>
+                            <page string="Bin Nazhor" col="4">
+                                <group>
+                                    <field name="juz"/>
+                                    <field name="pojok"/>
+                                </group>
+                            </page>
+                            <page string="Mujawwadah" col="4">
+                                <group>
+                                    <field name="awal_m_juz"/>
+                                    <field name="akhir_m_juz"/>
+                                    <field name="awal_m_pj"/>
+                                    <field name="akhir_m_pj"/>
+                                    <field name="total_m_pj"/>
+                                    <field name="keterangan_m"/>
+                                </group>
+                            </page>
+                            <page string="Total Kehadiran" col="4">
+                                <group>
+                                    <field name="tidak_setor"/>
+                                    <field name="ijin"/>
+                                    <field name="alpha"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_hafalan_santri"
+                  name="Hafalan Santri"
+                  parent="menu_modul_halaqah"
+                  action="action_hafalan_santri_guru_mapel"
+                  sequence="1"/>
+    </data>
+</openerp>

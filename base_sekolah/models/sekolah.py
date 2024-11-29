@@ -139,7 +139,7 @@ class mata_pelajaran(models.Model):
     _name = 'mata.pelajaran'
     _description = 'Mata Pelajaran'
 
-    urut = fields.Integer('No. Urut', required=True)
+    urut = fields.Integer('Kode Mapel', required=True)
     name = fields.Char('Nama', required=True)
     lembaga = fields.Selection(lembaga, string='Lembaga', required=True)
 

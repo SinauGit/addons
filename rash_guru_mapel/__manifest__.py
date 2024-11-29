@@ -11,7 +11,9 @@
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',     # File hak akses
-        'views/guru_mapel_view.xml',   # File yang mendefinisikan views dan menuitem
+        'views/daftar_nilai_view.xml',   # File yang mendefinisikan views dan menuitem
+        'views/rekap_rapot_view.xml',   # File yang mendefinisikan views dan menuitem
+        'views/menu_guru_mapel_view.xml',   # File yang mendefinisikan views dan menuitem
     ],
     'images': [],
     'license': 'AGPL-3',
